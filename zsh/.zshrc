@@ -32,7 +32,7 @@ autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
 
 # CONFIG
-export DOTFILES="$HOME/.dotfiles"
+export DOTFILES="$HOME/.mac_config"
 export HOSTNAME=$(hostname)
 
 if [[ -d /opt/jdk-11.0.13 ]]; then
