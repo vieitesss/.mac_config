@@ -35,7 +35,7 @@ end
 setTheme()
 
 -- Winbar
--- global.winbar = "%m %f"
+global.winbar = "%m %f"
 
 -- Indent
 global.autoindent = true
