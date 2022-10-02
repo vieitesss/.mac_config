@@ -1,6 +1,6 @@
 MAKEFLAGS += --silent
 
-flags := -Wall -Wextra -Wshadow -Wpedantic
+flags := -Wall -Wextra
 files := $(shell find . -name '*.c')
 # target := exit
 
