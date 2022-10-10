@@ -1,6 +1,5 @@
 MAKEFLAGS += --silent
 
-flags := -Wall -Wextra
 files := $(shell find . -name '*.c')
 # target := exit
 
@@ -15,10 +14,10 @@ files := main.c
 endif
 
 run: $(target)
-	./$(target)
+	echo ./$(target)
 
 $(target): $(files)
-	gcc $(flags) $(files) -o $(target)
+	gcc -Wall $(files) -o $(target)
 
 clean:
 	rm -rf $(target)
