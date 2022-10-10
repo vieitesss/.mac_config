@@ -23,7 +23,7 @@ alias vrc="vim ~/.config/nvim/init.lua"
 alias nvd="cd ~/.config/nvim/"
 
 # c makefile
-alias makec="make -f ~/.dotfiles/c/Makefile"
+alias makec="make -f ~/.mac_config/c/Makefile"
 
 # ovftool
 alias ovftool="/usr/bin/vmware-ovftool/ovftool"
