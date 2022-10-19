@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # List directory contents
-alias ls='exa -l --group-directories-first'
-alias sl=ls
+alias le='exa -l --group-directories-first'
+alias el=le
 alias la='exa -al --group-directories-first'       # Compact view, show hidden
 
 alias s="sudo"

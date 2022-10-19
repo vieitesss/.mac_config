@@ -7,7 +7,7 @@ if (not status_lsp) then return end
 installer.setup {}
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 
@@ -60,9 +60,9 @@ lsp.sumneko_lua.setup {
       workspace = {
         -- Make the server aware of Neovim runtime files
         library = vim.api.nvim_get_runtime_file("", true),
-        checkThirdParty = false,
-        maxPreload = 2000,
-        preloadFileSize = 1000
+        -- checkThirdParty = false,
+        -- maxPreload = 2000,
+        -- preloadFileSize = 1000
       },
       -- Do not send telemetry data containing a randomized but unique identifier
       telemetry = {
