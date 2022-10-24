@@ -13,12 +13,12 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 ----- Global configs -----
 local on_attach = function(client, bufnr)
-  if client.server_capabilities.documentFormattingProvider then
-    vim.api.nvim_command [[augroup Format]]
-    vim.api.nvim_command [[autocmd! * <buffer>]]
-    vim.api.nvim_command [[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_seq_sync()]]
-    vim.api.nvim_command [[augroup END]]
-  end
+  -- if client.server_capabilities.documentFormattingProvider then
+  --   vim.api.nvim_command [[augroup Format]]
+  --   vim.api.nvim_command [[autocmd! * <buffer>]]
+  --   vim.api.nvim_command [[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]]
+  --   vim.api.nvim_command [[augroup END]]
+  -- end
   vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     vim.lsp.diagnostic.on_publish_diagnostics, {
     -- disable virtual text
@@ -60,9 +60,9 @@ lsp.sumneko_lua.setup {
       workspace = {
         -- Make the server aware of Neovim runtime files
         library = vim.api.nvim_get_runtime_file("", true),
-        -- checkThirdParty = false,
-        -- maxPreload = 2000,
-        -- preloadFileSize = 1000
+        checkThirdParty = false,
+        maxPreload = 2000,
+        preloadFileSize = 1000
       },
       -- Do not send telemetry data containing a randomized but unique identifier
       telemetry = {

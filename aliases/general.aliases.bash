@@ -53,7 +53,8 @@ alias c='clear'
 alias k='clear'
 alias cls='clear'
 
-export EDITOR="nvim"
+# export EDITOR="nvim"
+export EDITOR="emacs"
 alias edit="$EDITOR"
 alias pager="$PAGER"
 
@@ -92,6 +93,7 @@ alias xt="extract"
 # editors
 alias v=nvim
 alias vim=nvim
+alias emacs=e
 
 # sudo editors
 alias svim="sudo vim"
