@@ -31,7 +31,7 @@ return require('packer').startup(function(use)
 
   ---- programming utils
   use 'lervag/vimtex'
-  use 'davidgranstrom/nvim-markdown-preview'
+  use 'iamcco/markdown-preview.nvim'
   use 'CRAG666/code_runner.nvim'
   ----
   use 'terrortylor/nvim-comment'
