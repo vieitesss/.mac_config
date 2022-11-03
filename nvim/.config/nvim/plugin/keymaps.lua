@@ -14,25 +14,26 @@ keymap('n', '<Leader>Q', ':wq<CR>')
 keymap('n', '<Leader>no', ':noh<CR>', s)
 
 -- window movements
-keymap('n', '<Leader>h', ':wincmd h<CR>')
-keymap('n', '<Leader>j', ':wincmd j<CR>')
-keymap('n', '<Leader>k', ':wincmd k<CR>')
-keymap('n', '<Leader>l', ':wincmd l<CR>')
 keymap('n', '<Leader>H', ':wincmd H<CR>')
 keymap('n', '<Leader>J', ':wincmd J<CR>')
 keymap('n', '<Leader>K', ':wincmd K<CR>')
 keymap('n', '<Leader>L', ':wincmd L<CR>')
 keymap('n', '<Leader>o', ':wincmd o<CR>')
-keymap('n', '<C-S-h>', ':vertical resize +5<CR>')
-keymap('n', '<C-S-l>', ':vertical resize -5<CR>')
-keymap('n', '<C-S-j>', ':resize +3<CR>')
-keymap('n', '<C-S-k>', ':resize -3<CR>')
 
 -- buffer movements
 keymap('n', '<Leader>bp', ':bprev<CR>')
 keymap('n', '<Leader>bn', ':bnext<CR>')
 keymap('n', '<Leader>bd', ':bd<CR>')
 keymap('n', '<Leader>bb', ':buffer')
+
+-- split windows
+keymap('n', '<Leader>sv', ':vsplit<CR>')
+keymap('n', '<Leader>sh', ':split<CR>')
+keymap('n', '<Leader>se', '<C-w>=')
+keymap('n', '<Leader>sx', ':close<CR>')
+
+-- vim-maximizer
+keymap('n', '<Leader>sm', ':MaximizerToggle<CR>')
 
 -- reload file
 keymap('n', '<Leader>so', ':so %<CR>', s)
@@ -64,7 +65,7 @@ keymap('n', '<space>dl', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', s)
 keymap('n', '<space>fo', '<cmd>lua vim.lsp.buf.formatting()<CR>', s)
 
 -- nvim-tree
--- keymap('n', '<Leader>pv', ':NvimTreeToggle<CR>', s)
+keymap('n', '<Leader>pv', ':NvimTreeToggle<CR>', s)
 
 -- telescope
 keymap('n', '<Leader>ff', [[<cmd>lua require('telescope.builtin').find_files()<CR>]])
@@ -72,10 +73,10 @@ keymap('n', '<Leader>fg', [[<cmd>lua require('telescope.builtin').live_grep()<CR
 keymap('n', '<Leader>fb', [[<cmd>lua require('telescope.builtin').buffers()<CR>]])
 keymap('n', '<Leader>fh', [[<cmd>lua require('telescope.builtin').help_tags()<CR>]])
 keymap('n', '<Leader>fp', [[<cmd>lua require('telescope').extensions.project.project()<CR>]])
-keymap('n', '<Leader>pv', [[<cmd>lua require('telescope').extensions.file_browser.file_browser()<CR>]], s)
 keymap('n', '<Leader>dot', [[:lua require'vt.telescope'.search_dotfiles()<CR>]], s)
 keymap('n', '<Leader>pro', [[:lua require'vt.telescope'.search_projects()<CR>]], s)
 keymap('n', '<Leader>nv', [[:lua require'vt.telescope'.search_nvim()<CR>]], s)
+-- keymap('n', '<Leader>pv', [[<cmd>lua require('telescope').extensions.file_browser.file_browser()<CR>]], s)
 
 -- floaterm
 keymap('n', '<Leader>ft', ':FloatermNew<CR>', s)
