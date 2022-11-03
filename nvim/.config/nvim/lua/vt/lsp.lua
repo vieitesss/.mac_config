@@ -1,51 +1,49 @@
-local status_installer, installer = pcall(require, 'nvim-lsp-installer')
-if (not status_installer) then return end
+local status_lspconfig, lspconfig = pcall(require, "lspconfig")
+if not status_lspconfig then return end
 
-local status_lsp, lsp = pcall(require, 'lspconfig')
-if (not status_lsp) then return end
+local status_cmp_nvim_lsp, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
+if not status_cmp_nvim_lsp then return end
 
-installer.setup {}
+local keymap = vim.keymap
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
-capabilities.textDocument.completion.completionItem.snippetSupport = true
+local on_attach = function (client, bufnr)
+  local opts = { noremap = true, silent = true, buffer = bufnr }
 
+  keymap.set('n', 'gd', '<cmd>Lspsaga peek_definition<CR>', opts)
+  keymap.set('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+  keymap.set('n', 'gf', '<cmd>Lspsaga lsp_finder<CR>', opts)
+  keymap.set('n', 'K', '<cmd>Lspasaga hover_doc<CR>', opts)
+  keymap.set('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+  keymap.set('n', '<space>ca', '<cmd>Lspsaga code_action<CR>', opts)
+  keymap.set('n', '<space>rn', '<cmd>Lspsaga rename<CR>', opts)
+  keymap.set('n', '[d', '<cmd>Lspsaga diagnostic_jump_prev<CR>', opts)
+  keymap.set('n', ']d', '<cmd>Lspsaga diagnostic_jump_next<CR>', opts)
+  keymap.set('n', '<leader>d', '<cmd>Lspsaga show_line_diagnostics<CR>', opts)
+  keymap.set('n', '<leader>d', '<cmd>Lspsaga show_cursor_diagnostics<CR>', opts)
+  keymap.set('n', '<leader>o', '<cmd>LSoutlineToggle<CR>', opts)
 
------ Global configs -----
-local on_attach = function(client, bufnr)
-  -- if client.server_capabilities.documentFormattingProvider then
-  --   vim.api.nvim_command [[augroup Format]]
-  --   vim.api.nvim_command [[autocmd! * <buffer>]]
-  --   vim.api.nvim_command [[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]]
-  --   vim.api.nvim_command [[augroup END]]
-  -- end
-  vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-    vim.lsp.diagnostic.on_publish_diagnostics, {
-    -- disable virtual text
-    -- virtual_text = false,
-
-    -- show signs
-    signs = true,
-
-    -- delay update diagnostics
-    update_in_insert = false,
-  }
-  )
+  keymap.set('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+  keymap.set('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+  keymap.set('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+  keymap.set('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+  keymap.set('n', 'gr', ':Telescope lsp_references<CR>', opts)
 end
 
-local util = require("lspconfig.util")
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-util.default_config = vim.tbl_extend(
-  "force",
-  util.default_config,
-  {
-    on_attach = on_attach,
-    capabilities = capabilities
-  }
-)
+lspconfig["clangd"].setup({
+  capabilities = capabilities,
+  on_attach = on_attach
+})
 
--- Lua
-lsp.sumneko_lua.setup {
+lspconfig["bashls"].setup({
+  capabilities = capabilities,
+  on_attach = on_attach
+})
+
+lspconfig["sumneko_lua"].setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
   settings = {
     Lua = {
       completion = {
@@ -70,8 +68,4 @@ lsp.sumneko_lua.setup {
       },
     },
   },
-}
-
-lsp.clangd.setup {}
-
-lsp.bashls.setup {}
+})

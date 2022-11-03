@@ -48,21 +48,6 @@ keymap('n', '<Leader>rt', '<cmd>e<CR>', s)
 keymap('n', '<Leader>ps', ':PackerSync<CR>')
 
 -- lsp
-keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', s)
-keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', s)
-keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', s)
-keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', s)
-keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', s)
-keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', s)
-keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', s)
-keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', s)
-keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', s)
-keymap('n', 'gr', ':Telescope lsp_references<CR>', s)
-keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', s)
-keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', s)
-keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', s)
-keymap('n', '<space>dl', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', s)
-keymap('n', '<space>fo', '<cmd>lua vim.lsp.buf.formatting()<CR>', s)
 
 -- nvim-tree
 keymap('n', '<Leader>pv', ':NvimTreeToggle<CR>', s)

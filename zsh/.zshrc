@@ -72,7 +72,8 @@ eval "$(starship init zsh)"
 
 bindkey "^[[1;5C" forward-word
 bindkey "^[[1;5D" backward-word
-bindkey '^j' autosuggest-accept
+# bindkey '^j' autosuggest-accept
+bindkey '^u' end-of-line
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 

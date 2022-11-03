@@ -1,5 +1,23 @@
-_ = vim.cmd [[packadd packer.nvim]]
-_ = vim.cmd [[packadd vimball]]
+local ensure_packer = function()
+  local fn = vim.fn
+  local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
+  if fn.empty(fn.glob(install_path)) > 0 then
+
+    fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
+    vim.cmd [[packadd packer.nvim]]
+    return true
+  end
+  return false
+end
+
+local packer_bootstrap = ensure_packer()
+
+vim.cmd([[
+  augroup packer_user_config
+    autocmd!
+    autocmd BufWritePost plugins.lua source <afile> | PackerSync
+  augroup end
+]])
 
 return require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
@@ -9,9 +27,10 @@ return require('packer').startup(function(use)
 
   ---- lsp
   use 'neovim/nvim-lspconfig'
-  use 'williamboman/nvim-lsp-installer'
-  use { 'tami5/lspsaga.nvim', config = function() require('lspsaga').setup() end }
+  use 'williamboman/mason.nvim' -- Alternative to nvim-lsp-installer
+  use 'williamboman/mason-lspconfig.nvim'
   use 'onsails/lspkind.nvim'
+  use({ 'glepnir/lspsaga.nvim', branck = 'main' })
 
   ---- cmp
   use 'hrsh7th/nvim-cmp'
@@ -22,7 +41,8 @@ return require('packer').startup(function(use)
   use 'hrsh7th/vim-vsnip'
 
   ---- snippets
-  use 'hrsh7th/vim-vsnip-integ'
+  use 'L3MON4D3/LuaSnip'
+  use 'saadparwaiz1/cmp_luasnip'
   use 'rafamadriz/friendly-snippets'
 
   ---- programming utils
@@ -37,8 +57,15 @@ return require('packer').startup(function(use)
   use 'windwp/nvim-ts-autotag'
   use 'kyazdani42/nvim-web-devicons'
   use 'nvim-lualine/lualine.nvim'
-  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+  use { 'nvim-treesitter/nvim-treesitter',
+    run = function() require('nvim-treesitter.install').update({ with_sync = true }) end }
   use 'kyazdani42/nvim-tree.lua'
+  use { 'j-hui/fidget.nvim', config = function() require('fidget').setup() end }
+
+  -- formatting and linting
+  use 'jose-elias-alvarez/null-ls.nvim'
+  use 'jayp0521/mason-null-ls.nvim'
+
   -- telescope
   use { 'nvim-telescope/telescope.nvim', requires = {
     'nvim-lua/plenary.nvim',
@@ -49,6 +76,9 @@ return require('packer').startup(function(use)
   use 'nvim-telescope/telescope-project.nvim'
   use 'nvim-telescope/telescope-file-browser.nvim'
 
-  use 'voldikss/vim-floaterm'
   use { 'lewis6991/gitsigns.nvim', config = function() require('gitsigns').setup() end }
+
+  if packer_bootstrap then
+    require('packer').sync()
+  end
 end)
