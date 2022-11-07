@@ -1,22 +1,67 @@
-# Inserts a blank line between shell prompts
-add_newline = false
+format = """
+$username\
+$hostname\
+$directory\
+$git_branch\
+$git_state\
+$git_status\
+$fill\
+$cmd_duration\
+$c\
+$lua\
+$java\
+$time\
+$line_break\
+$character"""
 
-[line_break]
-disabled = true
+palette = "colores"
+
+[palettes.colores]
+pink = "#EC50D2"
+white = "#FFFFFF"
+
+# Inserts a blank line between shell prompts
+# add_newline = false
 
 # Replace the "❯" symbol in the prompt with "➜"
 [character]                            # The name of the module we are configuring is "character"
-success_symbol = "[➜](bold green)"     # The "success_symbol" segment is being set to "➜" with the color "bold green"
-error_symbol = "[✗](bold red)"     # The "success_symbol" segment is being set to "➜" with the color "bold green"
+success_symbol = "[](bold green)"     # The "success_symbol" segment is being set to "➜" with the color "bold green"
+error_symbol = "[](bold red)"     # The "success_symbol" segment is being set to "➜" with the color "bold green"
 
 # Directory
 [directory]
-read_only = "🔒"
-read_only_style = "yellow"
+truncation_length = 4
+style = "bold bright-blue"
+read_only = " "
+read_only_style = "pink"
 
-# Command duration
+# git
+[git_branch]
+symbol = " "
+format = "[$symbol$branch ]($style)"
+
+# languages
+[c]
+format = "[$symbol$version ]($style)"
+
+[lua]
+symbol = " "
+format = "[$symbol$version ]($style)"
+
+[java]
+symbol = " "
+format = "[$symbol$version ](red)"
+
+#time
+[time]
+time_format = " %I:%M %P"
+format = "[$time]($style) "
+style = "bold yellow"
+disabled = false
+
 [cmd_duration]
-disabled = true
+format = "[$duration ]($style)"
+style = "bold white"
 
 # Disable the package module, hiding it from the prompt completely
 [nodejs]
