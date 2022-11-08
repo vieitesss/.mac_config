@@ -5,6 +5,7 @@ $directory\
 $git_branch\
 $git_state\
 $git_status\
+$git_metrics\
 $fill\
 $cmd_duration\
 $c\
@@ -19,26 +20,35 @@ palette = "colores"
 [palettes.colores]
 pink = "#EC50D2"
 white = "#FFFFFF"
-
-# Inserts a blank line between shell prompts
-# add_newline = false
+darkblue = "#2492E6"
 
 # Replace the "❯" symbol in the prompt with "➜"
 [character]                            # The name of the module we are configuring is "character"
-success_symbol = "[](bold green)"     # The "success_symbol" segment is being set to "➜" with the color "bold green"
-error_symbol = "[](bold red)"     # The "success_symbol" segment is being set to "➜" with the color "bold green"
+success_symbol = "[➜](green)"     # The "success_symbol" segment is being set to "➜" with the color "bold green"
+error_symbol = "[](red)"     # The "success_symbol" segment is being set to "➜" with the color "bold green"
+vicmd_symbol = "[](bold green)"
 
 # Directory
 [directory]
 truncation_length = 4
+home_symbol = "ﮟ"
 style = "bold bright-blue"
 read_only = " "
 read_only_style = "pink"
+truncate_to_repo = false
 
 # git
 [git_branch]
 symbol = " "
 format = "[$symbol$branch ]($style)"
+
+[git_status]
+style = "bold yellow"
+
+[git_metrics]
+disabled = false
+# added_style = "bold blue"
+# format = "[+$added]($added_style)/[-$deleted]($deleted_style) "
 
 # languages
 [c]
