@@ -1,11 +1,10 @@
-#!/bin/bash
+#!/bin/sh
 
 # List directory contents
 alias le='exa -l --group-directories-first'
 alias el=le
 alias la='exa -al --group-directories-first'       # Compact view, show hidden
 
-alias s="sudo"
 alias install="sudo apt install"
 alias remove="sudo apt remove"
 alias purge="sudo apt purge"
@@ -28,17 +27,23 @@ alias makec="make -f ~/.mac_config/makefiles/c/Makefile"
 # ovftool
 alias ovftool="/usr/bin/vmware-ovftool/ovftool"
 
+#source
+alias s="source ~/.zshrc"
+
 # theme
-dark() {
+function dark {
     kitty +kitten themes --reload-in=all Gruvbox Dark
     export BAT_THEME="gruvbox-dark"
 }
-light() {
+function light {
     kitty +kitten themes --reload-in=all Gruvbox Light
     export BAT_THEME="gruvbox-light"
 }
-alias dark=dark
-alias light=light
+
+function take {
+    mkdir -p $1
+    cd $1
+}
 
 # colored grep
 # Need to check an existing file for a pattern that will be found to ensure

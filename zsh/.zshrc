@@ -52,8 +52,8 @@ fi
 
 export PATH
 
-source "$DOTFILES/aliases/general.aliases.bash"
-source "$DOTFILES/aliases/git.aliases.bash"
+source "$DOTFILES/aliases/general.aliases.sh"
+source "$DOTFILES/aliases/git.aliases.sh"
 source "$HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
 source "$HOME/.zsh/sudo.plugin.zsh"
 source "$HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
@@ -68,8 +68,6 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-eval "$(starship init zsh)"
-
 bindkey "^[[1;5C" forward-word
 bindkey "^[[1;5D" backward-word
 # bindkey '^j' autosuggest-accept
@@ -82,3 +80,5 @@ export FZF_CTRL_T_COMMAND="find . -type f -not -path '*/\.dit/*'"
 
 # precmd () {print -Pn "\e]0;%~\a"}
 alias luamake=$HOME/lua-language-server/3rd/luamake/luamake
+
+eval "$(starship init zsh)"
