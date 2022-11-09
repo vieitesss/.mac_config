@@ -2,9 +2,9 @@
 
 sudo yabai --uninstall-sa
 sudo yabai --install-sa
-sudo yabai --load-sa
 
 yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+sudo yabai --load-sa
 
 # global settings
 yabai -m config mouse_follows_focus          off
@@ -39,6 +39,7 @@ yabai -m config window_gap                   15
 
 # apps to not manage (ignore)
 yabai -m rule --add app="^System Settings$" manage=off
+yabai -m rule --add app="^VirtualBox$" manage=off
 yabai -m rule --add app="^Finder$" manage=off
 yabai -m rule --add app="^App Store$" manage=off
 yabai -m rule --add app="^Alfred Preferences$" manage=off
