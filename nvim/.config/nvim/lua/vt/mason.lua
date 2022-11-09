@@ -28,8 +28,8 @@ mason_lspconfig.setup({
 
 mason_null_ls.setup({
 	ensure_installed = {
-		-- "clang_format",
-		-- "cpplint",
+		"clang_format",
+		"cpplint",
 		"stylua",
 		"pylint",
 	},
