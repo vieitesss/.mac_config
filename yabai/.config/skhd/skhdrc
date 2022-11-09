@@ -29,16 +29,6 @@ alt - s : yabai -m window --toggle split
 # apps
 cmd - return : osascript -e "tell application \"iTerm\" to create window with default profile"
 
-# focus space
-cmd - 1 : yabai -m display --focus $(yabai -m query --spaces --space 1 | jq .display); yabai -m space --focus 1
-cmd - 2 : yabai -m display --focus $(yabai -m query --spaces --space 2 | jq .display); yabai -m space --focus 2
-cmd - 3 : yabai -m display --focus $(yabai -m query --spaces --space 3 | jq .display); yabai -m space --focus 3
-cmd - 4 : yabai -m display --focus $(yabai -m query --spaces --space 4 | jq .display); yabai -m space --focus 4
-cmd - 5 : yabai -m display --focus $(yabai -m query --spaces --space 5 | jq .display); yabai -m space --focus 5
-cmd - 6 : yabai -m display --focus $(yabai -m query --spaces --space 6 | jq .display); yabai -m space --focus 6
-cmd - 7 : yabai -m display --focus $(yabai -m query --spaces --space 7 | jq .display); yabai -m space --focus 7
-cmd - 8 : yabai -m display --focus $(yabai -m query --spaces --space 8 | jq .display); yabai -m space --focus 8
-
 # move window and focus desktop
 shift + cmd - 1 : yabai -m window --space 1; yabai -m space --focus 1
 shift + cmd - 2 : yabai -m window --space 2; yabai -m space --focus 2
