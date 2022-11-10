@@ -1,12 +1,7 @@
-Java:
-
-Run script:
-
-```bash
-curl https://raw.githubusercontent.com/eruizc-dev/jdtls-launcher/master/install.sh | bash
-```
-
-En caso de que los parsers de treesitter den un error, eliminar los archivos resultantes de ejecutar el siguiente comando dentro de nvim:
-```
-:echo nvim_get_runtime_file('*/lua.so', v:true)
-```
+Instalar las siguientes dependencias:
+- unzip
+- g++
+- npm
+- python3.10-venv
+- lua-language-server
+- ninja
