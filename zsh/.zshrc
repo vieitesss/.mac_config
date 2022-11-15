@@ -82,3 +82,4 @@ export FZF_CTRL_T_COMMAND="find . -type f -not -path '*/\.dit/*'"
 alias luamake=$HOME/lua-language-server/3rd/luamake/luamake
 
 eval "$(starship init zsh)"
+export PATH="/usr/local/opt/llvm/bin:$PATH"
