@@ -35,6 +35,7 @@ function dark {
     kitty +kitten themes --reload-in=all Gruvbox Dark
     export BAT_THEME="gruvbox-dark"
 }
+
 function light {
     kitty +kitten themes --reload-in=all Gruvbox Light
     export BAT_THEME="gruvbox-light"
@@ -43,6 +44,10 @@ function light {
 function take {
     mkdir -p $1
     cd $1
+}
+
+function paneName {
+    tmux select-pane -T $1
 }
 
 # colored grep
