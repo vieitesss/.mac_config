@@ -6,14 +6,20 @@ $git_branch\
 $git_state\
 $git_status\
 $git_metrics\
-$fill\
-$cmd_duration\
 $c\
 $lua\
 $java\
-$time\
+$fill\
+$cmd_duration\
 $line_break\
 $character"""
+
+# $fill\
+# $cmd_duration\
+# $c\
+# $lua\
+# $java\
+# $time\
 
 palette = "colores"
 
@@ -30,7 +36,7 @@ vicmd_symbol = "[](bold green)"
 
 # Directory
 [directory]
-truncation_length = 4
+truncation_length = 3
 home_symbol = "ﮟ"
 style = "bold bright-blue"
 read_only = " "
