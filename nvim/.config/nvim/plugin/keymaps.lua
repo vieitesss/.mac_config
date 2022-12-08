@@ -64,12 +64,6 @@ keymap("n", "<Leader>fp", [[<cmd>lua require('telescope').extensions.project.pro
 keymap("n", "<Leader>dot", [[:lua require'vt.telescope'.search_dotfiles()<CR>]], s)
 keymap("n", "<Leader>pro", [[:lua require'vt.telescope'.search_projects()<CR>]], s)
 keymap("n", "<Leader>nv", [[:lua require'vt.telescope'.search_nvim()<CR>]], s)
--- keymap('n', '<Leader>pv', [[<cmd>lua require('telescope').extensions.file_browser.file_browser()<CR>]], s)
-
--- floaterm
-keymap("n", "<Leader>ft", ":FloatermNew<CR>", s)
-keymap("n", "<Leader>t", ":FloatermToggle<CR>", s)
-keymap("t", "jk", "<C-\\><C-n>", s)
 
 ----- Insert -----
 ------------------

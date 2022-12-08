@@ -26,6 +26,7 @@ telescope.setup({
 	pickers = {
 		find_files = {
 			hidden = true,
+			cwd = "~/",
 		},
 		buffers = {
 			initial_mode = "normal",
@@ -48,7 +49,6 @@ telescope.setup({
 })
 telescope.load_extension("project")
 telescope.load_extension("media_files")
-telescope.load_extension("file_browser")
 
 local M = {}
 
