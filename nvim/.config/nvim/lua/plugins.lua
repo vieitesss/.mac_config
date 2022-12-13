@@ -61,12 +61,7 @@ return require("packer").startup(function(use)
 	use("windwp/nvim-ts-autotag")
 	use("kyazdani42/nvim-web-devicons")
 	use("nvim-lualine/lualine.nvim")
-	use({
-		"nvim-treesitter/nvim-treesitter",
-		run = function()
-			require("nvim-treesitter.install").update({ with_sync = true })
-		end,
-	})
+	-- use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
 	use("kyazdani42/nvim-tree.lua")
 	use({
 		"j-hui/fidget.nvim",
