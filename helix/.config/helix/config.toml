@@ -1,8 +1,9 @@
-theme = "gruvbox"
+#theme = "gruvbox"
+theme = "monokai_pro_spectrum"
 
 [editor]
 line-number = "relative"
-color-modes = true
+#color-modes = true
 
 [keys.normal]
 V = "extend_line_below"
