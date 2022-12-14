@@ -17,18 +17,10 @@ require("luasnip/loaders/from_vscode").lazy_load()
 
 vim.o.completeopt = "menu,menuone,noselect"
 
--- Disable cmp when writting comments
-local enabled = function()
-	local in_prompt = vim.api.nvim_buf_get_option(0, "buftype") == "prompt"
-	if in_prompt then
-		return false
-	end
-	local context = require("cmp.config.context")
-	return not (context.in_treesitter_capture("comment") == true or context.in_syntax_group("Comment"))
-end
-
 cmp.setup({
-	enabled = enabled,
+	enabled = function()
+		return true
+	end,
 	snippet = {
 		expand = function(args)
 			luasnip.lsp_expand(args.body)
@@ -61,7 +53,6 @@ cmp.setup({
 			behavior = cmp.ConfirmBehavior.Insert,
 			select = true,
 		}),
-		-- ["<C-space>"] = cmp.mapping.complete(),
 	}),
 	sources = cmp.config.sources({
 		{ name = "luasnip" },
@@ -71,13 +62,29 @@ cmp.setup({
 	}),
 	formatting = {
 		format = lspkind.cmp_format({
-			with_text = true,
+			mode = "symbol",
 			menu = {
-				-- vsnip = "[VSnip]",
 				nvim_lsp = "[LSP]",
 				buffer = "[BUF]",
 				luasnip = "[LuaSnip]",
+				cmdline = "[CMD]",
+				path = "[PATH]",
 			},
 		}),
 	},
+})
+
+cmp.setup.cmdline({ "/", "?" }, {
+	mapping = cmp.mapping.preset.cmdline(),
+	sources = {
+		{ name = "buffer" },
+	},
+})
+
+cmp.setup.cmdline(":", {
+	mapping = cmp.mapping.preset.cmdline(),
+	sources = cmp.config.sources({
+		{ name = "path" },
+		{ name = "cmdline" },
+	}),
 })

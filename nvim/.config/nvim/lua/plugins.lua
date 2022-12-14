@@ -35,6 +35,7 @@ return require("packer").startup(function(use)
 	use("hrsh7th/nvim-cmp")
 	use("hrsh7th/cmp-nvim-lsp")
 	use("hrsh7th/cmp-buffer")
+	use("hrsh7th/cmp-cmdline")
 	use("hrsh7th/cmp-path")
 	use("hrsh7th/cmp-vsnip")
 	use("hrsh7th/vim-vsnip")
@@ -45,7 +46,6 @@ return require("packer").startup(function(use)
 	use("rafamadriz/friendly-snippets")
 
 	---- programming utils
-	use("lervag/vimtex")
 	use("iamcco/markdown-preview.nvim")
 	use("CRAG666/code_runner.nvim")
 	----
@@ -61,7 +61,7 @@ return require("packer").startup(function(use)
 	use("windwp/nvim-ts-autotag")
 	use("kyazdani42/nvim-web-devicons")
 	use("nvim-lualine/lualine.nvim")
-	-- use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
+	use("nvim-treesitter/nvim-treesitter", { run = ":TSUpdate" })
 	use("kyazdani42/nvim-tree.lua")
 	use({
 		"j-hui/fidget.nvim",
