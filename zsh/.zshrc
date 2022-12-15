@@ -77,6 +77,8 @@ bindkey '^u' end-of-line
 
 export FZF_DEFAULT_COMMAND="find . -type f -not -path '*/\.dit/*'"
 export FZF_CTRL_T_COMMAND="find . -type f -not -path '*/\.dit/*'"
+export FZF_TMUX_OPTS="-p"
+export FZF_CTRL_T_OPTS="--reverse --preview 'bat {} --color=always'"
 
 # precmd () {print -Pn "\e]0;%~\a"}
 alias luamake=$HOME/lua-language-server/3rd/luamake/luamake

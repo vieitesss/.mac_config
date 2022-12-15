@@ -28,7 +28,6 @@ return require("packer").startup(function(use)
 	use("neovim/nvim-lspconfig")
 	use("williamboman/mason.nvim") -- Alternative to nvim-lsp-installer
 	use("williamboman/mason-lspconfig.nvim")
-	use("onsails/lspkind.nvim")
 	use({ "glepnir/lspsaga.nvim", branck = "main" })
 
 	---- cmp

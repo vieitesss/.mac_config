@@ -3,11 +3,6 @@ if not status_cmp then
 	return
 end
 
-local status_lspkind, lspkind = pcall(require, "lspkind")
-if not status_lspkind then
-	return
-end
-
 local status_luasnip, luasnip = pcall(require, "luasnip")
 if not status_luasnip then
 	return
@@ -16,6 +11,34 @@ end
 require("luasnip/loaders/from_vscode").lazy_load()
 
 vim.o.completeopt = "menu,menuone,noselect"
+
+local cmp_kinds = {
+	Text = "",
+	Method = "m",
+	Function = "",
+	Constructor = "",
+	Field = "",
+	Variable = "",
+	Class = "",
+	Interface = "",
+	Module = "",
+	Property = "",
+	Unit = "",
+	Value = "",
+	Enum = "",
+	Keyword = "",
+	Snippet = "",
+	Color = "",
+	File = "",
+	Reference = "",
+	Folder = "",
+	EnumMember = "",
+	Constant = "",
+	Struct = "",
+	Event = "",
+	Operator = "",
+	TypeParameter = "",
+}
 
 cmp.setup({
 	enabled = function()
@@ -28,6 +51,11 @@ cmp.setup({
 	},
 	window = {
 		documentation = cmp.config.window.bordered(),
+		completion = {
+			col_offset = -2,
+			side_padding = 1,
+			scrolloff = 3,
+		},
 	},
 	mapping = cmp.mapping.preset.insert({
 		["<C-j>"] = cmp.mapping.select_next_item(),
@@ -55,22 +83,26 @@ cmp.setup({
 		}),
 	}),
 	sources = cmp.config.sources({
-		{ name = "luasnip" },
-		{ name = "nvim_lsp" },
-		{ name = "buffer" },
+		{ name = "luasnip", max_item_count = 6 },
+		{ name = "nvim_lsp", max_item_count = 6 },
+		{ name = "buffer", max_item_count = 10 },
 		{ name = "path" },
 	}),
 	formatting = {
-		format = lspkind.cmp_format({
-			mode = "symbol",
-			menu = {
+		fields = { "kind", "abbr", "menu" },
+		format = function(entry, item)
+			local menu_icon = {
 				nvim_lsp = "[LSP]",
 				buffer = "[BUF]",
-				luasnip = "[LuaSnip]",
+				luasnip = "[SNIP]",
 				cmdline = "[CMD]",
 				path = "[PATH]",
-			},
-		}),
+			}
+			item.kind = cmp_kinds[item.kind] or ""
+			item.menu = menu_icon[entry.source.name]
+
+			return item
+		end,
 	},
 })
 

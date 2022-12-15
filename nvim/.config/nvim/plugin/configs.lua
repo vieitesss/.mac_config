@@ -41,6 +41,9 @@ else
 	vim.api.nvim_command("colorscheme slate")
 end
 
+-- Colors
+global.termguicolors = true
+
 -- Winbar
 global.winbar = "%m %f"
 
