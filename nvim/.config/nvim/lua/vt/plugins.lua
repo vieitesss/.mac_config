@@ -18,6 +18,9 @@ vim.cmd([[
   augroup end
 ]])
 
+-- packer
+vim.keymap.set("n", "<Leader>ps", ":PackerSync<CR>")
+
 return require("packer").startup(function(use)
 	use("wbthomason/packer.nvim")
 

@@ -17,7 +17,7 @@ end
 
 function setTheme()
 	local theme = getTheme()
-	local lualine = "~/.config/nvim/lua/vt/lualine.lua"
+	local lualine = "~/.config/nvim/after/plugin/lualine.lua"
 
 	if theme == "Light" then
 		global.background = "light"
