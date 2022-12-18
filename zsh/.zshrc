@@ -84,4 +84,5 @@ export FZF_CTRL_T_OPTS="--reverse --preview 'bat {} --color=always'"
 alias luamake=$HOME/lua-language-server/3rd/luamake/luamake
 
 eval "$(starship init zsh)"
+eval "$(zoxide init zsh)"
 export PATH="/usr/local/opt/llvm/bin:$PATH"
