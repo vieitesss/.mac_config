@@ -3,8 +3,10 @@ if not status then
 	return
 end
 
-vim.keymap.set("n", "<Leader>ff", [[<cmd>lua require('telescope.builtin').find_files()<CR>]])
-vim.keymap.set("n", "<Leader>fg", [[<cmd>lua require('telescope.builtin').live_grep()<CR>]])
+local builtin = require("telescope.builtin")
+
+vim.keymap.set("n", "<Leader>ff", builtin.find_files, {})
+vim.keymap.set("n", "<Leader>fg", builtin.live_grep, {})
 vim.keymap.set("n", "<Leader>fb", [[<cmd>lua require('telescope.builtin').buffers()<CR>]])
 vim.keymap.set("n", "<Leader>fh", [[<cmd>lua require('telescope.builtin').help_tags()<CR>]])
 vim.keymap.set("n", "<Leader>fp", [[<cmd>lua require('telescope').extensions.project.project()<CR>]])
@@ -13,7 +15,6 @@ vim.keymap.set("n", "<Leader>pro", [[:lua require'vt.telescope'.search_projects(
 vim.keymap.set("n", "<Leader>nv", [[:lua require'vt.telescope'.search_nvim()<CR>]], { silent = true })
 
 local actions = require("telescope.actions")
-local builtin = require("telescope.builtin")
 
 telescope.setup({
 	defaults = {
@@ -58,31 +59,3 @@ telescope.setup({
 })
 telescope.load_extension("project")
 telescope.load_extension("media_files")
-
-local M = {}
-
-M.search_dotfiles = function()
-	builtin.find_files({
-		prompt_title = "Dotfiles",
-		-- cwd = "~/.dotfiles/",
-		cwd = "~/.mac_config/",
-	})
-end
-
-M.search_nvim = function()
-	builtin.find_files({
-		prompt_title = "Nvim Config",
-		cwd = "~/.config/nvim/",
-	})
-end
-
-M.search_projects = function()
-	builtin.find_files({
-		prompt_title = "My projects",
-		cwd = "~/projects/",
-		follow = true,
-		hidden = false,
-	})
-end
-
-return M

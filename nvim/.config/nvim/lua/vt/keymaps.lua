@@ -41,16 +41,16 @@ keymap("n", "<Leader>so", ":so %<CR>", s)
 ----- Insert -----
 ------------------
 --- quit
-keymap("i", "jk", "<Esc>", {})
+keymap("i", "jk", "<Esc>")
 
 ----- Visual -----
 ------------------
 
 --- quit
-keymap("v", "<Leader>o", "<Esc>", {})
+keymap("v", "<Leader>o", "<Esc>")
 
 --- paste without losing previous paste
-keymap("v", "<Leader>p", '"_dP', {})
+keymap("v", "<Leader>p", '"_dP')
 
 --- move lines
 keymap("v", "J", ":m '>+1<CR>gv=gv")
