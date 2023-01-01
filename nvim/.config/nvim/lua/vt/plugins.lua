@@ -73,8 +73,8 @@ return require("packer").startup(function(use)
 	})
 
 	-- formatting and linting
-	use("jose-elias-alvarez/null-ls.nvim")
-	use("jayp0521/mason-null-ls.nvim")
+	-- use("jose-elias-alvarez/null-ls.nvim")
+	-- use("jayp0521/mason-null-ls.nvim")
 
 	-- telescope
 	use({

@@ -38,6 +38,9 @@ keymap("n", "<Leader>sx", ":close<CR>")
 --- reload file
 keymap("n", "<Leader>so", ":so %<CR>", s)
 
+--- formatting
+keymap("n", "<Leader>f", ":lua vim.lsp.buf.format()<CR>", s)
+
 ----- Insert -----
 ------------------
 --- quit

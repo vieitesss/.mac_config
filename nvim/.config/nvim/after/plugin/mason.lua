@@ -8,10 +8,10 @@ if not status_mason_lspconfig then
     return
 end
 
-local status_mason_null_ls, mason_null_ls = pcall(require, "mason-null-ls")
-if not status_mason_null_ls then
-    return
-end
+-- local status_mason_null_ls, mason_null_ls = pcall(require, "mason-null-ls")
+-- if not status_mason_null_ls then
+--     return
+-- end
 
 mason.setup()
 
@@ -25,12 +25,12 @@ mason_lspconfig.setup({
     },
 })
 
-mason_null_ls.setup({
-    ensure_installed = {
-        "beautysh",
-        "clang_format",
-        "cpplint",
-        "stylua",
-        "pylint",
-    },
-})
+-- mason_null_ls.setup({
+--     ensure_installed = {
+--         "beautysh",
+--         "clang_format",
+--         "cpplint",
+--         "stylua",
+--         "pylint",
+--     },
+-- })

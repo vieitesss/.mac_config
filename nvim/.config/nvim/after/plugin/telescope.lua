@@ -5,7 +5,7 @@ end
 
 local builtin = require("telescope.builtin")
 
-vim.keymap.set("n", "<Leader>ff", builtin.find_files, {})
+vim.keymap.set("n", "<Leader>ff", [[<cmd>lua require('telescope.builtin').find_files()<CR>]])
 vim.keymap.set("n", "<Leader>fg", builtin.live_grep, {})
 vim.keymap.set("n", "<Leader>fb", [[<cmd>lua require('telescope.builtin').buffers()<CR>]])
 vim.keymap.set("n", "<Leader>fh", [[<cmd>lua require('telescope.builtin').help_tags()<CR>]])
@@ -24,6 +24,11 @@ telescope.setup({
 
 		file_previewer = require("telescope.previewers").vim_buffer_cat.new,
 		--grep_previewer = require'telescope.previewers'.vim_buffer_vimgrep.new
+        mappings = {
+            n = {
+                ["q"] = actions.close
+            }
+        }
 	},
 	extensions = {
 		media_files = {
@@ -36,7 +41,7 @@ telescope.setup({
 	pickers = {
 		find_files = {
 			hidden = true,
-			cwd = "~/",
+			-- cwd = "~/",
 		},
 		buffers = {
 			initial_mode = "normal",

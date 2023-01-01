@@ -35,9 +35,9 @@ vim.api.nvim_create_autocmd("BufEnter", {
 	end,
 })
 
-vim.api.nvim_create_autocmd("BufWritePre", {
-	pattern = { "*.js", "*.c", "*.h", "*.lua", "*.sh", "*.java" },
-	callback = function()
-		vim.lsp.buf.format()
-	end,
-})
+-- vim.api.nvim_create_autocmd("BufWritePre", {
+-- 	pattern = { "*.js", "*.c", "*.h", "*.lua", "*.sh", "*.java" },
+-- 	callback = function()
+-- 		vim.lsp.buf.format()
+-- 	end,
+-- })
