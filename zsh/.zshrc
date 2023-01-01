@@ -54,6 +54,7 @@ export PATH
 
 source "$DOTFILES/aliases/general.aliases.sh"
 source "$DOTFILES/aliases/git.aliases.sh"
+source "$DOTFILES/aliases/docker.aliases.sh"
 source "$HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
 source "$HOME/.zsh/sudo.plugin.zsh"
 source "$HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"

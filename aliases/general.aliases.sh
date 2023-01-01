@@ -1,9 +1,10 @@
 #!/bin/sh
 
 # List directory contents
-alias le='exa -l --group-directories-first'
-alias el=le
-alias la='exa -al --group-directories-first'       # Compact view, show hidden
+alias le='exa -l --group-directories-first --icons'
+alias ls='exa --group-directories-first --oneline --icons'
+alias sl=ls
+alias la='exa -al --group-directories-first'
 
 alias install="sudo apt install"
 alias remove="sudo apt remove"
