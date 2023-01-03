@@ -26,6 +26,7 @@ return require("packer").startup(function(use)
 
 	---- colorschemes
 	use("ellisonleao/gruvbox.nvim")
+	use("neanias/everforest-nvim")
 
 	---- lsp
 	use("neovim/nvim-lspconfig")

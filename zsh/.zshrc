@@ -35,6 +35,9 @@ bindkey '^e' edit-command-line
 export DOTFILES="$HOME/.mac_config"
 export HOSTNAME=$(hostname)
 
+# Nvim colorscheme
+# export NVIM_COLORSCHEME="everforest"
+
 if [[ -d /opt/jdk-11.0.13 ]]; then
     export JAVA_HOME="/opt/jdk-11.0.13"
     PATH+=:$JAVA_HOME/bin
