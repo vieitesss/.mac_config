@@ -9,7 +9,7 @@ vim.api.nvim_command("filetype plugin indent on")
 vim.api.nvim_command("set ignorecase")
 
 -- Winbar
-global.winbar = "%m %f"
+-- global.winbar = "%m %f"
 
 -- Indent
 global.autoindent = true
@@ -56,6 +56,10 @@ global.ttimeoutlen = 5
 
 -- Hidden
 global.hidden = true
+
+-- Undofile
+vim.opt.undodir = os.getenv('HOME') .. '/.vim/undodir'
+vim.opt.undofile = true
 
 -- Clipboard
 -- global.clipboard = "unnamedplus"

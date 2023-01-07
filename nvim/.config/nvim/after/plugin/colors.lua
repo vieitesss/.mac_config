@@ -7,5 +7,5 @@ local api = vim.api
 
 vim.keymap.set("n", "<leader>st", ":so $HOME/.config/nvim/lua/vt/color-picker.lua<cr>")
 
-api.nvim_command("colorscheme everforest")
+api.nvim_command("colorscheme gruvbox")
 api.nvim_command("set background=dark")

@@ -40,8 +40,6 @@ return require("packer").startup(function(use)
 	use("hrsh7th/cmp-buffer")
 	use("hrsh7th/cmp-cmdline")
 	use("hrsh7th/cmp-path")
-	use("hrsh7th/cmp-vsnip")
-	use("hrsh7th/vim-vsnip")
 
 	---- snippets
 	use("L3MON4D3/LuaSnip")
@@ -50,7 +48,6 @@ return require("packer").startup(function(use)
 
 	---- programming utils
 	use("iamcco/markdown-preview.nvim")
-	use("CRAG666/code_runner.nvim")
 	----
 	use("szw/vim-maximizer")
 	use("christoomey/vim-tmux-navigator")
@@ -73,10 +70,6 @@ return require("packer").startup(function(use)
 		end,
 	})
 
-	-- formatting and linting
-	-- use("jose-elias-alvarez/null-ls.nvim")
-	-- use("jayp0521/mason-null-ls.nvim")
-
 	-- telescope
 	use({
 		"nvim-telescope/telescope.nvim",
@@ -85,8 +78,6 @@ return require("packer").startup(function(use)
 			"nvim-lua/popup.nvim",
 		},
 	})
-	use("nvim-telescope/telescope-media-files.nvim")
-	use("nvim-telescope/telescope-project.nvim")
 
 	use({
 		"lewis6991/gitsigns.nvim",

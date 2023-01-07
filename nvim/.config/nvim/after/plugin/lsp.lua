@@ -13,9 +13,9 @@ local keymap = vim.keymap
 local on_attach = function(_, bufnr)
 	local opts = { noremap = true, silent = true, buffer = bufnr }
 
-	keymap.set("n", "gd", "<cmd>Lspsaga peek_definition<CR>", opts)
+	keymap.set("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
 	keymap.set("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-	keymap.set("n", "gf", "<cmd>Lspsaga lsp_finder<CR>", opts)
+	keymap.set("n", "gr", ":Telescope lsp_references<CR>", opts)
 	keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", opts)
 	keymap.set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
 	keymap.set("n", "<space>ca", "<cmd>Lspsaga code_action<CR>", opts)
@@ -24,13 +24,12 @@ local on_attach = function(_, bufnr)
 	keymap.set("n", "]d", "<cmd>Lspsaga diagnostic_jump_next<CR>", opts)
 	keymap.set("n", "<leader>d", "<cmd>Lspsaga show_line_diagnostics<CR>", opts)
 	keymap.set("n", "<leader>d", "<cmd>Lspsaga show_cursor_diagnostics<CR>", opts)
-	keymap.set("n", "<leader>o", "<cmd>LSoutlineToggle<CR>", opts)
+	keymap.set("n", "<leader>ou", "<cmd>Lspsaga outline<CR>", opts)
 
 	keymap.set("n", "<space>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)
 	keymap.set("n", "<space>wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", opts)
 	keymap.set("n", "<space>wl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", opts)
 	keymap.set("n", "<space>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
-	keymap.set("n", "gr", ":Telescope lsp_references<CR>", opts)
 end
 
 local capabilities = cmp_nvim_lsp.default_capabilities()
