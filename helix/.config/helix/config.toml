@@ -25,7 +25,7 @@ left = ["mode", "spinner"]
 center = ["file-name"]
 right = ["diagnostics", "workspace-diagnostics", "spacer", "separator", "position", "position-percentage", "spacer", "separator", "file-type"]
 mode.normal = "NORMAL"
-mode.insert = "INSERT"
+mode.insert = "--INSERT--"
 mode.select = "SELECT"
 
 [editor.lsp]
