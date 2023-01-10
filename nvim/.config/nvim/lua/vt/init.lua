@@ -2,10 +2,6 @@ require("vt/plugins")
 require("vt/keymaps")
 require("vt/configs")
 
-if require("vt/first_load")() then
-	return
-end
-
 local ok, plenary_reload = pcall(require, "plenary.reload")
 if not ok then
 	reloader = require
