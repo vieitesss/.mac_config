@@ -5,17 +5,16 @@ $directory\
 $git_branch\
 $git_state\
 $git_status\
-$git_metrics\
 $c\
 $lua\
 $java\
-$fill\
 $cmd_duration\
-$line_break\
 $character"""
 
 # $fill\
+# $git_metrics\
 # $cmd_duration\
+# $line_break\
 # $c\
 # $lua\
 # $java\
