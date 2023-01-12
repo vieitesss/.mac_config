@@ -16,7 +16,13 @@ return {
                 { "diagnostics", sources = { "nvim_diagnostic", "coc" } },
             },
             lualine_c = { "filename" },
-            lualine_x = { "filetype" },
+            lualine_x = {
+                {
+                    require("lazy.status").updates,
+                    cond = require("lazy.status").has_updates,
+                    color = { fg = "#ff9e64" },
+                },
+                "filetype" },
             lualine_y = { "progress" },
             lualine_z = { "location" },
         },
