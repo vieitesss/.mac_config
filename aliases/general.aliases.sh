@@ -1,9 +1,9 @@
 #!/bin/sh
 
 # List directory contents
-alias le='exa -l --group-directories-first --icons'
-alias ls='exa --group-directories-first --oneline --icons'
-alias sl=ls
+alias ll='exa -l --group-directories-first --icons'
+alias le='exa --group-directories-first --oneline --icons'
+# alias sl=ls
 alias la='exa -al --group-directories-first'
 
 alias install="sudo apt install"
@@ -49,6 +49,10 @@ function take {
 
 function paneName {
     tmux select-pane -T $1
+}
+
+function pacs {
+    ls $(echo $PATH | tr ":" " ") | sed -e '/\/.*/d' -e '/^$/d' | fzf --preview="tldr {}" --ansi
 }
 
 # colored grep
