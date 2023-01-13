@@ -1,5 +1,6 @@
 return {
     "nvim-lualine/lualine.nvim",
+    lazy = false,
     opts = {
         options = {
             icons_enabled = true,
@@ -16,13 +17,7 @@ return {
                 { "diagnostics", sources = { "nvim_diagnostic", "coc" } },
             },
             lualine_c = { "filename" },
-            lualine_x = {
-                {
-                    require("lazy.status").updates,
-                    cond = require("lazy.status").has_updates,
-                    color = { fg = "#ff9e64" },
-                },
-                "filetype" },
+            lualine_x = { "filetype" },
             lualine_y = { "progress" },
             lualine_z = { "location" },
         },
@@ -35,11 +30,9 @@ return {
             -- lualine_z = {},
         },
         winbar = {
-            lualine_b = { "diagnostics" },
             lualine_c = { "filename" },
         },
         inactive_winbar = {
-            lualine_b = { "diagnostics" },
             lualine_c = { "filename" },
         }
         -- tabline = {},

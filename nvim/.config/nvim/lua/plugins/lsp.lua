@@ -9,6 +9,7 @@ return {
         {
             "williamboman/mason-lspconfig.nvim",
             name = "mason-lspconfig",
+            cmd = "Mason",
             opts = {
                 ensure_installed = {
                     "sumneko_lua",
@@ -26,6 +27,7 @@ return {
             config = true
         },
     },
+    event = "BufReadPre",
     config = function()
         local capabilities = require('cmp_nvim_lsp').default_capabilities()
 

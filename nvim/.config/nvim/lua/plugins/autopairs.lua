@@ -1,5 +1,6 @@
 return {
     "windwp/nvim-autopairs",
+    event = "BufEnter",
     opts = function()
         local status_cmp_autopairs, cmp_autopairs = pcall(require, "nvim-autopairs.completion.cmp")
         if not status_cmp_autopairs then return end

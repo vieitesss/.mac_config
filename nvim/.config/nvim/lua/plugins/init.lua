@@ -35,16 +35,23 @@ return {
     },
 
     ---- programming utils
-    { "iamcco/markdown-preview.nvim" },
+    "iamcco/markdown-preview.nvim",
     "windwp/nvim-ts-autotag",
-    { "lewis6991/gitsigns.nvim", config = true },
+    {
+        "lewis6991/gitsigns.nvim",
+        lazy = false,
+        config = true,
+    },
     -- "windwp/nvim-autopairs",
     -- "terrortylor/nvim-comment",
 
     ---- other
-    "christoomey/vim-tmux-navigator",
     "kyazdani42/nvim-web-devicons",
-    { "j-hui/fidget.nvim", config = true },
+    {
+        "j-hui/fidget.nvim",
+        event = "BufEnter",
+        config = true
+    },
     -- "nvim-lualine/lualine.nvim",
     -- "szw/vim-maximizer",
     -- "kyazdani42/nvim-tree.lua",

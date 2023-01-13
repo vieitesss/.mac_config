@@ -17,5 +17,13 @@ vim.g.maplocalleader = " "
 vim.keymap.set("n", "<leader>ps", "<cmd>lua require('lazy').sync()<cr>", { silent = true })
 
 return require("lazy").setup('plugins', {
-    -- checker = { enabled = true },
+    defaults = {
+        lazy = true,
+        version = "*"
+    },
+    install = {
+        missing = true,
+        colorscheme = { "catppuccin-mocha" }
+    },
+    checker = { enabled = true },
 })

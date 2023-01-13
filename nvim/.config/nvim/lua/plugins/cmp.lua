@@ -35,6 +35,7 @@ return {
         "hrsh7th/cmp-cmdline",
         "hrsh7th/cmp-path",
     },
+    lazy = false,
     config = function()
         local cmp = require('cmp')
 
