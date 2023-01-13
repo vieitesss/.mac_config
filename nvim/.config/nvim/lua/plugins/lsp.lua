@@ -1,37 +1,32 @@
 return {
     "neovim/nvim-lspconfig",
     dependencies = {
-        "williamboman/mason.nvim", -- Alternative to nvim-lsp-installer
-        "williamboman/mason-lspconfig.nvim",
+        {
+            "williamboman/mason.nvim",
+            name = "mason",
+            config = true
+        },
+        {
+            "williamboman/mason-lspconfig.nvim",
+            name = "mason-lspconfig",
+            opts = {
+                ensure_installed = {
+                    "sumneko_lua",
+                    "clangd",
+                    "jdtls",
+                    "marksman",
+                    "pyright",
+                },
+            }
+        },
         "hrsh7th/cmp-nvim-lsp",
-        { "glepnir/lspsaga.nvim", branch = "main" },
+        {
+            "glepnir/lspsaga.nvim",
+            event = "BufRead",
+            config = true
+        },
     },
     config = function()
-        -- Mason
-        require('mason').setup()
-
-        require('mason-lspconfig').setup({
-            ensure_installed = {
-                "sumneko_lua",
-                "clangd",
-                "jdtls",
-                "marksman",
-                "pyright",
-            },
-        })
-
-        -- Lspsaga
-        require('lspsaga').init_lsp_saga({
-            move_in_saga = { prev = "<C-k>", next = "<C-j>" },
-            finder_action_keys = {
-                open = "<CR>"
-            },
-            definition_action_keys = {
-                edit = "<CR>"
-            }
-        })
-
-        -- Lsp
         local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
         local keymap = vim.keymap
@@ -47,8 +42,6 @@ return {
             keymap.set("n", "<space>rn", "<cmd>Lspsaga rename<CR>", opts)
             keymap.set("n", "[d", "<cmd>Lspsaga diagnostic_jump_prev<CR>", opts)
             keymap.set("n", "]d", "<cmd>Lspsaga diagnostic_jump_next<CR>", opts)
-            keymap.set("n", "<leader>d", "<cmd>Lspsaga show_line_diagnostics<CR>", opts)
-            keymap.set("n", "<leader>d", "<cmd>Lspsaga show_cursor_diagnostics<CR>", opts)
             keymap.set("n", "<leader>ou", "<cmd>Lspsaga outline<CR>", opts)
 
             keymap.set("n", "<space>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)

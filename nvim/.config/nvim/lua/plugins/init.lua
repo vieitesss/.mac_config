@@ -35,7 +35,7 @@ return {
     },
 
     ---- programming utils
-    { "iamcco/markdown-preview.nvim", cmd = "MarkdownPreview" },
+    { "iamcco/markdown-preview.nvim" },
     "windwp/nvim-ts-autotag",
     { "lewis6991/gitsigns.nvim", config = true },
     -- "windwp/nvim-autopairs",
@@ -48,4 +48,14 @@ return {
     -- "nvim-lualine/lualine.nvim",
     -- "szw/vim-maximizer",
     -- "kyazdani42/nvim-tree.lua",
+
+    -- Local plugins
+    {
+        dir = "~/projects/nvim/colors.nvim/",
+        opts = {
+            "catppuccin-mocha",
+            "catppuccin-latte",
+            "gruvbox"
+        }
+    }
 }
