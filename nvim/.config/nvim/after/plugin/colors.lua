@@ -8,5 +8,5 @@ local api = vim.api
 vim.keymap.set("n", "<leader>st", ":lua require('colors').setTheme()<cr>")
 vim.keymap.set("n", "<leader>sb", ":lua require('colors').setBackground()<cr>")
 
-api.nvim_command("colorscheme catppuccin-mocha")
+api.nvim_command("colorscheme catppuccin-latte")
 api.nvim_command("set background=dark")

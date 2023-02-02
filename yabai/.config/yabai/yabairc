@@ -45,5 +45,6 @@ yabai -m rule --add app="^App Store$" manage=off
 yabai -m rule --add app="^Alfred Preferences$" manage=off
 yabai -m rule --add app="^Numi$" manage=off
 yabai -m rule --add app="^Stats$" manage=off
+yabai -m rule --add app=".*\.out$" manage=off
 
 echo "yabai configuration loaded.."
