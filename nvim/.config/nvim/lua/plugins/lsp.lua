@@ -12,7 +12,7 @@ return {
             cmd = "Mason",
             opts = {
                 ensure_installed = {
-                    "sumneko_lua",
+                    "lua_ls",
                     "clangd",
                     "jdtls",
                     "marksman",
@@ -74,7 +74,17 @@ return {
             on_attach = on_attach,
         })
 
-        lspconfig["sumneko_lua"].setup({
+        lspconfig.jdtls.setup({
+            capabilities = capabilities,
+            on_attach = on_attach,
+        })
+
+        lspconfig.texlab.setup({
+            capabilities = capabilities,
+            on_attach = on_attach,
+        })
+
+        lspconfig.sumneko_lua.setup({
             capabilities = capabilities,
             on_attach = on_attach,
             settings = {

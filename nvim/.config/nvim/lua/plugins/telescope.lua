@@ -45,7 +45,7 @@ return {
                         n = {
                             ["dd"] = actions.delete_buffer,
                             ["s"] = actions.add_selection,
-                            ["r"] = actions.remove_selection,
+                            ["S"] = actions.remove_selection,
                         },
                     },
                 },
