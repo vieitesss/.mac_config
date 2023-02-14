@@ -1,0 +1,3 @@
+[submodule "nvim/.config/nvim/pack/plugins/start/nvim-jdtls"]
+	path = nvim/.config/nvim/pack/plugins/start/nvim-jdtls
+	url = https://github.com/mfussenegger/nvim-jdtls
