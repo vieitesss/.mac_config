@@ -106,7 +106,7 @@ alias xt="extract"
 
 # editors
 alias v=nvim
-alias vim=nvim
+# alias vim=nvim
 alias e=emacs
 
 # sudo editors
