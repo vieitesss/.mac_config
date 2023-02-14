@@ -20,9 +20,9 @@ $character"""
 # $java\
 # $time\
 
-palette = "colores"
+palette = "colors"
 
-[palettes.colores]
+[palettes.colors]
 pink = "#EC50D2"
 white = "#FFFFFF"
 darkblue = "#2492E6"
