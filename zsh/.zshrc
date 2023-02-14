@@ -53,6 +53,12 @@ if [[ -d /usr/local/go ]]; then
     PATH+=:$GO_HOME/bin
 fi
 
+export JAVA_HOME="/Library/Java/JavaVirtualMachines/openjdk.jdk/Contents/Home/"
+PATH+=$JAVA_HOME
+
+export POSTGRESQL="/Library/Java/Extensions/postgresql-42.5.2.jar"
+PATH+=$POSTGRESQL
+
 export PATH
 
 source "$DOTFILES/aliases/general.aliases.sh"
