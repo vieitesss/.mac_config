@@ -40,6 +40,7 @@ keymap("n", "<Leader>sx", ":close<CR>")
 
 --- reload file
 keymap("n", "<Leader>so", ":so %<CR>", s)
+keymap("n", "<Leader><Leader>e", ":e<CR>", s)
 
 --- formatting
 keymap("n", "<Leader>fo", ":lua vim.lsp.buf.format()<CR>", s)
