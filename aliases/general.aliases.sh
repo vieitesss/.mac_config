@@ -78,7 +78,7 @@ alias irc="${IRC_CLIENT:=irc}"
 
 # Language aliases
 alias j='java'
-alias py='python3.9'
+alias py='python3.10'
 alias gcc='gcc-12'
 
 # jupyter notebook
