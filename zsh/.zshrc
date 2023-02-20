@@ -35,6 +35,9 @@ bindkey '^e' edit-command-line
 export DOTFILES="$HOME/.mac_config"
 export HOSTNAME=$(hostname)
 
+# Bat
+export BAT_THEME="gruvbox-light"
+
 # Nvim colorscheme
 # export NVIM_COLORSCHEME="everforest"
 
