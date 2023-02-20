@@ -40,7 +40,7 @@ return {
             keymap.set("n", "gr", ":Telescope lsp_references<CR>", opts)
             keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", opts)
             keymap.set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-            keymap.set("n", "<space>ca", "<cmd>Lspsaga code_action<CR>", opts)
+            keymap.set("n", "<space>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
             keymap.set("n", "<space>rn", "<cmd>Lspsaga rename<CR>", opts)
             keymap.set("n", "[d", "<cmd>Lspsaga diagnostic_jump_prev<CR>", opts)
             keymap.set("n", "]d", "<cmd>Lspsaga diagnostic_jump_next<CR>", opts)
@@ -59,7 +59,7 @@ return {
             on_attach = on_attach,
         })
 
-        lspconfig["bashls"].setup({
+        lspconfig.bashls.setup({
             capabilities = capabilities,
             on_attach = on_attach,
         })

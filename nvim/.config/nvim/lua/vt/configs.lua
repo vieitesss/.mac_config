@@ -31,7 +31,7 @@ window.relativenumber = true
 window.wrap = false
 
 -- Auto chdir
-global.autochdir = true
+-- global.autochdir = true
 
 -- Lines to edges
 global.scrolloff = 8
