@@ -107,7 +107,7 @@ alias gpd='git push --delete'
 alias gpf='git push --force'
 alias gnpo='git push origin HEAD'
 alias gpom='git push origin $(get_default_branch)'
-alias gpoa='git push origin $(git branch | grep '*' | awk '{print $2}')'
+alias gpoa='git push origin $(get_current_branch)'
 alias gpu='git push --set-upstream'
 alias gpunch='git push --force-with-lease'
 alias gpuo='git push --set-upstream origin'
@@ -206,4 +206,8 @@ function get_default_branch() {
 	else
 		echo master
 	fi
+}
+
+function get_current_branch() {
+    git branch | grep '*' | awk '{print $2}'
 }
