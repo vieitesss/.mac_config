@@ -62,6 +62,8 @@ PATH+=$JAVA_HOME
 export POSTGRESQL="/Library/Java/Extensions/postgresql-42.5.2.jar"
 PATH+=$POSTGRESQL
 
+PATH+="/bin:/usr/bin:/usr/local/bin"
+
 export PATH
 
 source "$DOTFILES/aliases/general.aliases.sh"
@@ -100,3 +102,5 @@ alias luamake=$HOME/lua-language-server/3rd/luamake/luamake
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
 export PATH="/usr/local/opt/llvm/bin:$PATH"
+
+~/.tmux/scripts/init.sh > /dev/null

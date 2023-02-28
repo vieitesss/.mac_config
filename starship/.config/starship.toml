@@ -9,12 +9,12 @@ $c\
 $lua\
 $java\
 $cmd_duration\
+$line_break\
 $character"""
 
 # $fill\
 # $git_metrics\
 # $cmd_duration\
-# $line_break\
 # $c\
 # $lua\
 # $java\
@@ -29,14 +29,14 @@ darkblue = "#2492E6"
 
 # Replace the "❯" symbol in the prompt with "➜"
 [character]                            # The name of the module we are configuring is "character"
-success_symbol = "[➜](green)"     # The "success_symbol" segment is being set to "➜" with the color "bold green"
+success_symbol = "[](green)"     # The "success_symbol" segment is being set to "➜" with the color "bold green"
 error_symbol = "[](red)"     # The "success_symbol" segment is being set to "➜" with the color "bold green"
 vicmd_symbol = "[](bold green)"
 
 # Directory
 [directory]
 truncation_length = 3
-home_symbol = "ﮟ"
+home_symbol = ""
 style = "bold bright-blue"
 read_only = " "
 read_only_style = "pink"

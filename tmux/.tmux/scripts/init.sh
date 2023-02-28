@@ -1,11 +1,15 @@
 #!/bin/bash
 
-comando="tmux ls"
+session_name="configs"
 
-$comando > /dev/null
+tmux has-session -t=$session_name 2> /dev/null
 
-if [[ "$(echo $?)" == "1" ]]; then
-    tmux
+if [[ $? -ne 0 ]]; then
+    TMUX='' tmux new-session -d -s "$session_name"
+fi
+
+if [[ -z "$TMUX" ]]; then
+    tmux attach -t "$session_name"
 else
-    tmux attach -t $($comando | head -n 1 | awk '{print substr($1, 1, length($1) - 1)}')
+    tmux switch-client -t "$session_name"
 fi
