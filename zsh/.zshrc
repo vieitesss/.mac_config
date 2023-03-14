@@ -36,7 +36,7 @@ export DOTFILES="$HOME/.mac_config"
 export HOSTNAME=$(hostname)
 
 # Bat
-export BAT_THEME="gruvbox-light"
+export BAT_THEME="OneHalfDark"
 
 # Nvim colorscheme
 # export NVIM_COLORSCHEME="everforest"
@@ -65,6 +65,9 @@ PATH+=$POSTGRESQL
 PATH+="/bin:/usr/bin:/usr/local/bin"
 
 export PATH
+
+# C LIBS
+export CPATH=$HOME/uni/2/coga/practicas/lib/glad/include_lib/
 
 source "$DOTFILES/aliases/general.aliases.sh"
 source "$DOTFILES/aliases/git.aliases.sh"
@@ -103,4 +106,4 @@ eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
 export PATH="/usr/local/opt/llvm/bin:$PATH"
 
-~/.tmux/scripts/init.sh > /dev/null
+~/.tmux/scripts/init.sh
