@@ -36,7 +36,7 @@ vicmd_symbol = "[](bold green)"
 # Directory
 [directory]
 truncation_length = 3
-home_symbol = ""
+home_symbol = ""
 style = "bold bright-blue"
 read_only = " "
 read_only_style = "pink"
@@ -49,6 +49,7 @@ format = "[$symbol$branch ]($style)"
 
 [git_status]
 style = "bold yellow"
+deleted = ""
 
 [git_metrics]
 disabled = false
