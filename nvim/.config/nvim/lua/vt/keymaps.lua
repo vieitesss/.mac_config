@@ -45,6 +45,9 @@ keymap("n", "<Leader><Leader>e", ":e<CR>", s)
 --- formatting
 keymap("n", "<Leader>fo", ":lua vim.lsp.buf.format()<CR>", s)
 
+--- pdfviewer
+keymap("n", "<Leader>pdf", ":lua OPENPDFVIEWER()<CR>", s)
+
 ----- Insert -----
 ------------------
 --- quit

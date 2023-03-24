@@ -35,7 +35,11 @@ return {
     },
 
     ---- programming utils
-    "iamcco/markdown-preview.nvim",
+    {
+        "iamcco/markdown-preview.nvim",
+        event = "BufEnter *.md",
+        build = "cd app && npm install"
+    },
     "windwp/nvim-ts-autotag",
     {
         "lewis6991/gitsigns.nvim",
@@ -59,10 +63,11 @@ return {
     -- Local plugins
     {
         dir = "~/projects/nvim/colors.nvim/",
-        opts = {
-            "catppuccin-mocha",
-            "catppuccin-latte",
-            "gruvbox"
-        }
+        -- opts = {
+        --     "catppuccin-mocha",
+        --     "catppuccin-latte",
+        --     "gruvbox",
+        --     "onedark"
+        -- }
     }
 }
