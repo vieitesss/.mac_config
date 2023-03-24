@@ -50,6 +50,8 @@ format = "[$symbol$branch ]($style)"
 [git_status]
 style = "bold yellow"
 deleted = ""
+ahead = ""
+behind = ""
 
 [git_metrics]
 disabled = false
