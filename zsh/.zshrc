@@ -106,4 +106,9 @@ eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
 export PATH="/usr/local/opt/llvm/bin:$PATH"
 
-~/.tmux/scripts/init.sh
+# First and only argument is the desired term title
+function tabname {
+  echo "\x1b]1337;SetUserVar=tabname=$(echo -n $1 | base64)\x07"
+}
+
+# ~/.tmux/scripts/init.sh
