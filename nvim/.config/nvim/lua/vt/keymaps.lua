@@ -67,7 +67,7 @@ keymap("v", "<Leader>p", '"_dP')
 
 --- move lines
 keymap("v", "J", ":m '>+1<CR>gv=gv")
-keymap("v", "K", ":m '>-2<CR>gv=gv")
+keymap("v", "K", ":m '<-2<CR>gv=gv")
 
 --- copy
 keymap("x", "<C-c>", [["+y]], s)
