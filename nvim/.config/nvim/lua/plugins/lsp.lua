@@ -1,5 +1,6 @@
 return {
     "neovim/nvim-lspconfig",
+    lazy = false,
     dependencies = {
         {
             "williamboman/mason.nvim",
@@ -23,11 +24,9 @@ return {
         "hrsh7th/cmp-nvim-lsp",
         {
             "glepnir/lspsaga.nvim",
-            event = "BufRead",
             config = true
         },
     },
-    event = "BufReadPre",
     config = function()
         local capabilities = require('cmp_nvim_lsp').default_capabilities()
 

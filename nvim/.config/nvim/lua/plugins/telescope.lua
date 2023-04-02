@@ -38,6 +38,11 @@ return {
                 find_files = {
                     hidden = true,
                     -- cwd = "~/",
+                    mappings = {
+                        i = {
+                            ["<C-s>"] = actions.file_split
+                        }
+                    }
                 },
                 buffers = {
                     initial_mode = "normal",

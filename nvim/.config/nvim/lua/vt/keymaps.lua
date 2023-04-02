@@ -53,6 +53,9 @@ keymap("n", "<Leader>pdf", ":lua OPENPDFVIEWER()<CR>", s)
 --- quit
 keymap("i", "jk", "<Esc>")
 
+-- delete word backwards
+keymap("i", "<M-BS>", "<Esc>ciw")
+
 ----- Visual -----
 ------------------
 

@@ -35,9 +35,10 @@ vim.api.nvim_create_autocmd("BufEnter", {
 vim.api.nvim_create_autocmd("BufWritePost", {
     pattern = "*.tex",
     callback = function ()
-        -- Compile file
-        -- os.execute("latexmk -f -shell-escape -pdf ./*.tex > /dev/null")
-        vim.cmd(":silent ! latexmk -f -shell-escape -pdf ./*.tex > /dev/null")
+        dir = vim.fn.expand("%:p:h")
+        file = vim.fn.expand("%")
+        -- print(":silent ! latexmk -f -shell-escape -cd -pdf " .. vim.fn.expand("%:p") .. " > /dev/null")
+        vim.cmd(":silent ! cd " .. dir .. " && latexmk -f -shell-escape -pdf ./" .. file)
     end
 })
 
