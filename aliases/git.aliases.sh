@@ -32,6 +32,7 @@ alias gcamd='git commit --amend'
 alias gcm='git commit -v -m'
 alias gci='git commit --interactive'
 alias gcsam='git commit -S -am'
+alias gcup='git log --branches --not --remotes --simplify-by-decoration --decorate --oneline'
 
 # checkout
 alias gcb='git checkout -b'
@@ -62,6 +63,7 @@ alias gexport='git archive --format zip --output'
 
 # fetch
 alias gf='git fetch --all --prune'
+alias gfp='git fetch --all --prune && git pull'
 alias gft='git fetch --all --prune --tags'
 alias gftv='git fetch --all --prune --tags --verbose'
 alias gfv='git fetch --all --prune --verbose'
@@ -141,7 +143,8 @@ alias gpristine='git reset --hard && git clean -dfx'
 
 # status
 alias gs='git status'
-alias gss='git status -s'
+alias gss='git status -s -b'
+alias gsb='git status -b'
 
 # shortlog
 alias gcount='git shortlog -sn'
