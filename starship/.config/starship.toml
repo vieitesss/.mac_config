@@ -36,7 +36,7 @@ vicmd_symbol = "[](bold green)"
 # Directory
 [directory]
 truncation_length = 3
-home_symbol = ""
+home_symbol = " "
 style = "bold bright-blue"
 read_only = " "
 read_only_style = "pink"
@@ -48,10 +48,18 @@ symbol = " "
 format = "[$symbol$branch ]($style)"
 
 [git_status]
+format = '([\[ $all_status$ahead_behind\]]($style) )'
 style = "bold yellow"
-deleted = ""
-ahead = ""
-behind = ""
+deleted = "󰖭 "
+ahead = " "
+behind = " "
+conflicted = "= "
+diverged = "⇕ "
+untracked = "? "
+stashed = "$ "
+modified = "! "
+staged = "+ "
+renamed = "» "
 
 [git_metrics]
 disabled = false
