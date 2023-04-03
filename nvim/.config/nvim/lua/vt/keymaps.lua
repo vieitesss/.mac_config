@@ -33,10 +33,9 @@ keymap("n", "<Leader>bd", ":bd<CR>")
 keymap("n", "<Leader>bb", ":buffer")
 
 --- split windows
-keymap("n", "<Leader>sv", ":vsplit<CR>")
-keymap("n", "<Leader>sh", ":split<CR>")
-keymap("n", "<Leader>se", "<C-w>=")
-keymap("n", "<Leader>sx", ":close<CR>")
+keymap("n", "<Leader>\\", ":vsplit<CR>")
+keymap("n", "<Leader>-", ":split<CR>")
+keymap("n", "<Leader>=", "<C-w>=")
 
 --- reload file
 keymap("n", "<Leader>so", ":so %<CR>", s)

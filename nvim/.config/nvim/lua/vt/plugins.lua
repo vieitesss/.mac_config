@@ -22,8 +22,8 @@ return require("lazy").setup('plugins', {
         version = "*"
     },
     install = {
-        missing = true,
-        colorscheme = { "catppuccin-mocha" }
+        colorscheme = { "onedark" }
     },
     checker = { enabled = true },
+    change_detection = { notify = false }
 })
