@@ -39,5 +39,9 @@ return {
             "gruvbox",
             "onedark"
         }
+    },
+    {
+        dir = "~/projects/nvim/telegrph.nvim/",
+        opts = {}
     }
 }
