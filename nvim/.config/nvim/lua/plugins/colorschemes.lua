@@ -1,8 +1,11 @@
 return {
-    "morhetz/gruvbox",
+    {
+        "morhetz/gruvbox",
+    },
     {
         "catppuccin/nvim",
         name = "catppuccin",
+        priority = 1000,
         opts = {
             styles = {
                 comments = { "italic" },
@@ -14,19 +17,36 @@ return {
         }
     },
     {
-        "navarasu/onedark.nvim",
-        name = "onedark",
+        "rose-pine/neovim",
+        name = "rose-pine",
+    },
+    {
+        "rebelot/kanagawa.nvim",
         opts = {
-            style = 'warmer',
-            -- transparent = true,
-            code_style = {
-                keywords = "italic",
-                functions = "italic",
-                strings = "italic",
-            },
-            diagnostics = {
-                darker = false
+            overrides = function (_)
+                return{
+                    String = { italic = true }
+                }
+            end
+        }
+    },
+    {
+        "olimorris/onedarkpro.nvim",
+        priority = 1000,
+        opts = {
+            styles = {
+                strings = "italic"
             }
+        --     style = 'warmer',
+        --     -- transparent = true,
+        --     code_style = {
+        --         keywords = "italic",
+        --         functions = "italic",
+        --         strings = "italic",
+        --     },
+        --     diagnostics = {
+        --         darker = false
+        --     }
         }
     }
 }

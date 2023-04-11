@@ -5,6 +5,9 @@ local buffer = vim.bo
 -- General
 vim.api.nvim_command("filetype plugin indent on")
 global.guicursor = "i:block"
+-- vim.opt.cmdheight = 0
+global.showcmdloc = "statusline"
+vim.api.nvim_exec2("set noshowmode", {})
 
 -- Ignore case
 vim.api.nvim_command("set ignorecase")

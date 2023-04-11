@@ -10,7 +10,6 @@ return {
         {
             "williamboman/mason-lspconfig.nvim",
             name = "mason-lspconfig",
-            cmd = "Mason",
             opts = {
                 ensure_installed = {
                     "lua_ls",
@@ -31,7 +30,8 @@ return {
         local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
         local keymap = vim.keymap
-        local on_attach = function(_, bufnr)
+        local on_attach = function(client, bufnr)
+            -- client.server_capabilities.semanticTokensProvider = nil
             local opts = { noremap = true, silent = true, buffer = bufnr }
 
             keymap.set("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
@@ -98,6 +98,9 @@ return {
             on_attach = on_attach,
             settings = {
                 Lua = {
+                    runtime = {
+                        version = "LuaJIT",
+                    },
                     completion = {
                         enable = true,
                     },
@@ -105,14 +108,14 @@ return {
                         -- Get the language server to recognize the `vim` global
                         enable = true,
                         globals = { "vim", "use", "love" },
-                        disable = { "lowercase-global" },
+                        -- disable = { "lowercase-global" },
                     },
                     workspace = {
                         -- Make the server aware of Neovim runtime files
                         library = vim.api.nvim_get_runtime_file("", true),
                         checkThirdParty = false,
-                        maxPreload = 2000,
-                        preloadFileSize = 1000,
+                        -- maxPreload = 2000,
+                        -- preloadFileSize = 1000,
                     },
                     -- Do not send telemetry data containing a randomized but unique identifier
                     telemetry = {

@@ -5,36 +5,37 @@ local s = { silent = true }
 ------------------
 
 --- save and quit
-keymap("n", "<Leader>ww", ":w!<CR>")
-keymap("n", "<Leader>q", ":q<CR>")
-keymap("n", "<Leader>Q", ":wq<CR>")
+keymap("n", "<Leader>ww", ":w!<CR>", s)
+keymap("n", "<Leader>q", ":q<CR>", s)
+keymap("n", "<Leader>Q", ":wq<CR>", s)
 
 --- no highlight
 keymap("n", "<Leader>no", ":noh<CR>", s)
 
 --- window movements
-keymap("n", "<Leader>H", ":wincmd H<CR>")
-keymap("n", "<Leader>J", ":wincmd J<CR>")
-keymap("n", "<Leader>K", ":wincmd K<CR>")
-keymap("n", "<Leader>L", ":wincmd L<CR>")
-keymap("n", "<Leader>o", ":wincmd o<CR>")
--- keymap("n", "<C-l>", ":wincmd l<CR>")
--- keymap("n", "<C-h>", ":wincmd h<CR>")
--- keymap("n", "<C-j>", ":wincmd j<CR>")
--- keymap("n", "<C-k>", ":wincmd k<CR>")
+keymap("n", "<Leader>H", ":wincmd H<CR>", s)
+keymap("n", "<Leader>J", ":wincmd J<CR>", s)
+keymap("n", "<Leader>K", ":wincmd K<CR>", s)
+keymap("n", "<Leader>L", ":wincmd L<CR>", s)
+keymap("n", "<Leader>o", ":wincmd o<CR>", s)
 
 keymap("n", "<C-d>", "<C-d>zz")
 keymap("n", "<C-u>", "<C-u>zz")
 
 --- buffer movements
-keymap("n", "<Leader>bp", ":bprev<CR>")
-keymap("n", "<Leader>bn", ":bnext<CR>")
-keymap("n", "<Leader>bd", ":bd<CR>")
-keymap("n", "<Leader>bb", ":buffer")
+keymap("n", "<Leader>bp", ":bprev<CR>", s)
+keymap("n", "<Leader>bn", ":bnext<CR>", s)
+keymap("n", "<Leader>bd", ":bd<CR>", s)
+keymap("n", "<Leader>bb", ":buffer", s)
+
+-- tabs
+keymap("n", "<Leader>te", ":tabnew<CR>", s)
+keymap("n", "<Leader>tn", ":tabn<CR>", s)
+keymap("n", "<Leader>tp", ":tabp<CR>", s)
 
 --- split windows
-keymap("n", "<Leader>\\", ":vsplit<CR>")
-keymap("n", "<Leader>-", ":split<CR>")
+keymap("n", "<Leader>\\", ":vsplit<CR>", s)
+keymap("n", "<Leader>-", ":split<CR>", s)
 keymap("n", "<Leader>=", "<C-w>=")
 
 --- reload file

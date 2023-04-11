@@ -15,7 +15,9 @@ return {
         cmd = "MarkdownPreview",
         -- build = "cd app && npm install"
     },
-    "windwp/nvim-ts-autotag",
+    {
+        "windwp/nvim-ts-autotag",
+    },
     {
         "lewis6991/gitsigns.nvim",
         lazy = false,
@@ -23,7 +25,9 @@ return {
     },
 
     ---- other
-    "kyazdani42/nvim-web-devicons",
+    {
+        "kyazdani42/nvim-web-devicons",
+    },
     {
         "j-hui/fidget.nvim",
         event = "BufEnter",
@@ -41,7 +45,10 @@ return {
         }
     },
     {
-        dir = "~/projects/nvim/telegrph.nvim/",
-        opts = {}
+        -- "vt/chngtb.nvim",
+        dir = "~/projects/nvim/chngtb.nvim/",
+        -- config = true,
+        -- opts = {}
+        lazy = false,
     }
 }

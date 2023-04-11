@@ -3,10 +3,11 @@ return {
     lazy = false,
     opts = {
         options = {
+            globalstatus = true,
             icons_enabled = true,
             theme = "auto",
-            component_separators = { left = "", right = "" },
             section_separators = { left = "", right = "" },
+            component_separators = ''
             -- component_separators = { left = "", right = "" },
             -- section_separators = { left = "", right = "" },
         },
@@ -16,9 +17,9 @@ return {
                 { "branch", icon = "" },
                 { "diagnostics", sources = { "nvim_diagnostic", "coc" } },
             },
-            lualine_c = { "filename" },
+            lualine_c = { { "filename", path = 4 } },
             lualine_x = { "filetype" },
-            lualine_y = { "progress" },
+            lualine_y = { "%S" },
             lualine_z = { "location" },
         },
         inactive_sections = {
@@ -30,10 +31,10 @@ return {
             -- lualine_z = {},
         },
         winbar = {
-            lualine_c = { "filename" },
+            lualine_c = { { "filename", path = 4 } },
         },
         inactive_winbar = {
-            lualine_c = { "filename" },
+            lualine_c = { { "filename", path = 4 } },
         }
         -- tabline = {},
         -- extensions = {},

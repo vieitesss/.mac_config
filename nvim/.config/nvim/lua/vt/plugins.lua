@@ -22,7 +22,7 @@ return require("lazy").setup('plugins', {
         version = "*"
     },
     install = {
-        colorscheme = { "onedark" }
+        colorscheme = { "kanagawa" }
     },
     checker = { enabled = true },
     change_detection = { notify = false }
