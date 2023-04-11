@@ -59,13 +59,13 @@ OPENPDFVIEWER = function()
     skim_is_open:close()
 end
 
-vim.api.nvim_create_autocmd("CmdlineLeave", {
-    callback = function ()
-        vim.fn.timer_start(3000, function ()
-            vim.api.nvim_exec2("echo", {})
-        end)
-    end
-})
+-- vim.api.nvim_create_autocmd("CmdlineLeave", {
+--     callback = function ()
+--         vim.fn.timer_start(3000, function ()
+--             vim.api.nvim_exec2("echo", {})
+--         end)
+--     end
+-- })
 
 -- vim.api.nvim_create_autocmd("BufWritePre", {
 -- 	pattern = { "*.js", "*.c", "*.h", "*.lua", "*.sh", "*.java" },

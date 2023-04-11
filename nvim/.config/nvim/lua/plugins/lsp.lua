@@ -1,6 +1,6 @@
 return {
     "neovim/nvim-lspconfig",
-    lazy = false,
+    event = { "BufNewFile", "BufAdd" },
     dependencies = {
         {
             "williamboman/mason.nvim",
@@ -23,7 +23,14 @@ return {
         "hrsh7th/cmp-nvim-lsp",
         {
             "glepnir/lspsaga.nvim",
-            config = true
+            config = function ()
+                require'lspsaga'.setup({
+                    symbol_in_winbar = {
+                        enable = false
+                    }
+                })
+            end,
+            event = "LspAttach",
         },
     },
     config = function()

@@ -20,7 +20,7 @@ return {
     },
     {
         "lewis6991/gitsigns.nvim",
-        lazy = false,
+        event = "LspAttach",
         config = true,
     },
 
@@ -46,6 +46,7 @@ return {
     },
     {
         -- "vt/chngtb.nvim",
+        enabled = false,
         dir = "~/projects/nvim/chngtb.nvim/",
         -- config = true,
         -- opts = {}

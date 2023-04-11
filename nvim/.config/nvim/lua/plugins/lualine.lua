@@ -1,6 +1,8 @@
 return {
     "nvim-lualine/lualine.nvim",
-    lazy = false,
+    -- lazy = false,
+    event = { "BufModifiedSet", "BufNew" },
+    enabled = false,
     opts = {
         options = {
             globalstatus = true,

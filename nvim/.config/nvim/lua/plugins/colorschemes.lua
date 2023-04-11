@@ -22,13 +22,17 @@ return {
     },
     {
         "rebelot/kanagawa.nvim",
-        opts = {
-            overrides = function (_)
-                return{
-                    String = { italic = true }
-                }
-            end
-        }
+        lazy = false,
+        config = function ()
+            require'kanagawa'.setup({
+                overrides = function (_)
+                    return {
+                        String = { italic = true }
+                    }
+                end
+            })
+            vim.api.nvim_exec2("colorscheme kanagawa", {})
+        end
     },
     {
         "olimorris/onedarkpro.nvim",
