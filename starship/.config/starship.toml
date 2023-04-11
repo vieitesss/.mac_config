@@ -48,18 +48,18 @@ symbol = " "
 format = "[$symbol$branch ]($style)"
 
 [git_status]
-format = '([\[ $all_status$ahead_behind\]]($style) )'
+format = '([\[$all_status$ahead_behind \]]($style) )'
 style = "bold yellow"
-deleted = "󰖭 "
-ahead = " "
-behind = " "
-conflicted = "= "
-diverged = "⇕ "
-untracked = "? "
-stashed = "$ "
-modified = "! "
-staged = "+ "
-renamed = "» "
+deleted = " 󰖭"
+ahead = " "
+behind = " "
+conflicted = " ="
+diverged = " ⇕"
+untracked = " ?"
+stashed = " $"
+modified = " !"
+staged = " +"
+renamed = " »"
 
 [git_metrics]
 disabled = false
