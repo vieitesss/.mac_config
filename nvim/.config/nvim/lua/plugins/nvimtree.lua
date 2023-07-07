@@ -1,8 +1,9 @@
 vim.g.loaded_vetrw = 1
-vim.g.loaded_netrwPlugin = 1
+-- vim.g.loaded_netrwPlugin = 1
 
 return {
     "kyazdani42/nvim-tree.lua",
+    enabled = false,
     keys = {
         { "<leader>pv", "<cmd>NvimTreeToggle<cr>" }
     },

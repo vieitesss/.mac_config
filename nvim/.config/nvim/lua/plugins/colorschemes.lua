@@ -17,8 +17,32 @@ return {
         }
     },
     {
+        dir = "~/projects/nvim/basic/",
+        lazy = false,
+        config = function ()
+            vim.api.nvim_exec2("colorscheme basic", {})
+        end
+    },
+    {
         "rose-pine/neovim",
         name = "rose-pine",
+    },
+    {
+        "rktjmp/lush.nvim",
+        lazy = false,
+    },
+    {
+        "jesseleite/nvim-noirbuddy",
+        dependencies = {
+            "tjdevries/colorbuddy.nvim",
+            branch = "dev"
+        },
+        config = function ()
+            require('noirbuddy').setup{
+                preset = 'kiwi'
+            }
+        end
+
     },
     {
         "rebelot/kanagawa.nvim",
@@ -29,10 +53,9 @@ return {
                     return {
                         String = { italic = true }
                     }
-                end
+                end,
             })
-            vim.api.nvim_exec2("colorscheme kanagawa", {})
-        end
+        end,
     },
     {
         "olimorris/onedarkpro.nvim",
@@ -40,17 +63,17 @@ return {
         opts = {
             styles = {
                 strings = "italic"
+            },
+            style = 'warmer',
+            -- transparent = true,
+            code_style = {
+                keywords = "italic",
+                functions = "italic",
+                strings = "italic",
+            },
+            diagnostics = {
+                darker = false
             }
-        --     style = 'warmer',
-        --     -- transparent = true,
-        --     code_style = {
-        --         keywords = "italic",
-        --         functions = "italic",
-        --         strings = "italic",
-        --     },
-        --     diagnostics = {
-        --         darker = false
-        --     }
         }
     }
 }

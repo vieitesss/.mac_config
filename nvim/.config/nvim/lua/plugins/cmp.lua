@@ -28,6 +28,7 @@ local cmp_kinds = {
 
 return {
     "hrsh7th/nvim-cmp",
+    version = false,
     dependencies = {
         "hrsh7th/cmp-nvim-lsp",
         "hrsh7th/cmp-nvim-lua",
@@ -73,6 +74,7 @@ return {
                 ["<C-l>"] = cmp.mapping(function(fallback)
                     if luasnip.expand_or_jumpable() then
                         luasnip.expand_or_jump()
+                        print("Hello")
                     else
                         fallback()
                     end

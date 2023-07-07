@@ -5,7 +5,6 @@ local buffer = vim.bo
 -- General
 vim.api.nvim_command("filetype plugin indent on")
 global.guicursor = "i:block"
--- vim.opt.cmdheight = 0
 global.showcmdloc = "statusline"
 vim.api.nvim_command("set noshowmode")
 -- vim.api.nvim_command("set termguicolors")

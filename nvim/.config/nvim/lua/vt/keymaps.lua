@@ -22,6 +22,10 @@ keymap("n", "<Leader>o", ":wincmd o<CR>", s)
 keymap("n", "<C-d>", "<C-d>zz")
 keymap("n", "<C-u>", "<C-u>zz")
 
+keymap("n", "]<space>", "o<Esc>0Dk")
+keymap("n", "[<space>", "O<Esc>0Dj")
+keymap("n", "<space>", "<Nop>")
+
 --- buffer movements
 keymap("n", "<Leader>bp", ":bprev<CR>", s)
 keymap("n", "<Leader>bn", ":bnext<CR>", s)

@@ -3,33 +3,44 @@ vim.opt.termguicolors = true
 return {
     "famiu/feline.nvim",
     event = { "BufNewFile", "BufRead", "BufWritePost" },
+    version = false,
     -- lazy = false,
-    config = function ()
+    config = function()
         local components = {
-            active = {},
-            inactive = {}
+            active = {
+                {}, -- Left
+                {}, -- Mid
+                {}, -- Right
+            },
+            inactive = {
+                {}, -- Left
+            }
         }
 
-        -- Left and right
-        table.insert(components.active, {})
-        table.insert(components.active, {})
-
-        -- Right
-        table.insert(components.inactive, {})
-
-        local colors = require'kanagawa.colors'.setup()
+        vim.api.nvim_exec2("colorscheme kanagawa", {})
+        local colors = require 'kanagawa.colors'.setup()
 
         -- Left active components
         table.insert(components.active[1], {
             provider = 'vi_mode',
             icon = '',
             hl = function()
-                return {
-                    name = require('feline.providers.vi_mode').get_mode_highlight_name(),
-                    fg = colors.theme.ui.bg_gutter,
-                    bg = colors.palette.crystalBlue,
-                    style = 'bold'
-                }
+                local tbl = {}
+
+                local mode = require('feline.providers.vi_mode').get_mode_highlight_name()
+                tbl.name = mode
+                tbl.fg = colors.palette.dragonBlack0
+                tbl.style = 'bold'
+
+                if mode == 'StatusComponentVimInsert' then
+                    tbl.bg = 'yellow'
+                elseif mode == 'StatusComponentVimVisual' then
+                    tbl.bg = 'green'
+                else
+                    tbl.bg = colors.palette.crystalBlue
+                end
+
+                return tbl
             end,
             padding = 'center',
             right_sep = {
@@ -45,10 +56,13 @@ return {
         })
 
         table.insert(components.active[1], {
-            provider = 'file_info',
-            type = 'unique',
-            file_modified_icon = 'M',
-            left_sep = ' ',
+            provider = {
+                name = 'file_info',
+                opts = {
+                    type = 'unique',
+                    file_modified_icon = '%m',
+                }
+            }
         })
 
         table.insert(components.active[1], {
@@ -80,39 +94,40 @@ return {
         })
 
         -- Right active components
-        table.insert(components.active[2], {
+        table.insert(components.active[3], {
             provider = 'cmd',
             right_sep = ' ',
         })
 
-        table.insert(components.active[2], {
+        table.insert(components.active[3], {
             provider = 'position',
             right_sep = ' ',
         })
 
         -- Inactive components
         table.insert(components.inactive[1], {
-            provider = 'file_info',
-            type = 'unique'
-        })
-
-        require'feline'.setup({
-            components = components,
-            custom_providers = {
-                cmd = function ()
-                    return "%S"
-                end,
-                -- filetype = function ()
-                --     local icon , color = require'nvim-web-devicons'.get_icon_color(vim.fn.expand("%"), vim.fn.expand("%:e"), { default = true })
-                --     local type = vim.api.nvim_exec2("silent echo &filetype", { output = true }).output
-                --     return icon .. " " .. type
-                -- end
+            provider = {
+                name = 'file_info',
+                opts = {
+                    type = 'unique',
+                    file_modified_icon = '%m',
+                }
             }
         })
 
-        require'feline'.add_theme('kanagawa', {
+        require 'feline'.setup({
+            custom_providers = {
+                cmd = function()
+                    return "%S"
+                end,
+            },
+            components = components,
+        })
+
+        local kanagawa = {
             fg = colors.theme.ui.fg,
-            bg = colors.theme.ui.bg_gutter,
+            bg = colors.palette.dragonBlack0,
+            -- bg = colors.theme.ui.bg_gutter,
             black = colors.palette.dragonBlack0,
             skyblue = colors.palette.dragonBlue,
             cyan = colors.palette.lotusCyan,
@@ -124,7 +139,9 @@ return {
             violet = '#8992a7',
             white = '#FFFFFF',
             yellow = colors.palette.lotusYellow3,
-        })
-        require'feline'.use_theme('kanagawa')
+        }
+
+        require'feline'.use_theme(kanagawa)
+        vim.api.nvim_exec2("colorscheme basic", {})
     end
 }

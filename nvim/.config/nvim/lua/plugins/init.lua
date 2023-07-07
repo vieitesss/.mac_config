@@ -1,26 +1,20 @@
 return {
     "neanias/everforest-nvim",
     ---- snippets
-    {
-        "L3MON4D3/LuaSnip",
-        dependencies = {
-            "saadparwaiz1/cmp_luasnip",
-            "rafamadriz/friendly-snippets",
-        }
-    },
-
     ---- programming utils
     {
         "iamcco/markdown-preview.nvim",
+        event = "BufEnter *.md",
         cmd = "MarkdownPreview",
         -- build = "cd app && npm install"
     },
     {
         "windwp/nvim-ts-autotag",
+        lazy = false
     },
     {
         "lewis6991/gitsigns.nvim",
-        event = "LspAttach",
+        lazy = false,
         config = true,
     },
 

@@ -6,8 +6,8 @@ return {
         { "<leader>hn", ":lua require('harpoon.ui').nav_next()<cr>", { silent = true } },
         { "<leader>hp", ":lua require('harpoon.ui').nav_prev()<cr>", { silent = true } },
         { "<leader>j", ":lua require('harpoon.ui').nav_file(1)<cr>", { silent = true } },
-        { "<leader>k", ":lua require('harpoon.ui').nav_prev(2)<cr>", { silent = true } },
-        { "<leader>l", ":lua require('harpoon.ui').nav_prev(3)<cr>", { silent = true } },
-        { "<leader>;", ":lua require('harpoon.ui').nav_prev(4)<cr>", { silent = true } },
+        { "<leader>k", ":lua require('harpoon.ui').nav_file(2)<cr>", { silent = true } },
+        { "<leader>l", ":lua require('harpoon.ui').nav_file(3)<cr>", { silent = true } },
+        { "<leader>;", ":lua require('harpoon.ui').nav_file(4)<cr>", { silent = true } },
     }
 }

@@ -1,6 +1,6 @@
 return {
     "neovim/nvim-lspconfig",
-    event = { "BufNewFile", "BufAdd" },
+    lazy = false,
     dependencies = {
         {
             "williamboman/mason.nvim",
@@ -20,25 +20,35 @@ return {
                 },
             }
         },
-        "hrsh7th/cmp-nvim-lsp",
         {
             "glepnir/lspsaga.nvim",
-            config = function ()
-                require'lspsaga'.setup({
+            config = function()
+                require 'lspsaga'.setup({
                     symbol_in_winbar = {
                         enable = false
                     }
                 })
             end,
-            event = "LspAttach",
         },
+        -- {
+        --     "lukas-reineke/lsp-format.nvim",
+        --     name = "lsp-format",
+        --     config = function()
+        --         require 'lsp-format'.setup {
+        --             c = {
+        --                 tab_width = 4
+        --             }
+        --         }
+        --     end
+        -- }
     },
     config = function()
         local capabilities = require('cmp_nvim_lsp').default_capabilities()
+        capabilities.offsetEncoding = 'utf-8'
 
         local keymap = vim.keymap
         local on_attach = function(client, bufnr)
-            -- client.server_capabilities.semanticTokensProvider = nil
+            -- require 'lsp-format'.on_attach(client)
             local opts = { noremap = true, silent = true, buffer = bufnr }
 
             keymap.set("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
@@ -70,20 +80,46 @@ return {
             on_attach = on_attach,
         })
 
-        lspconfig["tsserver"].setup({
+        lspconfig.tsserver.setup({
             capabilities = capabilities,
             on_attach = on_attach,
         })
 
-        lspconfig["marksman"].setup({
+        lspconfig.marksman.setup({
             capabilities = capabilities,
             on_attach = on_attach,
         })
+
+        local function on_language_status(_, result)
+            -- Ignore nil messages.
+            if result.message == nil then
+                return
+            end
+            local command = vim.api.nvim_command
+            command 'echohl ModeMsg'
+            command(string.format('echo "%s"', result.message))
+            command 'echohl None'
+        end
 
         lspconfig.jdtls.setup({
             capabilities = capabilities,
             on_attach = on_attach,
+            handlers = {
+                ["$/progress"] = vim.schedule_wrap(on_language_status),
+            },
         })
+
+        -- lspconfig.ltex.setup({
+        --     capabilities = capabilities,
+        --     on_attach = on_attach,
+        --     settings = {
+        --         ltex = {
+        --             disabledRules = {
+        --                 ["en-US"] = { "MORFOLOGIK_RULE_EN_US", "EN_A_VS_AN" },
+        --             }
+        --         }
+        --     }
+        -- })
 
         lspconfig.texlab.setup({
             capabilities = capabilities,
@@ -96,6 +132,11 @@ return {
         })
 
         lspconfig.pyright.setup({
+            capabilities = capabilities,
+            on_attach = on_attach,
+        })
+
+        lspconfig.cssls.setup({
             capabilities = capabilities,
             on_attach = on_attach,
         })

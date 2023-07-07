@@ -38,7 +38,6 @@ return {
             pickers = {
                 find_files = {
                     hidden = true,
-                    -- cwd = "~/",
                     mappings = {
                         i = {
                             ["<C-s>"] = actions.file_split
