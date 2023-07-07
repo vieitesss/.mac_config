@@ -38,9 +38,6 @@ export HOSTNAME=$(hostname)
 # Bat
 export BAT_THEME="OneHalfDark"
 
-# Nvim colorscheme
-# export NVIM_COLORSCHEME="everforest"
-
 if [[ -d /opt/jdk-11.0.13 ]]; then
     export JAVA_HOME="/opt/jdk-11.0.13"
     PATH+=:$JAVA_HOME/bin
@@ -67,7 +64,7 @@ PATH+="/bin:/usr/bin:/usr/local/bin"
 export PATH
 
 # C LIBS
-export CPATH=$HOME/uni/2/coga/practicas/lib/glad/include_lib/
+export CPATH=$HOME/uni/2/coga/practicas/lib/glad/include_lib:/usr/local/Cellar/freetype/2.13.0_1/include/freetype2
 
 source "$DOTFILES/aliases/general.aliases.sh"
 source "$DOTFILES/aliases/git.aliases.sh"
@@ -75,7 +72,7 @@ source "$DOTFILES/aliases/docker.aliases.sh"
 source "$DOTFILES/aliases/tmux.aliases.sh"
 source "$HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
 source "$HOME/.zsh/sudo.plugin.zsh"
-source "$HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+# source "$HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
 # . "$HOME/.cargo/env"
 
@@ -106,9 +103,9 @@ eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
 export PATH="/usr/local/opt/llvm/bin:$PATH"
 
-# First and only argument is the desired term title
-function tabname {
-  echo "\x1b]1337;SetUserVar=tabname=$(echo -n $1 | base64)\x07"
-}
+# zsh vi mode
+ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
+ZVM_INSERT_MODE_CURSOR='bl'
 
+source $(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 # ~/.tmux/scripts/init.sh
