@@ -1,4 +1,4 @@
 #!/bin/sh
 
-alias tks='tmux kill-server'
-alias tka=tks
+alias tks='tmux ls | sed "s/:.*//" | fzf | xargs tmux kill-session -t'
+alias ts='tmux ls | sed "s/:.*//" | fzf | xargs tmux switch -t'
