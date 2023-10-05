@@ -17,7 +17,7 @@ return {
             }
         }
 
-        vim.api.nvim_exec2("colorscheme kanagawa", {})
+        -- vim.api.nvim_exec2("colorscheme kanagawa", {})
         local colors = require 'kanagawa.colors'.setup()
 
         -- Left active components
@@ -142,6 +142,6 @@ return {
         }
 
         require'feline'.use_theme(kanagawa)
-        vim.api.nvim_exec2("colorscheme basic", {})
+        -- vim.api.nvim_exec2("colorscheme basic", {})
     end
 }

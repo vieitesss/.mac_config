@@ -18,7 +18,6 @@ return {
     },
     {
         dir = "~/projects/nvim/basic/",
-        lazy = false,
         config = function ()
             vim.api.nvim_exec2("colorscheme basic", {})
         end
@@ -55,6 +54,7 @@ return {
                     }
                 end,
             })
+            vim.api.nvim_exec2("colorscheme kanagawa-wave", {})
         end,
     },
     {

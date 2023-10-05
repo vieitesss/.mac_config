@@ -46,7 +46,7 @@ return {
             return
         end
 
-        require("luasnip/loaders/from_vscode").lazy_load()
+        require("luasnip.loaders.from_vscode").lazy_load()
 
         cmp.setup({
             -- enabled = function()
@@ -74,7 +74,6 @@ return {
                 ["<C-l>"] = cmp.mapping(function(fallback)
                     if luasnip.expand_or_jumpable() then
                         luasnip.expand_or_jump()
-                        print("Hello")
                     else
                         fallback()
                     end
