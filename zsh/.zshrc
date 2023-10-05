@@ -87,7 +87,8 @@ export NVM_DIR="$HOME/.nvm"
 bindkey "^[[1;5C" forward-word
 bindkey "^[[1;5D" backward-word
 # bindkey '^j' autosuggest-accept
-bindkey '^u' end-of-line
+# bindkey '^u' end-of-line
+# bindkey '^ ' autosuggest-accept
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -108,4 +109,5 @@ ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
 ZVM_INSERT_MODE_CURSOR='bl'
 
 source $(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+zvm_bindkey viins '^U' end-of-line
 # ~/.tmux/scripts/init.sh
