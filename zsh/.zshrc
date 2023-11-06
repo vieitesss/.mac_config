@@ -14,7 +14,7 @@ zstyle ':completion:*' menu select
 zmodload zsh/complist
 compinit
 _comp_options+=(globdots)
-# End of lines added by compinstall
+# END OF LINES ADDED BY COMPINSTALL
 
 # vi mode
 bindkey -v
@@ -34,32 +34,37 @@ bindkey '^e' edit-command-line
 # CONFIG
 export DOTFILES="$HOME/.mac_config"
 export HOSTNAME=$(hostname)
+export TERM="screen-256color"
+export DISPLAY=$(ifconfig | egrep "192\.168\.[0-9]{1,3}\.[0-9]{1,3}" | awk '{print $2}'):0.0
 
 # Bat
 export BAT_THEME="OneHalfDark"
 
 if [[ -d /opt/jdk-11.0.13 ]]; then
     export JAVA_HOME="/opt/jdk-11.0.13"
-    PATH+=:$JAVA_HOME/bin
+    PATH="$JAVA_HOME/bin:$PATH"
 fi
 
 if [[ -d /opt/ltex-ls-15.2.0 ]]; then
     export LTEX_HOME="/opt/ltex-ls-15.2.0"
-    PATH+=:$LTEX_HOME/bin
+    PATH="$LTEX_HOME/bin:$PATH"
 fi
 
 if [[ -d /usr/local/go ]]; then
     export GO_HOME="/usr/local/go"
-    PATH+=:$GO_HOME/bin
+    PATH="$GO_HOME/bin:$PATH"
 fi
 
 export JAVA_HOME="/Library/Java/JavaVirtualMachines/openjdk.jdk/Contents/Home/"
-PATH+=$JAVA_HOME
+PATH="$JAVA_HOME:$PATH"
+
+export M2_HOME="/Users/vieites/apache-maven-3.9.5"
+PATH="$M2_HOME/bin:$PATH"
 
 export POSTGRESQL="/Library/Java/Extensions/postgresql-42.5.2.jar"
-PATH+=$POSTGRESQL
+PATH="$POSTGRESQL:$PATH"
 
-PATH+="/bin:/usr/bin:/usr/local/bin"
+PATH="/bin:/usr/bin:/usr/local/bin:$PATH"
 
 export PATH
 
@@ -99,15 +104,22 @@ export FZF_CTRL_T_OPTS="--reverse --preview 'bat {} --color=always'"
 
 # precmd () {print -Pn "\e]0;%~\a"}
 alias luamake=$HOME/lua-language-server/3rd/luamake/luamake
-
-eval "$(starship init zsh)"
-eval "$(zoxide init zsh)"
 export PATH="/usr/local/opt/llvm/bin:$PATH"
 
 # zsh vi mode
 ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
 ZVM_INSERT_MODE_CURSOR='bl'
 
-source $(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
-zvm_bindkey viins '^U' end-of-line
+if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
+    source "$(brew --prefix)"/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+    zvm_bindkey viins '^U' end-of-line
+fi
+
 # ~/.tmux/scripts/init.sh
+# bun
+export BUN_INSTALL="$HOME/Library/Application Support/reflex/bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+tput cup 9999 0
+eval "$(starship init zsh)"
+eval "$(zoxide init zsh)"
