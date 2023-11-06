@@ -32,7 +32,7 @@ alias gcamd='git commit --amend'
 alias gcm='git commit -v -m'
 alias gci='git commit --interactive'
 alias gcsam='git commit -S -am'
-alias gcup='git log --branches --not --remotes --simplify-by-decoration --decorate --oneline'
+alias gcup='git log origin/main..HEAD --oneline'
 
 # checkout
 alias gcb='git checkout -b'

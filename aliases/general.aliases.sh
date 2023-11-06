@@ -1,8 +1,11 @@
 #!/bin/sh
 
 # List directory contents
-alias ll='exa -l --group-directories-first --icons'
+alias ll='exa --long --group-directories-first --icons --no-time'
 alias le='exa --group-directories-first --oneline --icons'
+alias leg='exa --long --git --group-directories-first --icons --no-time --no-user --no-permissions --no-filesize'
+alias lt='exa -T --icons'
+alias ltl='exa -T --long --icons --no-time'
 # alias sl=ls
 alias la='exa -al --group-directories-first'
 
@@ -67,6 +70,7 @@ fi
 alias c='clear'
 alias k='clear'
 alias cls='clear'
+alias clear='clear && tput cup 9999 0'
 
 # export EDITOR="nvim"
 alias edit="$EDITOR"
@@ -78,7 +82,7 @@ alias irc="${IRC_CLIENT:=irc}"
 
 # Language aliases
 alias j='java'
-alias py='python3.10'
+alias py='/usr/local/bin/python3'
 alias gcc='gcc-12'
 
 # jupyter notebook
