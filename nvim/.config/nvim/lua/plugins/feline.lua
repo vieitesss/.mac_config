@@ -17,8 +17,10 @@ return {
             }
         }
 
-        -- vim.api.nvim_exec2("colorscheme kanagawa", {})
+        local prev_colorscheme = vim.api.nvim_exec2("colorscheme", {output = true}).output
+        vim.api.nvim_exec2("colorscheme kanagawa-wave", {})
         local colors = require 'kanagawa.colors'.setup()
+
 
         -- Left active components
         table.insert(components.active[1], {
@@ -106,13 +108,13 @@ return {
 
         -- Inactive components
         table.insert(components.inactive[1], {
-            provider = {
-                name = 'file_info',
-                opts = {
-                    type = 'unique',
-                    file_modified_icon = '%m',
-                }
-            }
+            -- provider = {
+            --     name = 'file_info',
+            --     opts = {
+            --         type = 'unique',
+            --         file_modified_icon = '%m',
+            --     }
+            -- }
         })
 
         require 'feline'.setup({
@@ -142,6 +144,6 @@ return {
         }
 
         require'feline'.use_theme(kanagawa)
-        -- vim.api.nvim_exec2("colorscheme basic", {})
+        vim.api.nvim_exec2("colorscheme " .. prev_colorscheme, {})
     end
 }

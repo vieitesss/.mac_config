@@ -30,17 +30,6 @@ return {
                 })
             end,
         },
-        -- {
-        --     "lukas-reineke/lsp-format.nvim",
-        --     name = "lsp-format",
-        --     config = function()
-        --         require 'lsp-format'.setup {
-        --             c = {
-        --                 tab_width = 4
-        --             }
-        --         }
-        --     end
-        -- }
     },
     config = function()
         local capabilities = require('cmp_nvim_lsp').default_capabilities()
@@ -61,37 +50,32 @@ return {
             keymap.set("n", "[d", "<cmd>Lspsaga diagnostic_jump_prev<CR>", opts)
             keymap.set("n", "]d", "<cmd>Lspsaga diagnostic_jump_next<CR>", opts)
             keymap.set("n", "<leader>ou", "<cmd>Lspsaga outline<CR>", opts)
-
-            keymap.set("n", "<space>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)
-            keymap.set("n", "<space>wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", opts)
-            keymap.set("n", "<space>wl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", opts)
             keymap.set("n", "<space>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
         end
 
         local lspconfig = require('lspconfig')
 
-        lspconfig["clangd"].setup({
-            capabilities = capabilities,
-            on_attach = on_attach,
-        })
+        local servers = {
+            "clangd",
+            "bashls",
+            "tsserver",
+            "marksman",
+            "texlab",
+            "pylsp",
+            "pyright",
+            "cssls",
+            "jdtls"
+        }
 
-        lspconfig.bashls.setup({
-            capabilities = capabilities,
-            on_attach = on_attach,
-        })
+        for _, server in ipairs(servers) do
+            lspconfig[server].setup({
+                capabilities = capabilities,
+                on_attach = on_attach,
+            })
+        end
 
-        lspconfig.tsserver.setup({
-            capabilities = capabilities,
-            on_attach = on_attach,
-        })
-
-        lspconfig.marksman.setup({
-            capabilities = capabilities,
-            on_attach = on_attach,
-        })
-
+        -- Ignore nil messages.
         local function on_language_status(_, result)
-            -- Ignore nil messages.
             if result.message == nil then
                 return
             end
@@ -107,6 +91,19 @@ return {
             handlers = {
                 ["$/progress"] = vim.schedule_wrap(on_language_status),
             },
+            settings = {
+                java = {
+                    project = {
+                        referencedLibraries = {
+                            "**/*.jar",
+                        }
+                    }
+                }
+            },
+            root_dir = function(fname)
+                return require("lspconfig").util.root_pattern("pom.xml", "gradle.build", ".git")(fname) or
+                vim.fn.getcwd()
+            end,
         })
 
         -- lspconfig.ltex.setup({
@@ -120,26 +117,6 @@ return {
         --         }
         --     }
         -- })
-
-        lspconfig.texlab.setup({
-            capabilities = capabilities,
-            on_attach = on_attach,
-        })
-
-        lspconfig.pylsp.setup({
-            capabilities = capabilities,
-            on_attach = on_attach,
-        })
-
-        lspconfig.pyright.setup({
-            capabilities = capabilities,
-            on_attach = on_attach,
-        })
-
-        lspconfig.cssls.setup({
-            capabilities = capabilities,
-            on_attach = on_attach,
-        })
 
         lspconfig.sumneko_lua.setup({
             capabilities = capabilities,
@@ -155,7 +132,7 @@ return {
                     diagnostics = {
                         -- Get the language server to recognize the `vim` global
                         enable = true,
-                        globals = { "vim", "use", "love" },
+                        globals = { "require", "vim", "use", "love" },
                         -- disable = { "lowercase-global" },
                     },
                     workspace = {

@@ -4,6 +4,8 @@ return {
     lazy = false,
     config = function()
         require('nvim-treesitter.configs').setup({
+            modules = {},
+            ignore_install = {},
             ensure_installed = {
                 "bash",
                 "c",
@@ -12,10 +14,10 @@ return {
                 "json",
                 "lua",
                 "vim",
-                "cpp"
-                -- "python",
+                "cpp",
+                "python",
                 -- "latex",
-                -- "html",
+                "html",
             }, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
             sync_install = false,
             auto_install = true,
@@ -27,7 +29,7 @@ return {
                     return lang == "latex" and colorscheme == "kanagawa"
                 end
             },
-            indent = { enable = true },
+            indent = { enable = false },
             autotag = { enable = true },
         })
     end

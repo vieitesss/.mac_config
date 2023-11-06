@@ -1,69 +1,59 @@
-local global = vim.o
-local window = vim.wo
-local buffer = vim.bo
+local opt = vim.opt
 
 -- General
 vim.api.nvim_command("filetype plugin indent on")
-global.guicursor = "i:block"
-global.showcmdloc = "statusline"
-vim.api.nvim_command("set noshowmode")
--- vim.api.nvim_command("set termguicolors")
-
--- Ignore case
-vim.api.nvim_command("set ignorecase")
-
--- Winbar
--- global.winbar = "%m %f"
+opt.guicursor = "i:block"
+opt.showcmdloc = "statusline"
+opt.showmode = false
+opt.termguicolors = true
+opt.ignorecase = true
 
 -- Indent
-global.autoindent = true
-global.expandtab = true
-global.tabstop = 4
-global.softtabstop = 4
-global.shiftwidth = 4
-global.shiftround = true
+opt.autoindent = true
+opt.expandtab = true
+opt.tabstop = 2
+opt.softtabstop = 2
+opt.shiftwidth = 2
+opt.shiftround = true
+opt.listchars = "multispace:|···"
+opt.hlsearch = true
+vim.cmd("set list")
 
--- Block when insert
--- vim.cmd([[set guicursor=i:block]])
+-- Cmd line
+opt.cmdheight = 0
 
 -- Numbers
-window.number = true
-window.relativenumber = true
+opt.number = true
+opt.relativenumber = true
 
 -- Lines
-window.wrap = false
-
--- Auto chdir
--- global.autochdir = true
+opt.wrap = false
 
 -- Lines to edges
-global.scrolloff = 8
 
 -- Cursor
-window.cursorline = true
-global.ruler = true
+opt.cursorline = true
+opt.ruler = true
+opt.scrolloff = 8
 
 -- Words substitution
-global.inccommand = "nosplit"
+opt.inccommand = "nosplit"
 
 -- Mouse
-global.mouse = "a"
+opt.mouse = "a"
 
 -- Read files always
-global.autoread = true
+opt.autoread = true
 
 -- Syntax
-buffer.syntax = "ON"
+opt.syntax = "ON"
 
 -- Time to complete key code sequence
-global.ttimeoutlen = 5
+opt.ttimeoutlen = 5
 
 -- Hidden
-global.hidden = true
+opt.hidden = true
 
 -- Undofile
-vim.opt.undodir = os.getenv('HOME') .. '/.vim/undodir'
-vim.opt.undofile = true
-
--- Clipboard
--- global.clipboard = "unnamedplus"
+opt.undodir = os.getenv('HOME') .. '/.vim/undodir'
+opt.undofile = true

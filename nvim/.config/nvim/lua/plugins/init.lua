@@ -40,11 +40,7 @@ return {
         }
     },
     {
-        -- "vt/chngtb.nvim",
-        enabled = false,
-        dir = "~/projects/nvim/chngtb.nvim/",
-        -- config = true,
-        -- opts = {}
-        lazy = false,
-    }
+        dir = "~/richmd.nvim/",
+        event = "BufEnter *.md",
+    },
 }

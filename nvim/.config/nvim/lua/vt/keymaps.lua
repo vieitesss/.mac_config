@@ -5,11 +5,11 @@ local s = { silent = true }
 ------------------
 
 --- save and quit
-keymap("n", "<Leader>ww", ":w!<CR>", s)
+keymap("n", "<Leader>w", ":w!<CR>", s)
 keymap("n", "<Leader>q", ":q<CR>", s)
-keymap("n", "<Leader>Q", ":wq<CR>", s)
 
 --- no highlight
+
 keymap("n", "<Leader>no", ":noh<CR>", s)
 
 --- window movements
@@ -47,7 +47,14 @@ keymap("n", "<Leader>so", ":so %<CR>", s)
 keymap("n", "<Leader><Leader>e", ":e<CR>", s)
 
 --- formatting
-keymap("n", "<Leader>fo", ":lua vim.lsp.buf.format()<CR>", s)
+-- keymap("n", "<Leader>fo", ":lua vim.lsp.buf.format()<CR>", s)
+keymap("n", "<Leader>fo", function ()
+    require'conform'.format({
+        lsp_fallback = true,
+        async = false,
+        timeout_ms = 500
+    })
+end, s)
 
 --- pdfviewer
 keymap("n", "<Leader>pdf", ":lua OPENPDFVIEWER()<CR>", s)
