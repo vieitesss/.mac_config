@@ -8,6 +8,7 @@ $git_status\
 $c\
 $lua\
 $java\
+$python\
 $cmd_duration\
 $line_break\
 $character"""
@@ -27,13 +28,13 @@ pink = "#EC50D2"
 white = "#FFFFFF"
 darkblue = "#2492E6"
 
-# Replace the "❯" symbol in the prompt with "➜"
+# # Replace the "❯" symbol in the prompt with "➜"
 [character]                            # The name of the module we are configuring is "character"
 success_symbol = "[](green)"     # The "success_symbol" segment is being set to "➜" with the color "bold green"
 error_symbol = "[](red)"     # The "success_symbol" segment is being set to "➜" with the color "bold green"
 vicmd_symbol = "[](bold green)"
 
-# Directory
+# # Directory
 [directory]
 truncation_length = 3
 home_symbol = " "
@@ -42,10 +43,10 @@ read_only = " "
 read_only_style = "pink"
 truncate_to_repo = false
 
-# git
+# # git
 [git_branch]
 symbol = " "
-format = "[$symbol$branch ]($style)"
+format = 'on [$symbol$branch ]($style)'
 
 [git_status]
 format = '([\[$all_status$ahead_behind \]]($style) )'
@@ -66,7 +67,7 @@ disabled = false
 # added_style = "bold blue"
 # format = "[+$added]($added_style)/[-$deleted]($deleted_style) "
 
-# languages
+# # languages
 [c]
 format = "[$symbol$version ]($style)"
 
@@ -89,6 +90,15 @@ disabled = false
 format = "[$duration ]($style)"
 style = "bold white"
 
-# Disable the package module, hiding it from the prompt completely
+# # Disable the package module, hiding it from the prompt completely
 [nodejs]
 disabled = true
+
+[python]
+# format = '[${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)'
+style = "green"
+symbol = " "
+python_binary = ['.venv/bin/python', 'python', 'python3', 'python2']
+
+# [line_break]
+# disabled = true
