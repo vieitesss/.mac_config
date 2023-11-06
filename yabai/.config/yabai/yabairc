@@ -48,5 +48,7 @@ yabai -m rule --add app="^Stats$" manage=off
 yabai -m rule --add app=".*\.out$" manage=off
 yabai -m rule --add app="^FachadaAplicacion$" manage=off
 yabai -m rule --add app="^Stickies$" manage=off
+yabai -m rule --add app="^Warp$" manage=off
+yabai -m rule --add app="^Client$" manage=off
 
 echo "yabai configuration loaded.."

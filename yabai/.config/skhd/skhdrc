@@ -27,7 +27,7 @@ alt - t : yabai -m window --toggle float;\
 alt - s : yabai -m window --toggle split
 
 # apps
-cmd - return : osascript -e "tell application \"iTerm\" to create window with default profile"
+# cmd - return : osascript -e "tell application \"iTerm\" to create window with default profile"
 
 # move window and focus desktop
 shift + cmd - 1 : yabai -m window --space 1; yabai -m space --focus 1
