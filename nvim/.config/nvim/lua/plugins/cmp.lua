@@ -85,16 +85,16 @@ return {
                         fallback()
                     end
                 end, { "i", "s" }),
-                ["<Tab>"] = cmp.mapping.confirm({
+                ["<C-n>"] = cmp.mapping.confirm({
                     behavior = cmp.ConfirmBehavior.Insert,
                     select = true,
                 }),
             }),
             sources = {
                 { name = "nvim_lua" },
-                { name = "luasnip",  max_item_count = 6 },
-                { name = "nvim_lsp", max_item_count = 6 },
-                { name = "buffer",   max_item_count = 10 },
+                { name = "luasnip" },
+                { name = "nvim_lsp" },
+                { name = "buffer" },
                 { name = "path" },
             },
             completion = {

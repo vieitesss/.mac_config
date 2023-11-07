@@ -57,6 +57,7 @@ return {
         "loctvl842/monokai-pro.nvim",
         name = "monokai-pro",
         lazy = false,
+        priority = 9999,
         config = function()
             require 'monokai-pro'.setup({
                 filter = "spectrum",
