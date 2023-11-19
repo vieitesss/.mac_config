@@ -16,9 +16,9 @@ alias dot="cd $DOTFILES"
 alias pro="cd ~/projects/"
 
 # bat
-alias cat="/usr/local/bin/bat"
-alias catn="/bin/cat"
-alias catnl="/usr/local/bin/bat --paging=never"
+alias cat="/usr/local/bin/bat -p"
+alias catn="/usr/local/bin/bat -n"
+alias catnl="/usr/local/bin/bat --decorations=never --paging=never"
 
 # Shortcuts to edit startup files
 alias vbrc="vim ~/.bashrc"
@@ -66,11 +66,11 @@ then
   alias grep='grep --color=auto'
 fi
 
-
+#clear
 alias c='clear'
 alias k='clear'
 alias cls='clear'
-alias clear='clear && tput cup 9999 0'
+# alias clear='clear && tput cup 9999 0'
 
 # export EDITOR="nvim"
 alias edit="$EDITOR"
