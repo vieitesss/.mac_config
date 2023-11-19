@@ -57,3 +57,6 @@ opt.hidden = true
 -- Undofile
 opt.undodir = os.getenv('HOME') .. '/.vim/undodir'
 opt.undofile = true
+
+-- Disable netrw
+-- vim.g.loaded_netrw = 0

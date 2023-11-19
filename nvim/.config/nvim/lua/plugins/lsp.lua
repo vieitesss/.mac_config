@@ -1,56 +1,23 @@
 return {
     "neovim/nvim-lspconfig",
-    lazy = false,
-    dependencies = {
-        {
-            "williamboman/mason.nvim",
-            name = "mason",
-            config = true
-        },
-        {
-            "williamboman/mason-lspconfig.nvim",
-            name = "mason-lspconfig",
-            opts = {
-                ensure_installed = {
-                    "lua_ls",
-                    "clangd",
-                    "jdtls",
-                    "marksman",
-                    "pyright",
-                },
-            }
-        },
-        {
-            "glepnir/lspsaga.nvim",
-            config = function()
-                require 'lspsaga'.setup({
-                    symbol_in_winbar = {
-                        enable = false
-                    }
-                })
-            end,
-        },
-    },
+    event = { "BufReadPre", "BufNewFile" },
     config = function()
-        local capabilities = require('cmp_nvim_lsp').default_capabilities()
-        capabilities.offsetEncoding = 'utf-8'
+        local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
         local keymap = vim.keymap
-        local on_attach = function(client, bufnr)
-            -- require 'lsp-format'.on_attach(client)
+        local on_attach = function(_, bufnr)
             local opts = { noremap = true, silent = true, buffer = bufnr }
 
             keymap.set("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
             keymap.set("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-            keymap.set("n", "gr", ":Telescope lsp_references<CR>", opts)
-            keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", opts)
+            keymap.set("n", "gr", "<cmd>Telescope lsp_references<CR>", opts)
+            keymap.set("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
             keymap.set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
             keymap.set("n", "<space>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
-            keymap.set("n", "<space>rn", "<cmd>Lspsaga rename<CR>", opts)
-            keymap.set("n", "[d", "<cmd>Lspsaga diagnostic_jump_prev<CR>", opts)
-            keymap.set("n", "]d", "<cmd>Lspsaga diagnostic_jump_next<CR>", opts)
-            keymap.set("n", "<leader>ou", "<cmd>Lspsaga outline<CR>", opts)
-            keymap.set("n", "<space>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
+            -- keymap.set("n", "<space>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
+            keymap.set("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
+            keymap.set("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
+            -- keymap.set("n", "<space>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
         end
 
         local lspconfig = require('lspconfig')
@@ -64,7 +31,7 @@ return {
             "pylsp",
             "pyright",
             "cssls",
-            "jdtls"
+            "jdtls",
         }
 
         for _, server in ipairs(servers) do
@@ -85,9 +52,22 @@ return {
             command 'echohl None'
         end
 
+        lspconfig.rust_analyzer.setup({
+            on_attach = on_attach,
+            capabilities = capabilities,
+            filetypes = { "rust" },
+            root_dir = lspconfig.util.root_pattern("Cargo.toml"),
+            -- settings = {
+            --     ['rust-analyzer'] = {
+
+            --     }
+            -- }
+        })
+
         lspconfig.jdtls.setup({
             capabilities = capabilities,
             on_attach = on_attach,
+            filetypes = { "java" },
             handlers = {
                 ["$/progress"] = vim.schedule_wrap(on_language_status),
             },
@@ -102,7 +82,7 @@ return {
             },
             root_dir = function(fname)
                 return require("lspconfig").util.root_pattern("pom.xml", "gradle.build", ".git")(fname) or
-                vim.fn.getcwd()
+                    vim.fn.getcwd()
             end,
         })
 
@@ -121,6 +101,7 @@ return {
         lspconfig.sumneko_lua.setup({
             capabilities = capabilities,
             on_attach = on_attach,
+            filetypes = { "lua" },
             settings = {
                 Lua = {
                     runtime = {

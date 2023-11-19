@@ -5,12 +5,9 @@ return {
         formatters_by_ft = {
             python = { "black" },
             json = { "clang-format" },
-            java = { "google-java-format" }
+            java = { "google-java-format" },
+            sh = { "beautysh" },
+            rust = { "rustfmt" }
         },
-        -- format_on_save = {
-        --     lsp_fallback = true,
-        --     async = false,
-        --     timeout_ms = 500,
-        -- }
     }
 }

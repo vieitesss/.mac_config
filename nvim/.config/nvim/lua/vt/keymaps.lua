@@ -34,8 +34,8 @@ keymap("n", "<Leader>bb", ":buffer", s)
 
 -- tabs
 keymap("n", "<Leader>te", ":tabnew<CR>", s)
-keymap("n", "<Leader>tn", ":tabn<CR>", s)
 keymap("n", "<Leader>tp", ":tabp<CR>", s)
+keymap("n", "<Leader>tn", ":tabn<CR>", s)
 
 --- split windows
 keymap("n", "<Leader>\\", ":vsplit<CR>", s)

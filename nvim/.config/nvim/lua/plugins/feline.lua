@@ -3,6 +3,9 @@ vim.opt.termguicolors = true
 return {
     "famiu/feline.nvim",
     event = { "BufNewFile", "BufRead", "BufWritePost" },
+    dependencies = {
+        "rebelot/kanagawa.nvim"
+    },
     version = false,
     -- lazy = false,
     config = function()
@@ -103,6 +106,11 @@ return {
 
         table.insert(components.active[3], {
             provider = 'position',
+            right_sep = ' ',
+        })
+
+        table.insert(components.active[3], {
+            provider = 'line_percentage',
             right_sep = ' ',
         })
 

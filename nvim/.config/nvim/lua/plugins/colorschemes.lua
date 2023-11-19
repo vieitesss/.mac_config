@@ -1,11 +1,13 @@
 return {
     {
         "morhetz/gruvbox",
+        enable = false,
     },
     {
         "catppuccin/nvim",
         name = "catppuccin",
-        priority = 1000,
+        enable = false,
+        -- priority = 1000,
         opts = {
             styles = {
                 comments = { "italic" },
@@ -21,43 +23,35 @@ return {
     },
     {
         "rktjmp/lush.nvim",
+        enable = false,
         -- lazy = false,
         -- config = function ()
         --     vim.api.nvim_exec2("colorscheme basic", {})
         -- end
     },
     {
-        "jesseleite/nvim-noirbuddy",
-        dependencies = {
-            "tjdevries/colorbuddy.nvim",
-            branch = "dev"
-        },
-        config = function()
-            require('noirbuddy').setup {
-                preset = 'kiwi'
-            }
-        end
-
-    },
-    {
         "rebelot/kanagawa.nvim",
         lazy = false,
+        priority = 9999,
         config = function()
-            require 'kanagawa'.setup({
-                overrides = function(_)
-                    return {
-                        String = { italic = true }
-                    }
-                end,
-                -- vim.api.nvim_exec2("colorscheme kanagawa-wave", {})
+            require('kanagawa').setup({
+                theme = "wave",
+                colors = {
+                    palette = {
+                        -- kanagawa wave fg
+                        fujiWhite = "#e8e8d8",
+                    },
+                }
             })
+            vim.api.nvim_exec2("colorscheme kanagawa", {})
         end,
     },
     {
         "loctvl842/monokai-pro.nvim",
+        enable = false,
         name = "monokai-pro",
-        lazy = false,
-        priority = 9999,
+        -- lazy = false,
+        -- priority = 9999,
         config = function()
             require 'monokai-pro'.setup({
                 filter = "spectrum",
@@ -75,26 +69,4 @@ return {
             vim.api.nvim_exec2("colorscheme monokai-pro", {})
         end
     },
-    {
-        "olimorris/onedarkpro.nvim",
-        name = "onedark",
-        -- config = function ()
-        --     require'onedarkpro'.setup({
-        --         styles = {
-        --             strings = "italic"
-        --         },
-        --         style = 'warmer',
-        --         -- transparent = true,
-        --         code_style = {
-        --             keywords = "italic",
-        --             functions = "italic",
-        --             strings = "italic",
-        --         },
-        --         diagnostics = {
-        --             darker = false
-        --         }
-        --     })
-        --     vim.api.nvim_exec2("colorscheme onedark", {})
-        -- end,
-    }
 }

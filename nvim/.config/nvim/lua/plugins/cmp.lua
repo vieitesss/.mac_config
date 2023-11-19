@@ -28,16 +28,36 @@ local cmp_kinds = {
 
 return {
     "hrsh7th/nvim-cmp",
+    event = "InsertEnter",
     version = false,
     dependencies = {
-        "hrsh7th/cmp-nvim-lsp",
-        "hrsh7th/cmp-nvim-lua",
-        "hrsh7th/cmp-buffer",
-        "hrsh7th/cmp-cmdline",
-        "hrsh7th/cmp-path",
+        {
+            "hrsh7th/cmp-nvim-lsp",
+            event = "InsertEnter",
+        },
+        {
+            "hrsh7th/cmp-nvim-lua",
+            event = "InsertEnter",
+        },
+        {
+            "hrsh7th/cmp-buffer",
+            event = "InsertEnter",
+        },
+        {
+            "hrsh7th/cmp-cmdline",
+            event = "CmdlineEnter",
+        },
+        {
+            "hrsh7th/cmp-path",
+            event = "InsertEnter",
+        },
+        {
+            "saadparwaiz1/cmp_luasnip",
+            event = "InsertEnter",
+        }
     },
-    lazy = false,
-    -- event = "ModeChanged",
+    -- lazy = false,
+    -- event = "VeryLazy",
     config = function()
         local cmp = require('cmp')
 
@@ -45,8 +65,6 @@ return {
         if not status_luasnip then
             return
         end
-
-        require("luasnip.loaders.from_vscode").lazy_load()
 
         cmp.setup({
             -- enabled = function()
@@ -128,10 +146,10 @@ return {
 
         cmp.setup.cmdline(":", {
             mapping = cmp.mapping.preset.cmdline(),
-            sources = cmp.config.sources({
+            sources = {
                 { name = "path" },
                 { name = "cmdline" },
-            }),
+            },
         })
     end
 }
