@@ -1,25 +1,25 @@
 format = """
-$username\
-$hostname\
 $directory\
 $git_branch\
 $git_state\
 $git_status\
+$character"""
+
+right_format = """
 $c\
 $lua\
 $java\
 $python\
+$rust\
 $cmd_duration\
-$line_break\
-$character"""
+"""
 
+# $line_break\
 # $fill\
 # $git_metrics\
-# $cmd_duration\
-# $c\
-# $lua\
-# $java\
 # $time\
+
+add_newline = false
 
 palette = "colors"
 
@@ -30,29 +30,32 @@ darkblue = "#2492E6"
 
 # # Replace the "❯" symbol in the prompt with "➜"
 [character]                            # The name of the module we are configuring is "character"
-success_symbol = "[](green)"     # The "success_symbol" segment is being set to "➜" with the color "bold green"
-error_symbol = "[](red)"     # The "success_symbol" segment is being set to "➜" with the color "bold green"
+# success_symbol = "[](green)"     # The "success_symbol" segment is being set to "➜" with the color "bold green"
+success_symbol = "[❯](green)"     # The "success_symbol" segment is being set to "➜" with the color "bold green"
+error_symbol = "[❯](red)"     # The "success_symbol" segment is being set to "➜" with the color "bold green"
 vicmd_symbol = "[](bold green)"
 
 # # Directory
 [directory]
-truncation_length = 3
-home_symbol = " "
+truncation_length = 1
+truncate_to_repo = true
+# home_symbol = ""
+fish_style_pwd_dir_length = 1
 style = "bold bright-blue"
 read_only = " "
 read_only_style = "pink"
-truncate_to_repo = false
 
 # # git
 [git_branch]
 symbol = " "
-format = 'on [$symbol$branch ]($style)'
+format = '[$symbol$branch]($style)'
 
 [git_status]
-format = '([\[$all_status$ahead_behind \]]($style) )'
+format = '([$all_status$ahead_behind]($style))'
 style = "bold yellow"
+up_to_date = " "
 deleted = " 󰖭"
-ahead = " "
+ahead = "  "
 behind = " "
 conflicted = " ="
 diverged = " ⇕"
@@ -69,6 +72,11 @@ disabled = false
 
 # # languages
 [c]
+format = "[$symbol$version ]($style)"
+
+[rust]
+symbol = " "
+style = "bold #dd3617"
 format = "[$symbol$version ]($style)"
 
 [lua]
@@ -100,5 +108,5 @@ style = "green"
 symbol = " "
 python_binary = ['.venv/bin/python', 'python', 'python3', 'python2']
 
-# [line_break]
-# disabled = true
+[line_break]
+disabled = true
