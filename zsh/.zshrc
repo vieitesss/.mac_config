@@ -77,9 +77,10 @@ source "$DOTFILES/aliases/docker.aliases.sh"
 source "$DOTFILES/aliases/tmux.aliases.sh"
 source "$HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
 source "$HOME/.zsh/sudo.plugin.zsh"
+source "$(brew --prefix)"/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 # source "$HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
-# . "$HOME/.cargo/env"
+source "$HOME/.cargo/env"
 
 # if [[ ! -z $(which colorscript) ]]; then
 #     colorscript random
@@ -110,16 +111,15 @@ export PATH="/usr/local/opt/llvm/bin:$PATH"
 ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
 ZVM_INSERT_MODE_CURSOR='bl'
 
-if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
-    source "$(brew --prefix)"/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
-    zvm_bindkey viins '^U' end-of-line
-fi
+# if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
+#     zvm_bindkey viins '^U' end-of-line
+# fi
 
 # ~/.tmux/scripts/init.sh
 # bun
 export BUN_INSTALL="$HOME/Library/Application Support/reflex/bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
-tput cup 9999 0
+# tput cup 9999 0
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
