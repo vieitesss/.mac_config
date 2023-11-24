@@ -103,7 +103,7 @@ style = "bold white"
 disabled = true
 
 [python]
-# format = '[${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)'
+format = '[${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)'
 style = "green"
 symbol = " "
 python_binary = ['.venv/bin/python', 'python', 'python3', 'python2']
