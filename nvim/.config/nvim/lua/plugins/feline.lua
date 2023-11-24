@@ -2,12 +2,12 @@ vim.opt.termguicolors = true
 
 return {
     "famiu/feline.nvim",
-    event = { "BufNewFile", "BufRead", "BufWritePost" },
+    -- event = { "BufNewFile", "BufRead", "BufWritePost" },
+    enable = false,
     dependencies = {
         "rebelot/kanagawa.nvim"
     },
     version = false,
-    -- lazy = false,
     config = function()
         local components = {
             active = {

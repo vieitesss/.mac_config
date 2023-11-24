@@ -1,11 +1,34 @@
 return {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
+    dependencies = {
+
+        "williamboman/mason-lspconfig.nvim",
+        -- enable = false,
+        name = "mason-lspconfig",
+        event = "BufReadPre",
+        dependencies = {
+            "williamboman/mason.nvim",
+            name = "mason",
+            opts = {
+                automatic_installation = true,
+                ui = {
+                    icons = {
+                        package_installed = "",
+                        package_pending = "➜",
+                        package_uninstalled = "",
+                    },
+                }
+            }
+        },
+        config = true
+    },
     config = function()
-        local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
+        local capabilities = vim.lsp.protocol.make_client_capabilities()
+        capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
         local keymap = vim.keymap
-        local on_attach = function(_, bufnr)
+        local on_attach = function(client, bufnr)
             local opts = { noremap = true, silent = true, buffer = bufnr }
 
             keymap.set("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
@@ -22,25 +45,6 @@ return {
 
         local lspconfig = require('lspconfig')
 
-        local servers = {
-            "clangd",
-            "bashls",
-            "tsserver",
-            "marksman",
-            "texlab",
-            "pylsp",
-            "pyright",
-            "cssls",
-            "jdtls",
-        }
-
-        for _, server in ipairs(servers) do
-            lspconfig[server].setup({
-                capabilities = capabilities,
-                on_attach = on_attach,
-            })
-        end
-
         -- Ignore nil messages.
         local function on_language_status(_, result)
             if result.message == nil then
@@ -52,83 +56,133 @@ return {
             command 'echohl None'
         end
 
-        lspconfig.rust_analyzer.setup({
-            on_attach = on_attach,
-            capabilities = capabilities,
-            filetypes = { "rust" },
-            root_dir = lspconfig.util.root_pattern("Cargo.toml"),
-            -- settings = {
-            --     ['rust-analyzer'] = {
-
-            --     }
-            -- }
-        })
-
-        lspconfig.jdtls.setup({
-            capabilities = capabilities,
-            on_attach = on_attach,
-            filetypes = { "java" },
-            handlers = {
-                ["$/progress"] = vim.schedule_wrap(on_language_status),
+        local servers = {
+            yamlls = {
+                filetypes = { "yaml" },
             },
-            settings = {
-                java = {
-                    project = {
-                        referencedLibraries = {
-                            "**/*.jar",
-                        }
-                    }
-                }
+            clangd = {
+                filetypes = { "c", "cpp" },
             },
-            root_dir = function(fname)
-                return require("lspconfig").util.root_pattern("pom.xml", "gradle.build", ".git")(fname) or
-                    vim.fn.getcwd()
-            end,
-        })
-
-        -- lspconfig.ltex.setup({
-        --     capabilities = capabilities,
-        --     on_attach = on_attach,
-        --     settings = {
-        --         ltex = {
-        --             disabledRules = {
-        --                 ["en-US"] = { "MORFOLOGIK_RULE_EN_US", "EN_A_VS_AN" },
-        --             }
-        --         }
-        --     }
-        -- })
-
-        lspconfig.sumneko_lua.setup({
-            capabilities = capabilities,
-            on_attach = on_attach,
-            filetypes = { "lua" },
-            settings = {
-                Lua = {
-                    runtime = {
-                        version = "LuaJIT",
-                    },
-                    completion = {
-                        enable = true,
-                    },
-                    diagnostics = {
-                        -- Get the language server to recognize the `vim` global
-                        enable = true,
-                        globals = { "require", "vim", "use", "love" },
-                        -- disable = { "lowercase-global" },
-                    },
-                    workspace = {
-                        -- Make the server aware of Neovim runtime files
-                        library = vim.api.nvim_get_runtime_file("", true),
-                        checkThirdParty = false,
-                        -- maxPreload = 2000,
-                        -- preloadFileSize = 1000,
-                    },
-                    -- Do not send telemetry data containing a randomized but unique identifier
-                    telemetry = {
-                        enable = false,
+            bashls = {
+                filetypes = { "sh", "zsh", "bash" },
+            },
+            tsserver = {
+                filetypes = { "javascript", "typescript" },
+            },
+            marksman = {
+                filetypes = { "markdown" }
+            },
+            texlab = {
+                filetypes = { "latex" }
+            },
+            pyright = {
+                filetypes = { "python" }
+            },
+            cssls = {
+                filetypes = { "css" }
+            },
+            lua_ls = {
+                filetypes = { "lua" },
+                settings = {
+                    Lua = {
+                        runtime = {
+                            version = "LuaJIT",
+                        },
+                        completion = {
+                            enable = true,
+                        },
+                        diagnostics = {
+                            -- Get the language server to recognize the `vim` global
+                            enable = true,
+                            globals = { "require", "vim", "use", "love" },
+                            -- disable = { "lowercase-global" },
+                        },
+                        workspace = {
+                            -- Make the server aware of Neovim runtime files
+                            -- library = vim.api.nvim_get_runtime_file("", true),
+                            library = {
+                                vim.env.VIMRUNTIME,
+                            },
+                            checkThirdParty = false,
+                            -- maxPreload = 2000,
+                            -- preloadFileSize = 1000,
+                        },
                     },
                 },
             },
+            jdtls = {
+                filetypes = { "java" },
+                handlers = {
+                    ["$/progress"] = vim.schedule_wrap(on_language_status),
+                },
+                settings = {
+                    java = {
+                        project = {
+                            referencedLibraries = {
+                                "**/*.jar",
+                            }
+                        }
+                    }
+                },
+                root_dir = function(fname)
+                    return require("lspconfig").util.root_pattern("pom.xml", "gradle.build", ".git")(fname) or
+                        vim.fn.getcwd()
+                end,
+            },
+            rust_analyzer = {
+                filetypes = { "rust" },
+                root_dir = lspconfig.util.root_pattern("Cargo.toml", ".git", vim.fn.getcwd())
+            },
+        }
+
+        local mason_lspconfig = require("mason-lspconfig")
+
+        mason_lspconfig.setup({
+            ensure_installed = vim.tbl_keys(servers)
         })
+
+        local function find_git_root()
+            -- Use the current buffer's path as the starting point for the git search
+            local current_file = vim.api.nvim_buf_get_name(0)
+            local current_dir
+            local cwd = vim.fn.getcwd()
+            -- If the buffer is not associated with a file, return nil
+            if current_file == "" then
+                current_dir = cwd
+            else
+                -- Extract the directory from the current file's path
+                current_dir = vim.fn.fnamemodify(current_file, ":h")
+            end
+
+            -- Find the Git root directory from the current file's path
+            local git_root = vim.fn.systemlist("git -C " ..
+                vim.fn.escape(current_dir, " ") .. " rev-parse --show-toplevel")[1]
+            if vim.v.shell_error ~= 0 then
+                return cwd
+            end
+
+            return git_root
+        end
+
+        mason_lspconfig.setup_handlers {
+            function(server_name)
+                if servers[server_name] == nil then
+                    print("Include '" .. server_name .. "' in your servers table")
+                    lspconfig[server_name].setup({
+                        capabilities = capabilities,
+                        on_attach = on_attach,
+                    })
+                else
+                    lspconfig[server_name].setup({
+                        capabilities = capabilities,
+                        on_attach = on_attach,
+                        settings = servers[server_name].settings or {},
+                        filetypes = servers[server_name].filetypes or {},
+                        root_dir = servers[server_name].root_dir or function() return find_git_root() end,
+                        handlers = servers[server_name].handlers or {},
+                    })
+                end
+            end
+        }
     end
 }

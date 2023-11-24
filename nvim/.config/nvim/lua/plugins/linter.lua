@@ -12,7 +12,7 @@ return {
             javascript = { "eslint_d" },
             javascriptreact = { "eslint_d" },
             python = { "pylint" },
-            -- java = { "checkstyle" }
+            sh = { "shellcheck" },
         }
 
         local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })

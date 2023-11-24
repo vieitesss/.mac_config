@@ -19,10 +19,11 @@ vim.keymap.set("n", "<leader>ps", "<cmd>lua require('lazy').sync()<cr>", { silen
 return require("lazy").setup('plugins', {
     defaults = {
         lazy = true,
-        version = "*"
+        version = false
     },
     install = {
-        colorscheme = { "kanagawa" }
+        -- colorscheme = { "kanagawa" }
+        colorscheme = { "tokyonight" }
     },
     checker = { enabled = true },
     change_detection = { notify = false }
