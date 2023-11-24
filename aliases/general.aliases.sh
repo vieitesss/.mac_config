@@ -1,13 +1,13 @@
 #!/bin/sh
 
 # List directory contents
-alias ll='exa --long --group-directories-first --icons --no-time'
-alias le='exa --group-directories-first --oneline --icons'
-alias leg='exa --long --git --group-directories-first --icons --no-time --no-user --no-permissions --no-filesize'
-alias lt='exa -T --icons'
-alias ltl='exa -T --long --icons --no-time'
+alias ll="exa --long --group-directories-first --icons --no-time"
+alias le="exa --group-directories-first --oneline --icons"
+alias leg="exa --long --git --group-directories-first --icons --no-time --no-user --no-permissions --no-filesize"
+alias lt="exa -T --icons"
+alias ltl="exa -T --long --icons --no-time"
 # alias sl=ls
-alias la='exa -al --group-directories-first'
+alias la="exa -al --group-directories-first"
 
 alias install="sudo apt install"
 alias remove="sudo apt remove"
@@ -27,6 +27,9 @@ alias nvd="cd ~/.config/nvim/"
 
 # c makefile
 alias makec="make -f ~/.mac_config/makefiles/c/Makefile"
+
+# aliases
+alias falias="alias | fzf"
 
 # ovftool
 alias ovftool="/usr/bin/vmware-ovftool/ovftool"
@@ -63,47 +66,50 @@ function pacs {
 # that the check works when on an OS that supports the color option
 if grep --color=auto "a" "${BASH_IT}/"*.md &> /dev/null
 then
-  alias grep='grep --color=auto'
+  alias grep="grep --color=auto"
 fi
 
 #clear
-alias c='clear'
-alias k='clear'
-alias cls='clear'
+alias c="clear"
+alias k="clear"
+alias cls="clear"
 # alias clear='clear && tput cup 9999 0'
+
+# find process with fzf and kill it
+alias fkill="ps ax | awk '\''{print $5}'\'' | tail -n +2 | fzf | xargs kill -9"
 
 # export EDITOR="nvim"
 alias edit="$EDITOR"
 alias pager="$PAGER"
 
-alias q='exit'
+alias q="exit"
 
 alias irc="${IRC_CLIENT:=irc}"
 
 # Language aliases
-alias j='java'
-alias py='/usr/local/bin/python3'
-alias gcc='gcc-12'
+alias j="java"
+alias py="/usr/local/bin/python3"
+alias gcc="gcc-12"
 
 # jupyter notebook
 alias notebook="python3 -m notebook"
 
 # Pianobar can be found here: http://github.com/PromyLOPh/pianobar/
 
-alias piano='pianobar'
+alias piano="pianobar"
 
-alias ..='cd ..'         # Go up one directory
-alias cd..='cd ..'       # Common misspelling for going up one directory
-alias ...='cd ../..'     # Go up two directories
-alias ....='cd ../../..' # Go up three directories
-alias -- -='cd -'        # Go back
+alias ..="cd .."         # Go up one directory
+alias cd..="cd .."       # Common misspelling for going up one directory
+alias ...="cd ../.."     # Go up two directories
+alias ....="cd ../../.." # Go up three directories
+alias -- -="cd -"        # Go back
 
 # Shell History
-alias h='history'
+alias h="history"
 
 # Directory
-alias md='mkdir -p'
-alias rd='rmdir'
+alias md="mkdir -p"
+alias rd="rmdir"
 
 # Shorten extract
 alias xt="extract"
@@ -136,4 +142,4 @@ catt() {
 # bash-it enable alias bash-it
 # shellcheck source=./bash-it.aliases.bash
 #source "$BASH_IT/aliases/available/bash-it.aliases.bash"
-alias lazygit='go run /opt/lazygit/main.go'
+alias lazygit="go run /opt/lazygit/main.go"
