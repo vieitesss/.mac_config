@@ -8,7 +8,10 @@
 # bold_font Operator Mono Thick
 # bold_italic_font Operator Mono Medium
 # font_family      Input Mono
-font_family      JetBrains Mono
+# font_family      Jetbrains Mono
+# font_family      Fira Code
+# font_family      Cascadia Code
+font_family      Iosevka Nerd Font Mono
 italic_font      auto
 bold_font        auto
 bold_italic_font auto
@@ -23,7 +26,7 @@ font_size        15.0
 # background       #282a36
 
 # Background opacity
-background_opacity  0.8
+background_opacity  0.9
 
 # The foreground for selections
 # selection_foreground #2f2f2f
@@ -227,6 +230,7 @@ macos_option_as_alt no
 allow_remote_control yes
 
 # BEGIN_KITTY_THEME
-# Catppuccin-Macchiato
-include current-theme.conf
+# include catppuccin-mocha.conf
+include onedark.conf
+# include current-theme.conf
 # END_KITTY_THEME
