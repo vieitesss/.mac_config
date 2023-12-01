@@ -23,11 +23,11 @@ shift + cmd + ctrl - l : yabai -m window --warp east
 alt - m : yabai -m window --toggle zoom-fullscreen
 
 # toggle space layout float/tiled
-alt - f : yabai -m space --layout float; /Users/vieites/.mac_config/yabai/scripts/rust/target/debug/notification -m "Floating" -t "Space"
-alt - t : yabai -m space --layout bsp; /Users/vieites/.mac_config/yabai/scripts/rust/target/debug/notification -m "Tiling" -t "Space"
+alt - f : yabai -m space --layout float; /Users/vieites/.mac_config/yabai/scripts/notification.rs -m "Floating" -t "Space"
+alt - t : yabai -m space --layout bsp; /Users/vieites/.mac_config/yabai/scripts/notification.rs -m "Tiling" -t "Space"
 
 # get space information
-shift + alt - s : /Users/vieites/.mac_config/yabai/scripts/rust/target/debug/notification notify -s
+shift + alt - s : /Users/vieites/.mac_config/yabai/scripts/notification.rs notify -s
 
 # float / unfloat window and center on screen
 alt - c : yabai -m window --toggle float;\
