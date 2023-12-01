@@ -28,7 +28,7 @@ return {
         capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
         local keymap = vim.keymap
-        local on_attach = function(client, bufnr)
+        local on_attach = function(_, bufnr)
             local opts = { noremap = true, silent = true, buffer = bufnr }
 
             keymap.set("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
@@ -76,7 +76,16 @@ return {
                 filetypes = { "latex" }
             },
             pyright = {
-                filetypes = { "python" }
+                filetypes = { "python" },
+                root_dir = function(fname)
+                    return lspconfig.util.root_pattern(".venv", ".git", vim.fn.getcwd())(fname)
+                end,
+                settings = {
+                    python = {
+                        venvPath = ".",
+                        venv = ".venv"
+                    }
+                }
             },
             cssls = {
                 filetypes = { "css" }
@@ -129,10 +138,6 @@ return {
                         vim.fn.getcwd()
                 end,
             },
-            rust_analyzer = {
-                filetypes = { "rust" },
-                root_dir = lspconfig.util.root_pattern("Cargo.toml", ".git", vim.fn.getcwd())
-            },
         }
 
         local mason_lspconfig = require("mason-lspconfig")
@@ -184,5 +189,26 @@ return {
                 end
             end
         }
+
+        lspconfig.rust_analyzer.setup({
+            capabilities = capabilities,
+            on_attach = on_attach,
+            cmd = {
+                "rustup", "run", "nightly", "rust-analyzer"
+            },
+            -- filetypes = { "rust" },
+            -- root_dir = lspconfig.util.root_pattern("Cargo.toml", ".git", vim.fn.getcwd()),
+            root_dir = function(fname)
+                return lspconfig.util.root_pattern("Cargo.toml", ".git")(fname) or
+                    vim.fn.getcwd()
+            end,
+            -- settings = {
+            --     ['rust-analyzer'] = {
+            --         diagnostics = {
+            --             enable = true
+            --         },
+            --     },
+            -- },
+        })
     end
 }
