@@ -1,0 +1,13 @@
+[package]
+name = "mac-notification-sender"
+version = "0.0.1"
+edition = "2021"
+
+[[bin]]
+name = "notification"
+path = "./notification.rs"
+
+[dependencies]
+clap = { version = "4.4.8", features = ["derive"] }
+execute = "0.2.13"
+

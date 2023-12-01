@@ -1,0 +1,10 @@
+/Users/vieites/.mac_config/yabai/scripts/target/debug/deps/os_str_bytes-a3f5f27998798ca6.rmeta: /Users/vieites/.cargo/registry/src/index.crates.io-6f17d22bba15001f/os_str_bytes-6.6.1/src/lib.rs /Users/vieites/.cargo/registry/src/index.crates.io-6f17d22bba15001f/os_str_bytes-6.6.1/src/common/mod.rs /Users/vieites/.cargo/registry/src/index.crates.io-6f17d22bba15001f/os_str_bytes-6.6.1/src/common/raw.rs /Users/vieites/.cargo/registry/src/index.crates.io-6f17d22bba15001f/os_str_bytes-6.6.1/src/iter.rs /Users/vieites/.cargo/registry/src/index.crates.io-6f17d22bba15001f/os_str_bytes-6.6.1/src/pattern.rs /Users/vieites/.cargo/registry/src/index.crates.io-6f17d22bba15001f/os_str_bytes-6.6.1/src/raw_str.rs
+
+/Users/vieites/.mac_config/yabai/scripts/target/debug/deps/os_str_bytes-a3f5f27998798ca6.d: /Users/vieites/.cargo/registry/src/index.crates.io-6f17d22bba15001f/os_str_bytes-6.6.1/src/lib.rs /Users/vieites/.cargo/registry/src/index.crates.io-6f17d22bba15001f/os_str_bytes-6.6.1/src/common/mod.rs /Users/vieites/.cargo/registry/src/index.crates.io-6f17d22bba15001f/os_str_bytes-6.6.1/src/common/raw.rs /Users/vieites/.cargo/registry/src/index.crates.io-6f17d22bba15001f/os_str_bytes-6.6.1/src/iter.rs /Users/vieites/.cargo/registry/src/index.crates.io-6f17d22bba15001f/os_str_bytes-6.6.1/src/pattern.rs /Users/vieites/.cargo/registry/src/index.crates.io-6f17d22bba15001f/os_str_bytes-6.6.1/src/raw_str.rs
+
+/Users/vieites/.cargo/registry/src/index.crates.io-6f17d22bba15001f/os_str_bytes-6.6.1/src/lib.rs:
+/Users/vieites/.cargo/registry/src/index.crates.io-6f17d22bba15001f/os_str_bytes-6.6.1/src/common/mod.rs:
+/Users/vieites/.cargo/registry/src/index.crates.io-6f17d22bba15001f/os_str_bytes-6.6.1/src/common/raw.rs:
+/Users/vieites/.cargo/registry/src/index.crates.io-6f17d22bba15001f/os_str_bytes-6.6.1/src/iter.rs:
+/Users/vieites/.cargo/registry/src/index.crates.io-6f17d22bba15001f/os_str_bytes-6.6.1/src/pattern.rs:
+/Users/vieites/.cargo/registry/src/index.crates.io-6f17d22bba15001f/os_str_bytes-6.6.1/src/raw_str.rs:
