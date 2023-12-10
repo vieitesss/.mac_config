@@ -1,6 +1,16 @@
 return {
     "stevearc/conform.nvim",
-    event = { "BufReadPre", "BufNewFile" },
+    cmd = { "ConfromInfo" },
+    keys = {
+        {
+            "<Leader>fo",
+            function ()
+                require'conform'.format({ async = true, lsp_fallback = true })
+            end,
+            mode = "",
+            desc = "Format the current buffer",
+        }
+    },
     opts = {
         formatters_by_ft = {
             python = { "black" },

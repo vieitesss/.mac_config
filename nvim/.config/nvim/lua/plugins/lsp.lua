@@ -78,7 +78,8 @@ return {
             pyright = {
                 filetypes = { "python" },
                 root_dir = function(fname)
-                    return lspconfig.util.root_pattern(".venv", ".git", vim.fn.getcwd())(fname)
+                    return lspconfig.util.root_pattern(".venv", ".git")(fname) or
+                        vim.fn.getcwd()
                 end,
                 settings = {
                     python = {
@@ -128,13 +129,13 @@ return {
                     java = {
                         project = {
                             referencedLibraries = {
-                                "**/*.jar",
+                                "./**/*.jar",
                             }
                         }
                     }
                 },
                 root_dir = function(fname)
-                    return require("lspconfig").util.root_pattern("pom.xml", "gradle.build", ".git")(fname) or
+                    return require("lspconfig").util.root_pattern("pom.xml", "gradle.build", "src")(fname) or
                         vim.fn.getcwd()
                 end,
             },

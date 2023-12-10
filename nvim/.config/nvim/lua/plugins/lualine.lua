@@ -2,11 +2,12 @@ return {
     "nvim-lualine/lualine.nvim",
     event = { "BufNewFile", "BufRead", "BufWritePost" },
     dependencies = {
-        "folke/tokyonight.nvim",
+        -- "folke/tokyonight.nvim",
+        "rebelot/kanagawa.nvim"
     },
     opts = {
         options = {
-            theme = "tokyonight",
+            theme = "kanagawa",
         },
         sections = {
             lualine_a = { 'mode' },

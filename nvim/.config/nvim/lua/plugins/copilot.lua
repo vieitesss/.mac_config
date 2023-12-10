@@ -1,4 +1,8 @@
 return {
     "github/copilot.vim",
-    event = "InsertEnter",
+    -- name = "copilot",
+    event = "BufRead",
+    -- keys = {
+    --     { "<leader>co", "require('Copilot')" }
+    -- }
 }

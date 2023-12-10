@@ -16,14 +16,17 @@ vim.g.maplocalleader = " "
 
 vim.keymap.set("n", "<leader>ps", "<cmd>lua require('lazy').sync()<cr>", { silent = true })
 
-return require("lazy").setup('plugins', {
+return require("lazy").setup({
+        { import = 'plugins' },
+        { import = 'plugins.colorschemes' }
+    }, {
     defaults = {
         lazy = true,
         version = false
     },
     install = {
-        -- colorscheme = { "kanagawa" }
-        colorscheme = { "tokyonight" }
+        colorscheme = { "kanagawa" }
+        -- colorscheme = { "tokyonight" }
     },
     checker = { enabled = true },
     change_detection = { notify = false }

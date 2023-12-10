@@ -3,7 +3,7 @@ vim.opt.termguicolors = true
 return {
     "famiu/feline.nvim",
     -- event = { "BufNewFile", "BufRead", "BufWritePost" },
-    enable = false,
+    enabled = false,
     dependencies = {
         "rebelot/kanagawa.nvim"
     },

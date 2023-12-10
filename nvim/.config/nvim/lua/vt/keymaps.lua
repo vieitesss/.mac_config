@@ -48,13 +48,11 @@ keymap("n", "<Leader><Leader>e", ":e<CR>", s)
 
 --- formatting
 -- keymap("n", "<Leader>fo", ":lua vim.lsp.buf.format()<CR>", s)
-keymap("n", "<Leader>fo", function ()
-    require'conform'.format({
-        lsp_fallback = true,
-        async = false,
-        timeout_ms = 500
-    })
-end, s)
+-- keymap("n", "<Leader>fo", function ()
+--     require'conform'.format({
+--         bufnr = vim.api.nvim_get_current_buf(),
+--     })
+-- end, s)
 
 --- pdfviewer
 keymap("n", "<Leader>pdf", ":lua OPENPDFVIEWER()<CR>", s)
