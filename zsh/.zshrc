@@ -77,7 +77,7 @@ source "$DOTFILES/aliases/docker.aliases.sh"
 source "$DOTFILES/aliases/tmux.aliases.sh"
 source "$HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
 source "$HOME/.zsh/sudo.plugin.zsh"
-source "$(brew --prefix)"/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+source "$(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
 # source "$HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
 source "$HOME/.cargo/env"
@@ -86,17 +86,13 @@ source "$HOME/.cargo/env"
 #     colorscript random
 # fi
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
 bindkey "^[[1;5C" forward-word
 bindkey "^[[1;5D" backward-word
 # bindkey '^j' autosuggest-accept
 # bindkey '^u' end-of-line
 # bindkey '^ ' autosuggest-accept
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f ~/.fzf.zsh ] && source "$HOME/.fzf.zsh"
 
 export FZF_DEFAULT_COMMAND="find . -type f -not -path '*/\.dit/*'"
 export FZF_CTRL_T_COMMAND="find . -type f -not -path '*/\.dit/*'"
@@ -104,8 +100,10 @@ export FZF_TMUX_OPTS="-p"
 export FZF_CTRL_T_OPTS="--reverse --preview 'bat {} --color=always'"
 
 # precmd () {print -Pn "\e]0;%~\a"}
-alias luamake=$HOME/lua-language-server/3rd/luamake/luamake
+alias luamake="\$HOME/lua-language-server/3rd/luamake/luamake"
 export PATH="/usr/local/opt/llvm/bin:$PATH"
+
+export EDITOR="nvim"
 
 # zsh vi mode
 ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
@@ -119,6 +117,8 @@ ZVM_INSERT_MODE_CURSOR='bl'
 # bun
 export BUN_INSTALL="$HOME/Library/Application Support/reflex/bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+
+source "$HOME/.aoc"
 
 # tput cup 9999 0
 eval "$(starship init zsh)"
