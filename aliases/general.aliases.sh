@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # List directory contents
 alias ll="exa --long --group-directories-first --icons --no-time"
@@ -12,7 +12,7 @@ alias la="exa -al --group-directories-first"
 alias install="sudo apt install"
 alias remove="sudo apt remove"
 alias purge="sudo apt purge"
-alias dot="cd $DOTFILES"
+alias dot="cd \$DOTFILES"
 alias pro="cd ~/projects/"
 
 # bat
@@ -28,6 +28,11 @@ alias nvd="cd ~/.config/nvim/"
 # c makefile
 alias makec="make -f ~/.mac_config/makefiles/c/Makefile"
 
+# ripgrep edit
+rgv() {
+    rg --vimgrep "$1" | fzf --bind "Enter:become(echo {1})" | awk -F : '{print "nvim " $1 " +" $2}' | zsh
+}
+
 # aliases
 alias falias="alias | fzf"
 
@@ -38,36 +43,28 @@ alias ovftool="/usr/bin/vmware-ovftool/ovftool"
 alias s="source ~/.zshrc"
 
 # theme
-function dark {
+dark() {
     kitty +kitten themes --reload-in=all Gruvbox Dark
     export BAT_THEME="gruvbox-dark"
 }
 
-function light {
+light() {
     kitty +kitten themes --reload-in=all Gruvbox Light
     export BAT_THEME="gruvbox-light"
 }
 
-function take {
-    mkdir -p $1
-    cd $1
+take() {
+    mkdir -p "$1"
+    cd "$1" || exit
 }
 
-function paneName {
-    tmux select-pane -T $1
+paneName() {
+    tmux select-pane -T "$1"
 }
 
-function pacs {
-    ls $(echo $PATH | tr ":" " ") | sed -e '/\/.*/d' -e '/^$/d' | fzf --preview="tldr {}" --ansi
+pacs() {
+    find "$(echo "$PATH" | tr ':' ' ')" | sed -e '/\/.*/d' -e '/^$/d' | fzf --preview="tldr {}" --ansi
 }
-
-# colored grep
-# Need to check an existing file for a pattern that will be found to ensure
-# that the check works when on an OS that supports the color option
-if grep --color=auto "a" "${BASH_IT}/"*.md &> /dev/null
-then
-  alias grep="grep --color=auto"
-fi
 
 #clear
 alias c="clear"
@@ -76,15 +73,17 @@ alias cls="clear"
 # alias clear='clear && tput cup 9999 0'
 
 # find process with fzf and kill it
-alias fkill="ps ax | awk '\''{print $5}'\'' | tail -n +2 | fzf | xargs kill -9"
+fkill() {
+    ps ax | awk '{print $5}' | tail -n +2 | fzf | xargs kill -9
+}
 
 # export EDITOR="nvim"
-alias edit="$EDITOR"
-alias pager="$PAGER"
+alias edit="\$EDITOR"
+alias pager="\$PAGER"
 
 alias q="exit"
 
-alias irc="${IRC_CLIENT:=irc}"
+alias irc="\${IRC_CLIENT:=irc}"
 
 # Language aliases
 alias j="java"
@@ -125,13 +124,13 @@ alias snano="sudo nano"
 
 # Display whatever file is regular file or folder
 catt() {
-  for i in "$@"; do
-    if [ -d "$i" ]; then
-      ls "$i"
-    else
-      cat "$i"
-    fi
-  done
+    for i in "$@"; do
+        if [ -d "$i" ]; then
+            ls "$i"
+        else
+            cat "$i"
+        fi
+    done
 }
 
 # The Bash-it aliases were moved to the `bash-it.aliases.bash` file. The intent of this

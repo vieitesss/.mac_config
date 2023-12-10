@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # shellcheck shell=bash
 #cite 'about-alias'
 #about-alias 'common git abbreviations'
