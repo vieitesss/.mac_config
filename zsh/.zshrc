@@ -94,8 +94,8 @@ bindkey "^[[1;5D" backward-word
 
 [ -f ~/.fzf.zsh ] && source "$HOME/.fzf.zsh"
 
-export FZF_DEFAULT_COMMAND="find . -type f -not -path '*/\.dit/*'"
-export FZF_CTRL_T_COMMAND="find . -type f -not -path '*/\.dit/*'"
+export FZF_DEFAULT_COMMAND="find ."
+# export FZF_CTRL_T_COMMAND="find ."
 export FZF_TMUX_OPTS="-p"
 export FZF_CTRL_T_OPTS="--reverse --preview 'bat {} --color=always'"
 
