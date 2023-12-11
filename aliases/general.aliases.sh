@@ -16,9 +16,9 @@ alias dot="cd \$DOTFILES"
 alias pro="cd ~/projects/"
 
 # bat
-alias cat="/usr/local/bin/bat -p"
+alias cat="/usr/local/bin/bat --decorations=never --paging=never"
 alias catn="/usr/local/bin/bat -n"
-alias catnl="/usr/local/bin/bat --decorations=never --paging=never"
+alias catnl="/usr/local/bin/bat -p"
 
 # Shortcuts to edit startup files
 alias vbrc="vim ~/.bashrc"
