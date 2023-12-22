@@ -1,13 +1,13 @@
 #!/bin/bash
 
 # List directory contents
-alias ll="exa --long --group-directories-first --icons --no-time"
-alias le="exa --group-directories-first --oneline --icons"
-alias leg="exa --long --git --group-directories-first --icons --no-time --no-user --no-permissions --no-filesize"
-alias lt="exa -T --icons"
-alias ltl="exa -T --long --icons --no-time"
+alias ll="eza --long --group-directories-first --icons --no-time"
+alias le="eza --group-directories-first --oneline --icons"
+alias leg="eza --long --git --group-directories-first --icons --no-time --no-user --no-permissions --no-filesize"
+alias lt="eza -T --icons"
+alias ltl="eza -T --long --icons --no-time"
 # alias sl=ls
-alias la="exa -al --group-directories-first"
+alias la="eza -al --group-directories-first"
 
 alias install="sudo apt install"
 alias remove="sudo apt remove"
@@ -30,7 +30,7 @@ alias makec="make -f ~/.mac_config/makefiles/c/Makefile"
 
 # ripgrep edit
 rgv() {
-    rg --vimgrep "$1" | fzf --bind "Enter:become(echo {1})" | awk -F : '{print "nvim " $1 " +" $2}' | zsh
+    rg --hidden --vimgrep "$1" | fzf --bind "Enter:become(echo {1})" | awk -F : '{print "nvim " $1 " +" $2}' | zsh
 }
 
 # aliases
