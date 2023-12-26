@@ -32,10 +32,13 @@ autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
 
 # CONFIG
-export DOTFILES="$HOME/.mac_config"
-export HOSTNAME=$(hostname)
+DOTFILES="$HOME/.mac_config"
+export DOTFILES
+HOSTNAME=$(hostname)
+export HOSTNAME
 export TERM="screen-256color"
-export DISPLAY=$(ifconfig | egrep "192\.168\.[0-9]{1,3}\.[0-9]{1,3}" | awk '{print $2}'):0.0
+DISPLAY=$(ifconfig | grep -E "192\.168\.[0-9]{1,3}\.[0-9]{1,3}" | awk '{print $2}'):0.0
+export DISPLAY
 
 # Bat
 export BAT_THEME="OneHalfDark"
