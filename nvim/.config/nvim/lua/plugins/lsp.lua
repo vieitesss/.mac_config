@@ -43,6 +43,16 @@ return {
             -- keymap.set("n", "<space>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
         end
 
+        vim.diagnostic.config({
+            virtual_text = {
+                prefix = ">>",
+                spacing = 2,
+            },
+            signs = {
+                severity = vim.diagnostic.severity.ERROR,
+            }
+        })
+
         local lspconfig = require('lspconfig')
 
         -- Ignore nil messages.

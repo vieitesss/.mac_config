@@ -21,7 +21,7 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 vim.api.nvim_create_autocmd("WinEnter", {
     pattern = "*",
     callback = function()
-        vim.api.nvim_exec2("set number", {})
+        -- vim.api.nvim_exec2("set number", {})
         vim.api.nvim_exec2("set relativenumber", {})
     end
 })
@@ -29,7 +29,7 @@ vim.api.nvim_create_autocmd("WinEnter", {
 vim.api.nvim_create_autocmd("WinLeave", {
     pattern = "*",
     callback = function()
-        vim.api.nvim_exec2("set nonumber", {})
+        -- vim.api.nvim_exec2("set nonumber", {})
         vim.api.nvim_exec2("set norelativenumber", {})
     end
 })

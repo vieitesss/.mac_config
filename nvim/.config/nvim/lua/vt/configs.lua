@@ -23,8 +23,9 @@ vim.cmd("set list")
 opt.cmdheight = 0
 
 -- Numbers
-opt.number = true
+opt.number = false
 opt.relativenumber = true
+opt.numberwidth = 2
 
 -- Lines
 opt.wrap = false

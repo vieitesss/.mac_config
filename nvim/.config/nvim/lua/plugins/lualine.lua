@@ -3,11 +3,11 @@ return {
     event = { "BufNewFile", "BufRead", "BufWritePost" },
     dependencies = {
         -- "folke/tokyonight.nvim",
-        "rebelot/kanagawa.nvim"
+        -- "rebelot/kanagawa.nvim"
     },
     opts = {
         options = {
-            theme = "kanagawa",
+            theme = "gruvbox",
         },
         sections = {
             lualine_a = { 'mode' },
