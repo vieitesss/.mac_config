@@ -45,7 +45,7 @@ return {
 
         vim.diagnostic.config({
             virtual_text = {
-                prefix = ">>",
+                prefix = ">",
                 spacing = 2,
             },
             signs = {
