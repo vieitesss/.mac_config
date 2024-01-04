@@ -83,7 +83,7 @@ return {
                 filetypes = { "markdown" }
             },
             texlab = {
-                filetypes = { "latex" }
+                filetypes = { "tex" },
             },
             pyright = {
                 filetypes = { "python" },
