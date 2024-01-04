@@ -25,10 +25,7 @@ return require("lazy").setup({
         version = false
     },
     install = {
-        -- colorscheme = { "kanagawa" }
-        -- colorscheme = { "tokyonight" }
-        colorscheme = { "gruvbox" }
-        -- colorscheme = { "mellifluous" }
+        colorscheme = { "gruvbox", "kanagawa", "default" }
     },
     checker = { enabled = true },
     change_detection = { notify = false }
