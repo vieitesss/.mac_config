@@ -1,4 +1,4 @@
-require("vt.plugins")
+require("vt.lazy")
 require("vt.keymaps")
 require("vt.configs")
 require("vt.autocmds")
