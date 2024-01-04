@@ -2,10 +2,10 @@
 vim.api.nvim_create_autocmd("BufWritePost", {
     pattern = "*.tex",
     callback = function()
-        local dir = vim.fn.expand("%:p:h")
-        local file = vim.fn.expand("%")
-        -- print(":silent ! latexmk -f -shell-escape -cd -pdf " .. vim.fn.expand("%:p") .. " > /dev/null")
-        vim.cmd(":silent ! cd " .. dir .. " && latexmk -f -shell-escape -pdf ./" .. file)
+        local file = vim.fn.expand("%:p")
+        vim.cmd(":silent ! latexmk -cd -f -shell-escape -pdf " .. file)
+        vim.cmd(":silent ! pkill -HUP mupdf")
+        vim.cmd(":silent ! latexmk -c")
     end
 })
 

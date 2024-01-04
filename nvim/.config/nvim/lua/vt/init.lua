@@ -19,6 +19,7 @@ end
 
 OPENPDFVIEWER = function()
     local path_no_ext = vim.fn.expand("%:p:r")
-    os.execute("open " .. path_no_ext .. ".pdf -a Skim")
+    -- os.execute("open " .. path_no_ext .. ".pdf -a Skim")
+    os.execute("mupdf-gl " .. path_no_ext .. ".pdf 2>/dev/null &")
 end
 
