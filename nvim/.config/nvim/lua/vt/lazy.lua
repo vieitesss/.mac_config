@@ -16,10 +16,14 @@ vim.g.maplocalleader = " "
 
 vim.keymap.set("n", "<leader>ps", "<cmd>lua require('lazy').sync()<cr>", { silent = true })
 
-return require("lazy").setup({
-        { import = 'plugins' },
-        { import = 'plugins.colorschemes' }
-    }, {
+local config = {}
+
+config.plugins = {
+    { import = 'plugins' },
+    { import = 'plugins.colorschemes' }
+}
+
+config.opts = {
     defaults = {
         lazy = true,
         version = false
@@ -27,6 +31,9 @@ return require("lazy").setup({
     install = {
         colorscheme = { "gruvbox", "kanagawa", "default" }
     },
-    checker = { enabled = true },
+    checker = { enabled = true, notify = false },
     change_detection = { notify = false }
-})
+}
+
+
+return require("lazy").setup(config.plugins, config.opts)
