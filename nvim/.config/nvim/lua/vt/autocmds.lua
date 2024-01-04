@@ -1,11 +1,3 @@
--- -- Status line
--- vim.api.nvim_create_autocmd("BufEnter", {
--- pattern = "*",
--- callback = function()
--- vim.api.nvim_command("set laststatus=3")
--- end,
--- })
-
 -- Latex autocmd save and compile .tex
 vim.api.nvim_create_autocmd("BufWritePost", {
     pattern = "*.tex",
@@ -16,24 +8,6 @@ vim.api.nvim_create_autocmd("BufWritePost", {
         vim.cmd(":silent ! cd " .. dir .. " && latexmk -f -shell-escape -pdf ./" .. file)
     end
 })
-
---------- Do not show numbers in not focused windows
-vim.api.nvim_create_autocmd("WinEnter", {
-    pattern = "*",
-    callback = function()
-        -- vim.api.nvim_exec2("set number", {})
-        vim.api.nvim_exec2("set relativenumber", {})
-    end
-})
-
-vim.api.nvim_create_autocmd("WinLeave", {
-    pattern = "*",
-    callback = function()
-        -- vim.api.nvim_exec2("set nonumber", {})
-        vim.api.nvim_exec2("set norelativenumber", {})
-    end
-})
----------
 
 -- Hide cmd input prompt when finished recording macro
 vim.api.nvim_create_autocmd("RecordingLeave", {
@@ -60,17 +34,3 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     group = highlight_group,
     pattern = '*',
 })
-
--- vim.api.nvim_create_autocmd("BufWritePost", {
---     pattern = "*.md",
---     callback = function()
---         vim.api.nvim_exec2("lua require('richmd').markdownPreview()", {})
---     end
--- })
-
--- vim.api.nvim_create_autocmd("BufWritePre", {
--- pattern = { "*.js", "*.c", "*.h", "*.lua", "*.sh", "*.java" },
--- callback = function()
--- vim.lsp.buf.format()
--- end,
--- })
