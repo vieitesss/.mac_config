@@ -2,7 +2,7 @@
 
 # List directory contents
 alias ll="eza --long --group-directories-first --icons --no-time"
-alias le="eza --group-directories-first --oneline --icons"
+alias le="eza --group-directories-first --icons"
 alias leg="eza --long --git --group-directories-first --icons --no-time --no-user --no-permissions --no-filesize"
 alias lt="eza -T --icons"
 alias ltl="eza -T --long --icons --no-time"
