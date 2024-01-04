@@ -1,7 +1,5 @@
 return {
     'stevearc/oil.nvim',
-    -- lazy = false,
-    -- event = "BufReadPre",
     name = 'oil',
     opts = {
         default_file_explorer = true,
@@ -21,8 +19,9 @@ return {
             show_hidden = true
         }
     },
+    cmd = "Oil",
     keys = {
-        { "<leader>pv", "<cmd>lua require('oil').open(\".\")<cr>" },
-        { "<leader>pf", "<cmd>lua require('oil').open(vim.fn.expand(\"%:p:h\"))<cr>" }
+        { "<leader>pv", [[<cmd>Oil .<cr>]] },
+        { "<leader>pf", [[<cmd>Oil %:p:h<cr>]] }
     }
 }

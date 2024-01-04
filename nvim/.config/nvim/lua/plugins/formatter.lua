@@ -1,14 +1,13 @@
 return {
     "stevearc/conform.nvim",
-    cmd = { "ConfromInfo" },
+    cmd = { "ConformInfo" },
     keys = {
         {
             "<Leader>fo",
             function ()
                 require'conform'.format({ async = true, lsp_fallback = true })
             end,
-            mode = "",
-            desc = "Format the current buffer",
+            mode = "n",
         }
     },
     opts = {

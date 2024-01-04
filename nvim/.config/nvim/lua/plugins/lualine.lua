@@ -1,10 +1,6 @@
 return {
     "nvim-lualine/lualine.nvim",
     event = { "BufNewFile", "BufRead", "BufWritePost" },
-    dependencies = {
-        -- "folke/tokyonight.nvim",
-        -- "rebelot/kanagawa.nvim"
-    },
     opts = {
         options = {
             theme = "gruvbox",
@@ -14,7 +10,14 @@ return {
             lualine_b = { 'branch', 'diff', 'diagnostics' },
             lualine_c = { 'filename' },
             lualine_x = { 'filetype' },
-            lualine_y = { 'progress' },
+            lualine_y = {
+                'progress',
+                {
+                    require("lazy.status").updates,
+                    cond = require("lazy.status").has_updates,
+                    color = { fg = "#ff9e64" },
+                },
+            },
             lualine_z = { 'location' }
         },
     }
