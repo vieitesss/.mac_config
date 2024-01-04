@@ -98,9 +98,12 @@ bindkey "^[[1;5D" backward-word
 [ -f ~/.fzf.zsh ] && source "$HOME/.fzf.zsh"
 
 export FZF_DEFAULT_COMMAND="find ."
-# export FZF_CTRL_T_COMMAND="find ."
-export FZF_TMUX_OPTS="-p"
-export FZF_CTRL_T_OPTS="--reverse --preview 'bat {} --color=always'"
+export FZF_CTRL_T_COMMAND="find ."
+# export FZF_TMUX_OPTS="-p"
+export FZF_CTRL_T_OPTS="--reverse --preview 'bat {}'"
+export FZF_CTRL_R_OPTS=""
+export FZF_TMUX=1
+export FZF_TMUX_OPTS=''
 
 # precmd () {print -Pn "\e]0;%~\a"}
 alias luamake="\$HOME/lua-language-server/3rd/luamake/luamake"
