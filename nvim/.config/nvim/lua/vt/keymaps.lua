@@ -47,18 +47,12 @@ keymap("n", "<Leader>so", ":so %<CR>", s)
 keymap("n", "<Leader><Leader>e", ":e<CR>", s)
 
 --- git
-keymap("n", "<Leader>gs", ":Git<CR>", s)
-
 keymap("n", "<Space>gs", ":Git<CR>", s)
 keymap("n", "<Space>gd", ":Gdiff<CR>", s)
-keymap("n", "<Space>gc", ":Git commit<CR>", s)
 keymap("n", "<Space>gp", ":Git push<CR>", s)
 keymap("n", "<Space>gl", ":Glog<CR>", s)
 keymap("n", "<Space>gb", ":Git blame --date short<CR>", s)
-keymap("n", "<Space>gS", ":Gstatus<CR>", s)
 keymap("n", "<Space>gP", ":Git pull<CR>", s)
-keymap("n", "<Space>ga", ":Git add %<CR>", s)
-keymap("n", "<Space>gC", ":Gcommit --amend<CR>", s)
 
 --- formatting
 -- keymap("n", "<Leader>fo", ":lua vim.lsp.buf.format()<CR>", s)
