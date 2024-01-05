@@ -1,8 +1,7 @@
 return {
     "rebelot/kanagawa.nvim",
-    enabled = false,
-    -- lazy = false,
-    -- priority = 1000,
+    lazy = false,
+    priority = 1000,
     config = function()
         require('kanagawa').setup({
             theme = "wave",

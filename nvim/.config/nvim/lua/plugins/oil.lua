@@ -4,9 +4,9 @@ return {
     opts = {
         default_file_explorer = true,
         columns = {
-            "permissions",
-            "size",
-            "icon",
+            -- "permissions",
+            -- "size",
+            -- "icon",
         },
         float = {
             max_width = 60,

@@ -1,8 +1,7 @@
 return {
     "ramojus/mellifluous.nvim",
-    enabled = false,
-    -- lazy = false,
-    -- priority = 1000,
+    lazy = false,
+    priority = 1000,
     config = function()
         require("mellifluous").setup({
             color_set = 'mellifluous',

@@ -1,8 +1,3 @@
-require("vt.lazy")
-require("vt.keymaps")
-require("vt.configs")
-require("vt.autocmds")
-
 P = function(v)
     print(vim.inspect(v))
     return v

@@ -4,7 +4,6 @@ return {
     dependencies = {
 
         "williamboman/mason-lspconfig.nvim",
-        -- enable = false,
         name = "mason-lspconfig",
         event = "BufReadPre",
         dependencies = {
