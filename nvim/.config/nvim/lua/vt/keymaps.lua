@@ -1,6 +1,5 @@
 local keymap = vim.keymap.set
 local s = { silent = true }
-print("keymaps.lua")
 
 ----- Normal -----
 ------------------
