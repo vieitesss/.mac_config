@@ -54,6 +54,16 @@ return {
 
         local lspconfig = require('lspconfig')
 
+        -- Disable diagnostics
+        vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+            vim.lsp.diagnostic.on_publish_diagnostics, {
+                underline = false,
+                virtual_text = false,
+                signs = false,
+                update_in_insert = false,
+            }
+        )
+
         -- Ignore nil messages.
         local function on_language_status(_, result)
             if result.message == nil then
@@ -206,19 +216,10 @@ return {
             cmd = {
                 "rustup", "run", "nightly", "rust-analyzer"
             },
-            -- filetypes = { "rust" },
-            -- root_dir = lspconfig.util.root_pattern("Cargo.toml", ".git", vim.fn.getcwd()),
             root_dir = function(fname)
                 return lspconfig.util.root_pattern("Cargo.toml", ".git")(fname) or
                     vim.fn.getcwd()
             end,
-            -- settings = {
-            --     ['rust-analyzer'] = {
-            --         diagnostics = {
-            --             enable = true
-            --         },
-            --     },
-            -- },
         })
     end
 }

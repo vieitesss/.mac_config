@@ -3,7 +3,7 @@ local opt = vim.opt
 -- General
 vim.api.nvim_command("filetype plugin indent on")
 opt.guicursor = "i:block"
-opt.showcmdloc = "statusline"
+-- opt.showcmdloc = "statusline"
 opt.showmode = false
 opt.termguicolors = true
 opt.ignorecase = true
@@ -17,10 +17,11 @@ opt.shiftwidth = 2
 opt.shiftround = true
 opt.listchars = "multispace:|   "
 opt.hlsearch = true
-vim.cmd("set list")
+opt.list = true
+-- vim.cmd("set list")
 
 -- Cmd line
-opt.cmdheight = 0
+-- opt.cmdheight = 0
 
 -- Numbers
 opt.number = false

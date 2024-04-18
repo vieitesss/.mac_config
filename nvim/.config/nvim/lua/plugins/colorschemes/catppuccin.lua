@@ -1,13 +1,14 @@
 return {
+    lazy = false,
     "catppuccin/nvim",
     name = "catppuccin",
-    opts = {
-        styles = {
-            comments = { "italic" },
-            conditionals = { "italic" },
-            keywords = { "italic" },
-            strings = { "italic" },
-            booleans = { "italic" },
-        }
-    }
+    priority = 1000,
+    config = function()
+        require("catppuccin").setup({
+            flavour = "mocha",
+            no_italic = true,
+            transparent_background = true,
+        })
+        vim.cmd.colorscheme "catppuccin"
+    end
 }

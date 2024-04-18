@@ -9,7 +9,6 @@ keymap("n", "<Leader>w", ":w!<CR>", s)
 keymap("n", "<Leader>q", ":q<CR>", s)
 
 --- no highlight
-
 keymap("n", "<Leader>no", ":noh<CR>", s)
 
 --- window movements
@@ -25,12 +24,6 @@ keymap("n", "<C-u>", "<C-u>zz")
 keymap("n", "]<space>", "o<Esc>0Dk")
 keymap("n", "[<space>", "O<Esc>0Dj")
 keymap("n", "<space>", "<Nop>")
-
---- buffer movements
-keymap("n", "<Leader>bp", ":bprev<CR>", s)
-keymap("n", "<Leader>bn", ":bnext<CR>", s)
-keymap("n", "<Leader>bd", ":bd<CR>", s)
-keymap("n", "<Leader>bb", ":buffer", s)
 
 -- tabs
 keymap("n", "<Leader>te", ":tabnew<CR>", s)
@@ -64,6 +57,12 @@ keymap("n", "<Space>gP", ":Git pull<CR>", s)
 
 --- pdfviewer
 keymap("n", "<Leader>pdf", ":lua OPENPDFVIEWER()<CR>", s)
+
+-- quickfix
+keymap("n", "<Leader>b", "<cmd>make<CR>", s)
+keymap("n", "<C-q>", "<cmd>copen<CR>", s)
+keymap("n", "]q", "<cmd>cn<CR>", s)
+keymap("n", "[q", "<cmd>cp<CR>", s)
 
 ----- Insert -----
 ------------------

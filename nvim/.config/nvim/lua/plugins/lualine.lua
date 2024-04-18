@@ -3,21 +3,17 @@ return {
     event = { "BufNewFile", "BufRead", "BufWritePost" },
     opts = {
         options = {
-            theme = "gruvbox",
+            -- theme = "gruvbox",
+            component_separators = { left = '', right = ''},
+            section_separators = { left = '', right = ''},
+            theme = "auto",
         },
         sections = {
             lualine_a = { 'mode' },
-            lualine_b = { 'branch', 'diff', 'diagnostics' },
+            lualine_b = { 'branch', 'diff' },
             lualine_c = { 'filename' },
             lualine_x = { 'filetype' },
-            lualine_y = {
-                'progress',
-                {
-                    require("lazy.status").updates,
-                    cond = require("lazy.status").has_updates,
-                    color = { fg = "#ff9e64" },
-                },
-            },
+            lualine_y = { 'progress' },
             lualine_z = { 'location' }
         },
     }
