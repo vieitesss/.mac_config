@@ -1,0 +1,703 @@
+{
+    // Workbench
+    "workbench.settings.applyToAllProfiles": [],
+    "workbench.startupEditor": "none",
+    "workbench.tree.renderIndentGuides": "none",
+    "workbench.iconTheme": "catppuccin-mocha",
+    "workbench.productIconTheme": "fluent-icons",
+    "workbench.colorTheme": "Hypedown",
+    "workbench.editor.enablePreview": false,
+    "workbench.activityBar.location": "top",
+    "workbench.editor.editorActionsLocation": "hidden",
+    "workbench.editor.showTabs": "single",
+    // Window
+    "window.density.editorTabHeight": "compact",
+    "breadcrumbs.enabled": false,
+    // Search
+    "search.quickOpen.includeSymbols": true,
+    "search.quickOpen.history.filterSortOrder": "recency",
+    // Editor
+    "editor.fontFamily": "BlexMono Nerd Font, Victor Mono, JetBrains Mono, 'Courier New', monospace",
+    "editor.fontSize": 14,
+    "editor.fontLigatures": false,
+    "editor.stickyScroll.enabled": false,
+    "editor.fontWeight": "normal",
+    "editor.inlayHints.enabled": "off",
+    "editor.occurrencesHighlight": "off",
+    "editor.wordWrap": "wordWrapColumn",
+    "editor.renderLineHighlight": "gutter",
+    "editor.overviewRulerBorder": false,
+    "editor.cursorBlinking": "solid",
+    "editor.folding": false,
+    "editor.autoClosingBrackets": "never",
+    "editor.autoClosingQuotes": "never",
+    "editor.autoClosingOvertype": "never",
+    "editor.autoClosingDelete": "never",
+    "editor.formatOnPaste": true,
+    "editor.tabSize": 4,
+    "editor.snippetSuggestions": "top",
+    "editor.matchBrackets": "never",
+    "editor.renderWhitespace": "none",
+    "editor.guides.indentation": false,
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "explicit"
+    },
+    "editor.rulers": [ 80 ],
+    "editor.formatOnSave": false,
+    "editor.minimap.enabled": false,
+    "editor.cursorSmoothCaretAnimation": "on",
+    "editor.cursorSurroundingLines": 5,
+    "editor.lineNumbers": "relative",
+    "editor.tokenColorCustomizations": {
+        "[mono dark]": {
+            "textMateRules": [
+                {
+                    "scope": [
+                        "entity",
+                        "entity.name",
+                        "entity.name.class",
+                        "entity.name.function",
+                        "entity.name.method",
+                        "entity.name.section",
+                        "entity.name.selector",
+                        "entity.name.tag",
+                        "entity.name.type",
+                        "entity.other",
+                        "entity.other.attribute-name",
+                        "entity.other.inherited-class",
+                    ],
+                    "settings": {
+                        "fontStyle": ""
+                    }
+                },
+                {
+                    "scope": [
+                        "string"
+                    ],
+                    "settings": {
+                        "foreground": "#fce516"
+                    }
+                }
+            ],
+        },
+        "[Monokai Pro (Filter Octagon)]": {
+            "textMateRules": [
+                {
+                    "scope": [
+                        "keyword.control",
+                        "string"
+                    ],
+                    "settings": {
+                        "fontStyle": "italic"
+                    }
+                },
+                {
+                    "scope": [
+                        "storage.type",
+                    ],
+                    "settings": {
+                        "fontStyle": ""
+                    }
+                }
+            ]
+        },
+        "[Catppuccin Macchiato]": {
+            "textMateRules": [
+                {
+                    "scope": [
+                        "entity.name.type",
+                    ],
+                    "settings": {
+                        "foreground": "#eef1fc",
+                        "fontStyle": ""
+                    }
+                }
+            ]
+        },
+        "[Monokai Pro (Filter Spectrum)]": {
+            "textMateRules": [
+                {
+                    "scope": [
+                        "comment",
+                        "comment.block",
+                        "comment.block.documentation",
+                        "comment.line",
+                        "constant",
+                        "constant.character",
+                        "constant.character.escape",
+                        "constant.numeric",
+                        "constant.numeric.integer",
+                        "constant.numeric.float",
+                        "constant.numeric.hex",
+                        "constant.numeric.octal",
+                        "constant.other",
+                        "constant.regexp",
+                        "constant.rgb-value",
+                        "emphasis",
+                        "entity",
+                        "entity.name",
+                        "entity.name.class",
+                        "entity.name.function",
+                        "entity.name.method",
+                        "entity.name.section",
+                        "entity.name.selector",
+                        "entity.name.tag",
+                        "entity.name.type",
+                        "entity.other",
+                        "entity.other.attribute-name",
+                        "entity.other.inherited-class",
+                        "invalid",
+                        "invalid.deprecated",
+                        "invalid.illegal",
+                        "keyword",
+                        "keyword.control",
+                        "keyword.operator",
+                        "keyword.operator.new",
+                        "keyword.operator.assignment",
+                        "keyword.operator.arithmetic",
+                        "keyword.operator.logical",
+                        "keyword.other",
+                        "markup",
+                        "markup.bold",
+                        "markup.changed",
+                        "markup.deleted",
+                        "markup.heading",
+                        "markup.inline.raw",
+                        "markup.inserted",
+                        "markup.italic",
+                        "markup.list",
+                        "markup.list.numbered",
+                        "markup.list.unnumbered",
+                        "markup.other",
+                        "markup.quote",
+                        "markup.raw",
+                        "markup.underline",
+                        "markup.underline.link",
+                        "meta",
+                        "meta.block",
+                        "meta.cast",
+                        "meta.class",
+                        "meta.function",
+                        "meta.function-call",
+                        "meta.preprocessor",
+                        "meta.return-type",
+                        "meta.selector",
+                        "meta.tag",
+                        "meta.type.annotation",
+                        "meta.type",
+                        "punctuation.definition.string.begin",
+                        "punctuation.definition.string.end",
+                        "punctuation.separator",
+                        "punctuation.separator.continuation",
+                        "punctuation.terminator",
+                        "storage",
+                        "storage.modifier",
+                        "storage.type",
+                        "string",
+                        "string.interpolated",
+                        "string.other",
+                        "string.quoted",
+                        "string.quoted.double",
+                        "string.quoted.other",
+                        "string.quoted.single",
+                        "string.quoted.triple",
+                        "string.regexp",
+                        "string.unquoted",
+                        "strong",
+                        "support",
+                        "support.class",
+                        "support.constant",
+                        "support.function",
+                        "support.other",
+                        "support.type",
+                        "support.type.property-name",
+                        "support.variable",
+                        "variable",
+                        "variable.language",
+                        "variable.name",
+                        "variable.other",
+                        "variable.other.readwrite",
+                        "variable.parameter"
+                    ],
+                    "settings": {
+                        "fontStyle": ""
+                    }
+                }
+            ]
+        }
+    },
+    // Terminal
+    "terminal.integrated.fontFamily": "Hack Nerd Font Mono",
+    "terminal.integrated.stickyScroll.enabled": true,
+    "terminal.external.linuxExec": "wezterm",
+    "terminal.integrated.fontSize": 13,
+    // Explorer
+    "explorer.confirmDelete": false,
+    "explorer.confirmDragAndDrop": false,
+    // Security
+    "security.workspace.trust.untrustedFiles": "open",
+    // Programming languages
+    "[c]": {
+        "editor.defaultFormatter": "xaver.clang-format"
+    },
+    "[latex]": {
+        "editor.defaultFormatter": "mathematic.vscode-latex"
+    },
+    "[jsonc]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "[python]": {
+        "editor.formatOnType": true,
+        "editor.indentSize": 4,
+        "editor.wordWrapColumn": 100,
+        "editor.defaultFormatter": "ms-python.black-formatter"
+    },
+    "[html]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.wordWrap": "off",
+        "editor.rulers": []
+    },
+    "pylint.args": [
+        "--disable=C0114",
+        "--disable=C0115",
+        "--disable=C0116",
+        "--disable=C0103"
+    ],
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true
+    },
+    "[java]": {
+        "editor.defaultFormatter": "xaver.clang-format"
+    },
+    "java.format.comments.enabled": false,
+    "java.completion.favoriteStaticMembers": [
+        "org.jfree.chart.*",
+        "org.jfree.data.*",
+        "org.junit.Assert.*",
+        "org.junit.Assume.*",
+        "org.junit.jupiter.api.Assertions.*",
+        "org.junit.jupiter.api.Assumptions.*",
+        "org.junit.jupiter.api.DynamicContainer.*",
+        "org.junit.jupiter.api.DynamicTest.*",
+        "org.mockito.Mockito.*",
+        "org.mockito.ArgumentMatchers.*",
+        "org.mockito.Answers.*"
+    ],
+    "java.configuration.runtimes": [
+        {
+            "name": "JavaSE-1.8",
+            "path": "/usr/local/opt/openjdk@8/libexec/openjdk.jdk/Contents/Home",
+            "default": true
+        },
+        {
+            "name": "JavaSE-17",
+            "path": "/usr/local/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home",
+        },
+    ],
+    // Extensions
+    "latex-workshop.latex.tools": [
+        {
+            "name": "latexmk",
+            "command": "latexmk",
+            "args": [
+                "-shell-escape",
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "-pdf",
+                "-outdir=%OUTDIR%",
+                "%DOC%"
+            ],
+            "env": {}
+        },
+        {
+            "name": "lualatexmk",
+            "command": "latexmk",
+            "args": [
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "-lualatex",
+                "-outdir=%OUTDIR%",
+                "%DOC%"
+            ],
+            "env": {}
+        },
+        {
+            "name": "xelatexmk",
+            "command": "latexmk",
+            "args": [
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "-xelatex",
+                "-outdir=%OUTDIR%",
+                "%DOC%"
+            ],
+            "env": {}
+        },
+        {
+            "name": "latexmk_rconly",
+            "command": "latexmk",
+            "args": [
+                "%DOC%"
+            ],
+            "env": {}
+        },
+        {
+            "name": "pdflatex",
+            "command": "pdflatex",
+            "args": [
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "%DOC%"
+            ],
+            "env": {}
+        },
+        {
+            "name": "bibtex",
+            "command": "bibtex",
+            "args": [
+                "%DOCFILE%"
+            ],
+            "env": {}
+        },
+        {
+            "name": "rnw2tex",
+            "command": "Rscript",
+            "args": [
+                "-e",
+                "knitr::opts_knit$set(concordance = TRUE); knitr::knit('%DOCFILE_EXT%')"
+            ],
+            "env": {}
+        },
+        {
+            "name": "jnw2tex",
+            "command": "julia",
+            "args": [
+                "-e",
+                "using Weave; weave(\"%DOC_EXT%\", doctype=\"tex\")"
+            ],
+            "env": {}
+        },
+        {
+            "name": "jnw2texminted",
+            "command": "julia",
+            "args": [
+                "-e",
+                "using Weave; weave(\"%DOC_EXT%\", doctype=\"texminted\")"
+            ],
+            "env": {}
+        },
+        {
+            "name": "pnw2tex",
+            "command": "pweave",
+            "args": [
+                "-f",
+                "tex",
+                "%DOC_EXT%"
+            ],
+            "env": {}
+        },
+        {
+            "name": "pnw2texminted",
+            "command": "pweave",
+            "args": [
+                "-f",
+                "texminted",
+                "%DOC_EXT%"
+            ],
+            "env": {}
+        },
+        {
+            "name": "tectonic",
+            "command": "tectonic",
+            "args": [
+                "--synctex",
+                "--keep-logs",
+                "%DOC%.tex"
+            ],
+            "env": {}
+        }
+    ],
+    "eslint.format.enable": true,
+    // ErrorLens
+    "errorLens.messageBackgroundMode": "message",
+    "errorLens.gutterIconsEnabled": true,
+    // Prettier
+    "prettier.semi": false,
+    "prettier.singleQuote": true,
+    "prettier.trailingComma": "none",
+    // SQLTools
+    "sqltools.highlightQuery": false,
+    // TODO Highlight
+    "todohighlight.keywords": [
+        {
+            "text": "TODO:",
+            "color": "#181926",
+            "backgroundColor": "#ee99a0"
+        }
+    ],
+    "git.openRepositoryInParentFolders": "never",
+    "git.confirmSync": false,
+    // Catppuccin
+    "catppuccin.workbenchMode": "flat",
+    "catppuccin.accentColor": "rosewater",
+    "catppuccin.italicComments": false,
+    "catppuccin.italicKeywords": false,
+    "catppuccin.colorOverrides": {
+        "macchiato": {
+            "text": "#eef1fc"
+        }
+    },
+    // Black formatter
+    "black-formatter.args": [
+        "--line-length",
+        "100"
+    ],
+    // Vim
+    "vim.overrideCopy": false,
+    "vim.useSystemClipboard": true,
+    "vim.leader": "<space>",
+    "vim.handleKeys": {
+        "<D-c>": false
+    },
+    "vim.insertModeKeyBindings": [
+        {
+            "before": [ "j", "k" ],
+            "after": [ "<Esc>" ]
+        }
+    ],
+    "vim.normalModeKeyBindingsNonRecursive": [
+        {
+            "before": [ "<leader>", "w", ],
+            "commands": [ ":w", ],
+            "silent": true
+        },
+        {
+            "before": [ "<leader>", "q" ],
+            "commands": [ "workbench.action.closeActiveEditor", ],
+            "silent": true
+        },
+        {
+            "before": [ "<leader>", "j" ],
+            "commands": [ "vscode-harpoon.gotoEditor1" ],
+            "silent": true
+        },
+        {
+            "before": [ "<leader>", "k" ],
+            "commands": [ "vscode-harpoon.gotoEditor2" ],
+            "silent": true
+        },
+        {
+            "before": [ "<leader>", "l" ],
+            "commands": [ "vscode-harpoon.gotoEditor3" ],
+            "silent": true
+        },
+        {
+            "before": [ "<leader>", ";" ],
+            "commands": [ "vscode-harpoon.gotoEditor4" ],
+            "silent": true
+        },
+        {
+            "before": [ "<leader>", "h", "f" ],
+            "commands": [ "vscode-harpoon.editorQuickPick" ],
+            "silent": true
+        },
+        {
+            "before": [ "<leader>", "h", "h" ],
+            "commands": [ "vscode-harpoon.editEditors" ],
+            "silent": true
+        },
+        {
+            "before": [ "<leader>", "h", "a" ],
+            "commands": [ "vscode-harpoon.addEditor" ]
+        },
+        {
+            "before": [ "<leader>", "r", "n" ],
+            "commands": [ "editor.action.rename" ],
+            "silent": true
+        },
+        {
+            "before": [ "<leader>", "c", "l" ],
+            "commands": [ "editor.action.commentLine" ]
+        },
+        {
+            "before": [ "g", "r" ],
+            "commands": [ "editor.action.goToReferences" ]
+        },
+        {
+            "before": [ "g", "d" ],
+            "commands": [ "editor.action.revealDefinition" ]
+        },
+        {
+            "before": [ "<leader>", "p", "v" ],
+            "commands": [ "workbench.view.explorer" ],
+            "silent": true
+        },
+        {
+            "before": [ "<leader>", "f", "f" ],
+            "commands": [ "workbench.action.quickOpen", ],
+            "silent": true
+        },
+        {
+            "before": [ "<leader>", "f", "o" ],
+            "commands": [ "editor.action.formatDocument", ],
+            "silent": true
+        },
+        {
+            "before": [ "<leader>", "\\" ],
+            "commands": [ "workbench.action.splitEditorRight", ],
+            "silent": true
+        },
+        {
+            "before": [ "<leader>", "-" ],
+            "commands": [ "workbench.action.splitEditorDown", ],
+            "silent": true
+        },
+        {
+            "before": [ "<leader>", "m" ],
+            "commands": [ "workbench.action.toggleMaximizeEditorGroup" ]
+        },
+        {
+            "before": [ "Y" ],
+            "after": [ "v", "g", "_", "y" ]
+        },
+        {
+            "before": [ "<C-u>" ],
+            "after": [ "<C-u>", "z", "z" ]
+        },
+        {
+            "before": [ "<C-d>" ],
+            "after": [ "<C-d>", "z", "z" ]
+        },
+    ],
+    "vim.visualModeKeyBindingsNonRecursive": [
+        {
+            "before": [ "<leader>", "c", "l" ],
+            "commands": [ "editor.action.commentLine" ]
+        }
+    ],
+    "vim.highlightedyank.enable": true,
+    "vim.highlightedyank.duration": 200,
+    "vim.highlightedyank.color": "#550",
+    // Polacode
+    "polacode.transparentBackground": true,
+    "polacode.backgroundColor": "#fff",
+    // Gitlens
+    "gitlens.currentLine.enabled": false,
+    "gitlens.codeLens.authors.enabled": false,
+    "gitlens.codeLens.recentChange.enabled": false,
+    // Copilot
+    "github.copilot.enable": {
+        "plaintext": "true",
+        "markdown": "true",
+        "scminput": "true"
+    },
+    // Path Intellisense
+    "typescript.suggest.paths": false,
+    "javascript.suggest.paths": false,
+    "path-intellisense.absolutePathToWorkspace": false,
+}
+//   "comment",
+//   "comment.block",
+//   "comment.block.documentation",
+//   "comment.line",
+//   "constant",
+//   "constant.character",
+//   "constant.character.escape",
+//   "constant.numeric",
+//   "constant.numeric.integer",
+//   "constant.numeric.float",
+//   "constant.numeric.hex",
+//   "constant.numeric.octal",
+//   "constant.other",
+//   "constant.regexp",
+//   "constant.rgb-value",
+//   "emphasis",
+//   "entity",
+//   "entity.name",
+//   "entity.name.class",
+//   "entity.name.function",
+//   "entity.name.method",
+//   "entity.name.section",
+//   "entity.name.selector",
+//   "entity.name.tag",
+//   "entity.name.type",
+//   "entity.other",
+//   "entity.other.attribute-name",
+//   "entity.other.inherited-class",
+//   "invalid",
+//   "invalid.deprecated",
+//   "invalid.illegal",
+//   "keyword",
+//   "keyword.control",
+//   "keyword.operator",
+//   "keyword.operator.new",
+//   "keyword.operator.assignment",
+//   "keyword.operator.arithmetic",
+//   "keyword.operator.logical",
+//   "keyword.other",
+//   "markup",
+//   "markup.bold",
+//   "markup.changed",
+//   "markup.deleted",
+//   "markup.heading",
+//   "markup.inline.raw",
+//   "markup.inserted",
+//   "markup.italic",
+//   "markup.list",
+//   "markup.list.numbered",
+//   "markup.list.unnumbered",
+//   "markup.other",
+//   "markup.quote",
+//   "markup.raw",
+//   "markup.underline",
+//   "markup.underline.link",
+//   "meta",
+//   "meta.block",
+//   "meta.cast",
+//   "meta.class",
+//   "meta.function",
+//   "meta.function-call",
+//   "meta.preprocessor",
+//   "meta.return-type",
+//   "meta.selector",
+//   "meta.tag",
+//   "meta.type.annotation",
+//   "meta.type",
+//   "punctuation.definition.string.begin",
+//   "punctuation.definition.string.end",
+//   "punctuation.separator",
+//   "punctuation.separator.continuation",
+//   "punctuation.terminator",
+//   "storage",
+//   "storage.modifier",
+//   "storage.type",
+//   "string",
+//   "string.interpolated",
+//   "string.other",
+//   "string.quoted",
+//   "string.quoted.double",
+//   "string.quoted.other",
+//   "string.quoted.single",
+//   "string.quoted.triple",
+//   "string.regexp",
+//   "string.unquoted",
+//   "strong",
+//   "support",
+//   "support.class",
+//   "support.constant",
+//   "support.function",
+//   "support.other",
+//   "support.type",
+//   "support.type.property-name",
+//   "support.variable",
+//   "variable",
+//   "variable.language",
+//   "variable.name",
+//   "variable.other",
+//   "variable.other.readwrite",
+//   "variable.parameter"
