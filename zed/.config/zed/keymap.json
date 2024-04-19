@@ -1,0 +1,95 @@
+[
+  {
+    "context": "Editor",
+    "bindings": {
+      "ctrl-d": [
+        "editor::MovePageDown",
+        {
+          "center_cursor": true
+        }
+      ],
+      "ctrl-u": [
+        "editor::MovePageUp",
+        {
+          "center_cursor": true
+        }
+      ]
+    }
+  },
+  {
+    "context": "Editor && showing_completions",
+    "bindings": {
+      "ctrl-n": "editor::ConfirmCompletion"
+    }
+  },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "cmd-enter": "workspace::ToggleBottomDock"
+    }
+  },
+  {
+    "context": "Editor && (vim_mode == normal || vim_mode == visual) && !VimWaiting && !menu",
+    "bindings": {
+      // put key-bindings here if you want them to work in normal & visual mode
+      "space c l": "editor::ToggleComments"
+    }
+  },
+  {
+    "context": "vim_mode == normal && !VimWaiting && !menu",
+    "bindings": {
+      // put key-bindings here if you want them to work only in normal mode
+      "space w": "workspace::Save",
+      "g d": "editor::GoToDefinition",
+      "g r": "editor::FindAllReferences",
+      "] d": "editor::GoToDiagnostic",
+      "[ d": "editor::GoToPrevDiagnostic",
+      "space p v": "project_panel::ToggleFocus",
+      "space r n": "editor::Rename",
+      "space f f": "file_finder::Toggle",
+      "space f g": "pane::DeploySearch"
+    }
+  },
+  {
+    "context": "Editor && vim_mode == insert",
+    "bindings": {
+      // put key-bindings here if you want them to work in insert mode
+      // e.g.
+      // "j j": "vim::NormalBefore" // remap jj in insert mode to escape.
+      "j k": "vim::NormalBefore"
+    }
+  },
+  {
+    "context": "Editor && mode == full",
+    "bindings": {
+      "cmd-enter": "terminal_panel::ToggleFocus"
+    }
+  },
+  {
+    "context": "Terminal",
+    "bindings": {
+      "ctrl-enter": "terminal_panel::ToggleFocus"
+    }
+  },
+  {
+    "bindings": {
+      "ctrl-h": ["workspace::ActivatePaneInDirection", "Left"],
+      "ctrl-l": ["workspace::ActivatePaneInDirection", "Right"],
+      "ctrl-k": ["workspace::ActivatePaneInDirection", "Up"],
+      "ctrl-j": ["workspace::ActivatePaneInDirection", "Down"],
+      "ctrl-shift-h": ["workspace::SwapPaneInDirection", "Left"],
+      "ctrl-shift-l": ["workspace::SwapPaneInDirection", "Right"],
+      "ctrl-shift-k": ["workspace::SwapPaneInDirection", "Up"],
+      "ctrl-shift-j": ["workspace::SwapPaneInDirection", "Down"],
+      "cmd-enter": "workspace::OpenTerminal"
+      // ... or other keybindings
+    }
+  },
+  {
+    "context": "Editor && (showing_code_actions || showing_completions)",
+    "bindings": {
+      "ctrl-k": "editor::ContextMenuPrev",
+      "ctrl-j": "editor::ContextMenuNext"
+    }
+  }
+]

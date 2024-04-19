@@ -1,0 +1,55 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run the `open default settings` command
+// from the command palette or from `Zed` application menu.
+{
+  "theme": "Catppuccin Mocha - No Italics",
+  "vim_mode": true,
+  "ui_font_size": 16,
+  "ui_font_family": "Victor Mono",
+  // The default font size for text in the editor
+  "buffer_font_size": 14,
+  "buffer_font_family": "BlexMono Nerd Font",
+  // Whether the cursor blinks in the editor.
+  "cursor_blink": false,
+  // Character counts at which to show wrap guides in the editor.
+  "wrap_guides": [100],
+  // Whether to automatically type closing characters for you. For example,
+  // when you type (, Zed will automatically add a closing ) at the correct position.
+  "use_autoclose": false,
+  // Toolbar related settings
+  "toolbar": {
+    // Whether to show breadcrumbs.
+    "breadcrumbs": false
+  },
+  "gutter": {
+    // Whether to show fold buttons in the gutter.
+    "folds": false
+  },
+  "vertical_scroll_margin": 5,
+  "relative_line_numbers": true,
+  // How to soft-wrap long lines of text. This setting can take
+  // three values:
+  //
+  // 1. Do not soft wrap.
+  //      "soft_wrap": "none",
+  // 2. Soft wrap lines that overflow the editor:
+  //      "soft_wrap": "editor_width",
+  // 3. Soft wrap lines at the preferred line length
+  //      "soft_wrap": "preferred_line_length",
+  "soft_wrap": "preferred_line_length",
+  "terminal": {
+    "font_size": 14,
+    "font_family": "BlexMono Nerd Font"
+  },
+  "java": {
+    "lsp": "jdtls"
+  },
+  "file_types": {
+    "HTML": ["*.jsp"]
+  }
+}
