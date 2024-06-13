@@ -17,7 +17,7 @@ return {
                 "vim",
                 "cpp",
                 "python",
-                -- "latex",
+                "latex",
                 "html",
             }, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
             sync_install = false,
@@ -25,10 +25,10 @@ return {
             highlight = {
                 enable = true, -- false will disable the whole extension
                 additional_vim_regex_highlighting = false,
-                disable = function (lang)
-                    local colorscheme = vim.api.nvim_exec2("colorscheme", { output = true })["output"]
-                    return lang == "latex" and colorscheme == "kanagawa"
-                end
+                -- disable = function (lang)
+                --     local colorscheme = vim.api.nvim_exec2("colorscheme", { output = true })["output"]
+                --     return lang == "latex" and colorscheme == "kanagawa"
+                -- end
             },
             indent = { enable = false },
             autotag = { enable = true },

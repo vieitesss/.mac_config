@@ -1,20 +1,20 @@
 -- Latex autocmd save and compile .tex
-vim.api.nvim_create_autocmd("BufWritePost", {
-    pattern = "*.tex",
-    callback = function()
-        local file = vim.fn.expand("%:p")
-        vim.cmd(":silent ! latexmk -cd -f -shell-escape -pdf " .. file)
-        vim.cmd(":silent ! latexmk -c")
-        local pgrep = vim.api.nvim_exec2("silent ! pgrep \"LivePDFviewer\"", { output = true }).output
-        local _, count = pgrep:gsub("%d%d+", function() end)
-        -- Opens the pdf viewer only if it is not opened
-        -- Otherwise, the viewer reloads itself if the pdf has changed
-        if count == 0 then
-            local filename = vim.fn.expand("%:p:r")
-            vim.cmd(":silent ! osascript -e 'tell application \"Finder\" to open file \"" .. filename .. ".pdf\" as POSIX file'")
-        end
-    end
-})
+-- vim.api.nvim_create_autocmd("BufWritePost", {
+--     pattern = "*.tex",
+--     callback = function()
+--         local file = vim.fn.expand("%:p")
+--         vim.cmd(":silent ! latexmk -cd -f -shell-escape -pdf " .. file)
+--         vim.cmd(":silent ! latexmk -c")
+--         local pgrep = vim.api.nvim_exec2("silent ! pgrep \"Skim\"", { output = true }).output
+--         local _, count = pgrep:gsub("%d%d+", function() end)
+--         -- Opens the pdf viewer only if it is not opened
+--         -- Otherwise, the viewer reloads itself if the pdf has changed
+--         if count == 0 then
+--             local filename = vim.fn.expand("%:p:r")
+--             vim.cmd(":silent ! osascript -e 'tell application \"Finder\" to open file \"" .. filename .. ".pdf\" as POSIX file'")
+--         end
+--     end
+-- })
 
 -- Hide cmd input prompt when finished recording macro
 -- vim.api.nvim_create_autocmd("RecordingLeave", {

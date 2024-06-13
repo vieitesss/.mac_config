@@ -3,7 +3,12 @@ return {
     lazy = false,
     config = function()
         local gs = require('gitsigns')
-        gs.setup({})
+        gs.setup({
+            signs = {
+                add = { text = "+" },
+                change = { text = "" }
+            }
+        })
 
         vim.keymap.set('n', ']c', function()
             if vim.wo.diff then return ']c' end
@@ -23,8 +28,5 @@ return {
         vim.keymap.set('v', '<leader>hr', function() gs.reset_hunk { vim.fn.line('.'), vim.fn.line('v') } end)
         vim.keymap.set('n', '<leader>hu', gs.undo_stage_hunk)
         vim.keymap.set('n', '<leader>hR', gs.reset_buffer)
-    end,
-    keys = {
-        {'<leader>hs', '<cmd>lua require("gitsigns").stage_hunk()<cr>'}
-    }
+    end
 }
