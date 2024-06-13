@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # List directory contents
 alias ll="eza --long --group-directories-first --icons --no-time"
@@ -8,11 +8,13 @@ alias lt="eza -T --icons"
 alias ltl="eza -T --long --icons --no-time"
 # alias sl=ls
 alias la="eza -al --group-directories-first"
+alias tree="eza --tree"
 
 alias install="sudo apt install"
 alias remove="sudo apt remove"
 alias purge="sudo apt purge"
 alias dot="cd \$DOTFILES"
+alias obs="cd ~/Documents/Obsidian\ Vault/"
 alias pro="cd ~/projects/"
 
 # bat
@@ -27,6 +29,13 @@ alias nvd="cd ~/.config/nvim/"
 
 # c makefile
 alias makec="make -f ~/.mac_config/makefiles/c/Makefile"
+
+# convert png to jpg
+convertToJpg() {
+    for i in "$@"; do
+        magick "$i" "${i%.*}.jpg"
+    done
+}
 
 # ripgrep edit
 rgv() {
