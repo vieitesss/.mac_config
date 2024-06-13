@@ -123,9 +123,12 @@ ZVM_INSERT_MODE_CURSOR='bl'
 # bun
 export BUN_INSTALL="$HOME/Library/Application Support/reflex/bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+export PATH="/usr/local/opt/openssl@3.0/bin:$PATH"
 
 source "$HOME/.aoc"
 
 # tput cup 9999 0
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
+eval "$(fzf --zsh)"
+

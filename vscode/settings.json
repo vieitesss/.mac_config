@@ -36,7 +36,7 @@
     "editor.formatOnPaste": true,
     "editor.tabSize": 4,
     "editor.snippetSuggestions": "top",
-    "editor.matchBrackets": "never",
+    "editor.matchBrackets": false,
     "editor.renderWhitespace": "none",
     "editor.guides.indentation": false,
     "editor.codeActionsOnSave": {
@@ -251,6 +251,10 @@
         "editor.indentSize": 4,
         "editor.wordWrapColumn": 100,
         "editor.defaultFormatter": "ms-python.black-formatter"
+    },
+    "[sql]": {
+        "editor.wordWrap": "off",
+        "editor.rulers": []
     },
     "[html]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode",
@@ -600,6 +604,10 @@
     "typescript.suggest.paths": false,
     "javascript.suggest.paths": false,
     "path-intellisense.absolutePathToWorkspace": false,
+    "[css]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "markdown-preview-enhanced.liveUpdate": true,
 }
 //   "comment",
 //   "comment.block",

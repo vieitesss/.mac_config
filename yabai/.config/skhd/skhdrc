@@ -1,5 +1,5 @@
 # open Warp terminal
-cmd - return : open -a "Warp"
+# cmd - return : open -a "Warp"
 
 # focus window
 cmd - h : yabai -m window --focus west

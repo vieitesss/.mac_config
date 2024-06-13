@@ -37,10 +37,10 @@ vicmd_symbol = "[](bold green)"
 
 # # Directory
 [directory]
-truncation_length = 1
+# truncation_length = 1
 truncate_to_repo = true
 # home_symbol = ""
-fish_style_pwd_dir_length = 1
+# fish_style_pwd_dir_length = 1
 style = "bold bright-blue"
 read_only = " "
 read_only_style = "pink"
