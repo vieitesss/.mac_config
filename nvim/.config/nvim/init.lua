@@ -1,5 +1,0 @@
-require("vt.specs")
-require("vt.lazy")
-require("vt.keymaps")
-require("vt.configs")
-require("vt.autocmds")
