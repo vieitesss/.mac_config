@@ -14,7 +14,7 @@ alias install="sudo apt install"
 alias remove="sudo apt remove"
 alias purge="sudo apt purge"
 alias dot="cd \$DOTFILES"
-alias obs="cd ~/Documents/Obsidian\ Vault/"
+alias obs="cd ~/obsidian"
 alias pro="cd ~/projects/"
 
 # bat

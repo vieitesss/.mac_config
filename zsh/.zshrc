@@ -74,10 +74,18 @@ export PATH
 # C LIBS
 export CPATH=$HOME/uni/2/coga/practicas/lib/glad/include_lib:/usr/local/Cellar/freetype/2.13.0_1/include/freetype2
 
-source "$DOTFILES/aliases/general.aliases.sh"
-source "$DOTFILES/aliases/git.aliases.sh"
-source "$DOTFILES/aliases/docker.aliases.sh"
-source "$DOTFILES/aliases/tmux.aliases.sh"
+function source_folder() {
+  # source every file inside the folder passed as argument, depth 1
+  for file in "$1"/*; do
+    if [[ -f "$file" ]]; then
+      source "$file"
+    fi
+  done
+}
+
+source_folder "$DOTFILES/aliases"
+source_folder "$HOME/obsidian/terminal"
+
 source "$HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
 source "$HOME/.zsh/sudo.plugin.zsh"
 source "$(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
