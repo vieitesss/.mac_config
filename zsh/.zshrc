@@ -43,6 +43,11 @@ export DISPLAY
 # Bat
 export BAT_THEME="OneHalfDark"
 
+# Alacritty themes
+function alacritty-themes() {
+  docker run --rm -it -v "$HOME/.config/alacritty:/app/alacritty" vieitesss/alacritty-themes
+}
+
 if [[ -d /opt/jdk-11.0.13 ]]; then
     export JAVA_HOME="/opt/jdk-11.0.13"
     PATH="$JAVA_HOME/bin:$PATH"
