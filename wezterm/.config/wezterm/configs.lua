@@ -56,7 +56,7 @@ config.window_padding = {
     bottom = 0,
     top = 0,
 }
-config.window_background_opacity = 0.85
+config.window_background_opacity = 0.95
 config.macos_window_background_blur = 10
 config.window_decorations = "RESIZE"
 
@@ -71,8 +71,9 @@ config.color_scheme = 'Kanagawa (Gogh)'
 -- Font
 -- config.font = wezterm.font_with_fallback { 'Victor Mono', 'Hack Nerd Font' }
 -- config.font = wezterm.font_with_fallback { 'JetBrains Mono', 'Hack Nerd Font' }
-config.font = wezterm.font_with_fallback { 'SF Mono', 'Hack Nerd Font Mono' }
-config.font_size = 15
+-- config.font = wezterm.font_with_fallback { 'SF Mono', 'Hack Nerd Font Mono' }
+config.font = wezterm.font("Victor Mono", { weight = "Medium" })
+config.font_size = 17
 -- ->
 -- hola que tal COMO estas () {} [] <> '' "" ``
 

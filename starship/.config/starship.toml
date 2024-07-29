@@ -11,6 +11,9 @@ $lua\
 $java\
 $python\
 $rust\
+$docker_context\
+$kubernetes\
+$terraform\
 $cmd_duration\
 """
 
@@ -45,32 +48,32 @@ style = "bold bright-blue"
 read_only = " "
 read_only_style = "pink"
 
-# # git
+# git
 [git_branch]
 symbol = " "
-format = '[$symbol$branch]($style)'
+format = '[$symbol$branch ]($style)'
 
 [git_status]
 format = '([$all_status$ahead_behind]($style))'
 style = "bold yellow"
 up_to_date = " "
-deleted = " 󰖭"
-ahead = "  "
-behind = " "
-conflicted = " ="
-diverged = " ⇕"
-untracked = " ?"
-stashed = " $"
-modified = " !"
-staged = " +"
-renamed = " »"
+deleted = " "
+ahead = " "
+behind = " "
+conflicted = "= "
+diverged = "⇕ "
+untracked = "? "
+stashed = "$ "
+modified = "! "
+staged = "+ "
+renamed = "» "
 
 [git_metrics]
 disabled = false
 # added_style = "bold blue"
 # format = "[+$added]($added_style)/[-$deleted]($deleted_style) "
 
-# # languages
+# languages
 [c]
 format = "[$symbol$version ]($style)"
 
@@ -86,6 +89,14 @@ format = "[$symbol$version ]($style)"
 [java]
 symbol = " "
 format = "[$symbol$version ](red)"
+
+[docker_context]
+symbol = " "
+format = "[$symbol$version ]($style)"
+
+[terraform]
+symbol = "󱁢 "
+format = "[$symbol$version ]($style)"
 
 #time
 [time]
