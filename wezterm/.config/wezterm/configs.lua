@@ -74,6 +74,7 @@ config.color_scheme = 'Kanagawa (Gogh)'
 -- config.font = wezterm.font_with_fallback { 'SF Mono', 'Hack Nerd Font Mono' }
 config.font = wezterm.font("Victor Mono", { weight = "Medium" })
 config.font_size = 17
+config.harfbuzz_features = { "calt=0", "clig=0", "liga=0" }
 -- ->
 -- hola que tal COMO estas () {} [] <> '' "" ``
 

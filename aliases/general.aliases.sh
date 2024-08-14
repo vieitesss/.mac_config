@@ -18,9 +18,9 @@ alias obs="cd ~/obsidian"
 alias pro="cd ~/projects/"
 
 # bat
-alias cat="/usr/local/bin/bat --decorations=never --paging=never"
-alias catn="/usr/local/bin/bat -n"
-alias catnl="/usr/local/bin/bat -p"
+alias bat="bat --decorations=never --paging=never"
+alias batn="bat -n"
+alias batnl="bat -p"
 
 # Shortcuts to edit startup files
 alias vbrc="vim ~/.bashrc"
