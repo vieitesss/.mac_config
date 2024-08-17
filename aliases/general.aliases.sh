@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 # List directory contents
+alias ls="ls --color"
 alias ll="eza --long --group-directories-first --icons --no-time"
 alias le="eza --group-directories-first --icons"
 alias leg="eza --long --git --group-directories-first --icons --no-time --no-user --no-permissions --no-filesize"

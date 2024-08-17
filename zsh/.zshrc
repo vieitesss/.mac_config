@@ -1,35 +1,73 @@
-# Lines configured by zsh-newuser-install
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# zinit install
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+
+if [ ! -d "$ZINIT_HOME" ]; then
+  mkdir -p "$(dirname "$ZINIT_HOME")"
+  git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+fi
+
+source "${ZINIT_HOME}/zinit.zsh"
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# zsh plugins
+zinit ice depth=1; zinit light romkatv/powerlevel10k
+zinit light zsh-users/zsh-autosuggestions
+zinit light zsh-users/zsh-completions
+zinit light jeffreytse/zsh-vi-mode
+zinit light Aloxaf/fzf-tab
+zinit snippet OMZP::sudo
+zinit snippet OMZP::command-not-found
+
+# completions setup
+autoload -Uz compinit && compinit
+
+zinit cdreplay -q
+
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*' menu no
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
+zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
+
+# to rewrite keybindings
+function zvm_after_init() {
+  # Edit line in vim with ctrl-e
+  autoload -z edit-command-line
+  zle -N edit-command-line
+  bindkey "^x^e" edit-command-line
+
+  bindkey -M viins "^u" end-of-line
+  # bindkey "^n" history-search-forward
+  # bindkey "^p" history-search-backward
+  # bindkey -M viins "^[[1;5C" forward-word
+  # bindkey -M viins "^[[1;5D" backward-word
+
+  [ -f ~/.fzf.zsh ] && source "$HOME/.fzf.zsh"
+}
+
+# options
 HISTFILE=~/.histfile
 HISTSIZE=1000
-SAVEHIST=1000
+SAVEHIST=$HISTSIZE
+HIISTDUP=erase
 setopt autocd notify
+setopt appendhistory
+setopt sharehistory
+setopt hist_ignore_space
+setopt hist_ignore_all_dups
+setopt hist_save_no_dups
+setopt hist_ignore_dups
+setopt hist_find_no_dups
 unsetopt beep extendedglob nomatch
-bindkey -v
-# End of lines configured by zsh-newuser-install
-# The following lines were added by compinstall
-zstyle :compinstall filename '$HOME/.zshrc'
-
-autoload -Uz compinit
-zstyle ':completion:*' menu select
-zmodload zsh/complist
-compinit
-_comp_options+=(globdots)
-# END OF LINES ADDED BY COMPINSTALL
-
-# vi mode
-bindkey -v
-export KEYTIMEOUT=30
-
-# Use vim keys in tab complete menu
-bindkey -M menuselect 'h' vi-backward-char
-bindkey -M menuselect 'k' vi-up-line-or-history
-bindkey -M menuselect 'l' vi-forward-char
-bindkey -M menuselect 'j' vi-down-line-or-history
-bindkey -v '^?' backward-delete-char
-
-# Edit line in vim with ctrl-e
-autoload edit-command-line; zle -N edit-command-line
-bindkey '^e' edit-command-line
 
 # CONFIG
 DOTFILES="$HOME/.mac_config"
@@ -91,57 +129,37 @@ function source_folder() {
 source_folder "$DOTFILES/aliases"
 source_folder "$HOME/obsidian/terminal"
 
-source "$HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
-source "$HOME/.zsh/sudo.plugin.zsh"
-source "$(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
-# source "$HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-
 source "$HOME/.cargo/env"
 
 # if [[ ! -z $(which colorscript) ]]; then
 #     colorscript random
 # fi
 
-bindkey "^[[1;5C" forward-word
-bindkey "^[[1;5D" backward-word
-# bindkey '^j' autosuggest-accept
-# bindkey '^u' end-of-line
-# bindkey '^ ' autosuggest-accept
-
-[ -f ~/.fzf.zsh ] && source "$HOME/.fzf.zsh"
-
-export FZF_DEFAULT_COMMAND="find ."
-export FZF_CTRL_T_COMMAND="find ."
+# export FZF_DEFAULT_COMMAND="find ."
+# export FZF_CTRL_T_COMMAND="find ."
 # export FZF_TMUX_OPTS="-p"
-export FZF_CTRL_T_OPTS="--reverse --preview 'bat {}'"
-export FZF_CTRL_R_OPTS=""
-export FZF_TMUX=1
-export FZF_TMUX_OPTS=''
+# export FZF_CTRL_T_OPTS="--reverse --preview 'bat {}'"
+# export FZF_CTRL_R_OPTS=""
+# export FZF_TMUX=1
+# export FZF_TMUX_OPTS=''
 
-# precmd () {print -Pn "\e]0;%~\a"}
 alias luamake="\$HOME/lua-language-server/3rd/luamake/luamake"
 export PATH="/usr/local/opt/llvm/bin:$PATH"
 
 export EDITOR="nvim"
 
 # zsh vi mode
-ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
-ZVM_INSERT_MODE_CURSOR='bl'
-
-# if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
-#     zvm_bindkey viins '^U' end-of-line
-# fi
+export ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
+export ZVM_INSERT_MODE_CURSOR='bl'
+# Change to Zsh's default readkey engine
+# export ZVM_READKEY_ENGINE=$ZVM_READKEY_ENGINE_ZLE
 
 # ~/.tmux/scripts/init.sh
-# bun
 export BUN_INSTALL="$HOME/Library/Application Support/reflex/bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 export PATH="/usr/local/opt/openssl@3.0/bin:$PATH"
 
-source "$HOME/.aoc"
+# source "$HOME/.aoc"
 
-# tput cup 9999 0
-eval "$(starship init zsh)"
+# eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
-eval "$(fzf --zsh)"
-

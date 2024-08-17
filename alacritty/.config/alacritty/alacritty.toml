@@ -5,20 +5,10 @@ TERM = "screen-256color"
 WINIT_X11_SCALE_FACTOR = "1.25"
 
 [font]
-size = 15
+size = 17
 
-normal.family = "BlexMono Nerd Font"
-normal.style = "Regular"
-
-bold.family = "BlexMono Nerd Font"
-bold.style = "Bold"
-
-bold_italic.family = "BlexMono Nerd Font"
-bold_italic.style = "Bold Italic"
-
-italic.family = "BlexMono Nerd Font"
-italic.style = "Italic"
-
+normal.family = "VictorMono Nerd Font Mono"
+normal.style = "Light"
 
 [mouse]
 hide_when_typing = true
@@ -34,39 +24,86 @@ opacity = 0.95
 startup_mode = "Windowed"
 title = ""
 padding.x = 2
-padding.y = 2
+padding.y = 0
 
 [window.class]
 general = "Alacritty"
 instance = "Alacritty"
 
 ### Colors ###
-# Colors (Tokyo Night)
-# Source https//github.com/zatchheems/tokyo-night-alacritty-theme
-
 # Default colors
 [colors.primary]
-background = '#1a1b26'
-foreground = '#a9b1d6'
+background = '#24273A' # base
+foreground = '#CAD3F5' # text
+# Bright and dim foreground colors
+dim_foreground = '#CAD3F5' # text
+bright_foreground = '#CAD3F5' # text
+
+# Cursor colors
+[colors.cursor]
+text = '#24273A' # base
+cursor = '#F4DBD6' # rosewater
+
+[colors.vi_mode_cursor]
+text = '#24273A' # base
+cursor = '#B7BDF8' # lavender
+
+# Search colors
+[colors.search.matches]
+foreground = '#24273A' # base
+background = '#A5ADCB' # subtext0
+
+[colors.search.focused_match]
+foreground = '#24273A' # base
+background = '#A6DA95' # green
+
+[colors.footer_bar]
+foreground = '#24273A' # base
+background = '#A5ADCB' # subtext0
+
+# Keyboard regex hints
+[colors.hints.start]
+foreground = '#24273A' # base
+background = '#EED49F' # yellow
+
+[colors.hints.end]
+foreground = '#24273A' # base
+background = '#A5ADCB' # subtext0
+
+# Selection colors
+[colors.selection]
+text = '#24273A' # base
+background = '#F4DBD6' # rosewater
 
 # Normal colors
 [colors.normal]
-black   = '#32344a'
-red     = '#f7768e'
-green   = '#9ece6a'
-yellow  = '#e0af68'
-blue    = '#7aa2f7'
-magenta = '#ad8ee6'
-cyan    = '#449dab'
-white   = '#787c99'
+black = '#494D64' # surface1
+red = '#ED8796' # red
+green = '#A6DA95' # green
+yellow = '#EED49F' # yellow
+blue = '#8AADF4' # blue
+magenta = '#F5BDE6' # pink
+cyan = '#8BD5CA' # teal
+white = '#B8C0E0' # subtext1
 
 # Bright colors
 [colors.bright]
-black   = '#444b6a'
-red     = '#ff7a93'
-green   = '#b9f27c'
-yellow  = '#ff9e64'
-blue    = '#7da6ff'
-magenta = '#bb9af7'
-cyan    = '#0db9d7'
-white   = '#acb0d0'
+black = '#5B6078' # surface2
+red = '#ED8796' # red
+green = '#A6DA95' # green
+yellow = '#EED49F' # yellow
+blue = '#8AADF4' # blue
+magenta = '#F5BDE6' # pink
+cyan = '#8BD5CA' # teal
+white = '#A5ADCB' # subtext0
+
+# Dim colors
+[colors.dim]
+black = '#494D64' # surface1
+red = '#ED8796' # red
+green = '#A6DA95' # green
+yellow = '#EED49F' # yellow
+blue = '#8AADF4' # blue
+magenta = '#F5BDE6' # pink
+cyan = '#8BD5CA' # teal
+white = '#B8C0E0' # subtext1
