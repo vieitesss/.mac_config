@@ -5,9 +5,9 @@ TERM = "screen-256color"
 WINIT_X11_SCALE_FACTOR = "1.25"
 
 [font]
-size = 17
+size = 20
 
-normal.family = "VictorMono Nerd Font Mono"
+normal.family = "FiraCode Nerd Font Mono"
 normal.style = "Light"
 
 [mouse]
@@ -31,79 +31,32 @@ general = "Alacritty"
 instance = "Alacritty"
 
 ### Colors ###
+# Theme: enfocado_dark
+# Source:  https://github.com/wuelnerdotexe/vim-enfocado
+
 # Default colors
 [colors.primary]
-background = '#24273A' # base
-foreground = '#CAD3F5' # text
-# Bright and dim foreground colors
-dim_foreground = '#CAD3F5' # text
-bright_foreground = '#CAD3F5' # text
-
-# Cursor colors
-[colors.cursor]
-text = '#24273A' # base
-cursor = '#F4DBD6' # rosewater
-
-[colors.vi_mode_cursor]
-text = '#24273A' # base
-cursor = '#B7BDF8' # lavender
-
-# Search colors
-[colors.search.matches]
-foreground = '#24273A' # base
-background = '#A5ADCB' # subtext0
-
-[colors.search.focused_match]
-foreground = '#24273A' # base
-background = '#A6DA95' # green
-
-[colors.footer_bar]
-foreground = '#24273A' # base
-background = '#A5ADCB' # subtext0
-
-# Keyboard regex hints
-[colors.hints.start]
-foreground = '#24273A' # base
-background = '#EED49F' # yellow
-
-[colors.hints.end]
-foreground = '#24273A' # base
-background = '#A5ADCB' # subtext0
-
-# Selection colors
-[colors.selection]
-text = '#24273A' # base
-background = '#F4DBD6' # rosewater
+background =  '#181818'
+foreground =  '#b9b9b9'
 
 # Normal colors
 [colors.normal]
-black = '#494D64' # surface1
-red = '#ED8796' # red
-green = '#A6DA95' # green
-yellow = '#EED49F' # yellow
-blue = '#8AADF4' # blue
-magenta = '#F5BDE6' # pink
-cyan = '#8BD5CA' # teal
-white = '#B8C0E0' # subtext1
+black   = '#3b3b3b'
+red     = '#ed4a46'
+green   = '#70b433'
+yellow  = '#dbb32d'
+blue    = '#368aeb'
+magenta = '#eb6eb7'
+cyan    = '#3fc5b7'
+white   = '#b9b9b9'
 
 # Bright colors
 [colors.bright]
-black = '#5B6078' # surface2
-red = '#ED8796' # red
-green = '#A6DA95' # green
-yellow = '#EED49F' # yellow
-blue = '#8AADF4' # blue
-magenta = '#F5BDE6' # pink
-cyan = '#8BD5CA' # teal
-white = '#A5ADCB' # subtext0
-
-# Dim colors
-[colors.dim]
-black = '#494D64' # surface1
-red = '#ED8796' # red
-green = '#A6DA95' # green
-yellow = '#EED49F' # yellow
-blue = '#8AADF4' # blue
-magenta = '#F5BDE6' # pink
-cyan = '#8BD5CA' # teal
-white = '#B8C0E0' # subtext1
+black   = '#777777'
+red     = '#ff5e56'
+green   = '#83c746'
+yellow  = '#efc541'
+blue    = '#4f9cfe'
+magenta = '#ff81ca'
+cyan    = '#56d8c9'
+white   = '#dedede'
