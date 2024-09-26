@@ -1,20 +1,7 @@
 [
   {
     "context": "Editor",
-    "bindings": {
-      "ctrl-d": [
-        "editor::MovePageDown",
-        {
-          "center_cursor": true
-        }
-      ],
-      "ctrl-u": [
-        "editor::MovePageUp",
-        {
-          "center_cursor": true
-        }
-      ]
-    }
+    "bindings": {}
   },
   {
     "context": "Editor && showing_completions",
@@ -24,9 +11,7 @@
   },
   {
     "context": "Workspace",
-    "bindings": {
-      "cmd-enter": "workspace::ToggleBottomDock"
-    }
+    "bindings": {}
   },
   {
     "context": "Editor && (vim_mode == normal || vim_mode == visual) && !VimWaiting && !menu",
@@ -36,10 +21,14 @@
     }
   },
   {
-    "context": "vim_mode == normal && !VimWaiting && !menu",
+    "context": "Editor && vim_mode == normal && !VimWaiting && !menu",
     "bindings": {
       // put key-bindings here if you want them to work only in normal mode
+      "shift-k": "editor::Hover",
+      "space f o": "editor::Format",
       "space w": "workspace::Save",
+      "space t": "terminal_panel::ToggleFocus",
+      "space q": "pane::CloseActiveItem",
       "g d": "editor::GoToDefinition",
       "g r": "editor::FindAllReferences",
       "] d": "editor::GoToDiagnostic",
@@ -47,7 +36,12 @@
       "space p v": "project_panel::ToggleFocus",
       "space r n": "editor::Rename",
       "space f f": "file_finder::Toggle",
-      "space f g": "pane::DeploySearch"
+      "space b": "tab_switcher::Toggle",
+      "space f g": "pane::DeploySearch",
+      "ctrl-d": ["editor::MovePageDown", { "center_cursor": true }],
+      "ctrl-u": ["editor::MovePageUp", { "center_cursor": true }],
+      "z enter": "editor::ScrollCursorTop",
+      "z -": "editor::ScrollCursorBottom"
     }
   },
   {
@@ -61,28 +55,29 @@
   },
   {
     "context": "Editor && mode == full",
-    "bindings": {
-      "cmd-enter": "terminal_panel::ToggleFocus"
-    }
+    "bindings": {}
   },
   {
     "context": "Terminal",
+    "bindings": {}
+  },
+  {
+    "context": "Editor && VimControl && !VimWaiting && !menu",
     "bindings": {
-      "ctrl-enter": "terminal_panel::ToggleFocus"
+      "ctrl-shift-h": ["workspace::SwapPaneInDirection", "Left"],
+      "ctrl-shift-l": ["workspace::SwapPaneInDirection", "Right"],
+      "ctrl-shift-k": ["workspace::SwapPaneInDirection", "Up"],
+      "ctrl-shift-j": ["workspace::SwapPaneInDirection", "Down"]
+      // ... or other keybindings
     }
   },
   {
+    "context": "Dock || Terminal || Editor",
     "bindings": {
       "ctrl-h": ["workspace::ActivatePaneInDirection", "Left"],
       "ctrl-l": ["workspace::ActivatePaneInDirection", "Right"],
       "ctrl-k": ["workspace::ActivatePaneInDirection", "Up"],
-      "ctrl-j": ["workspace::ActivatePaneInDirection", "Down"],
-      "ctrl-shift-h": ["workspace::SwapPaneInDirection", "Left"],
-      "ctrl-shift-l": ["workspace::SwapPaneInDirection", "Right"],
-      "ctrl-shift-k": ["workspace::SwapPaneInDirection", "Up"],
-      "ctrl-shift-j": ["workspace::SwapPaneInDirection", "Down"],
-      "cmd-enter": "workspace::OpenTerminal"
-      // ... or other keybindings
+      "ctrl-j": ["workspace::ActivatePaneInDirection", "Down"]
     }
   },
   {
@@ -90,6 +85,23 @@
     "bindings": {
       "ctrl-k": "editor::ContextMenuPrev",
       "ctrl-j": "editor::ContextMenuNext"
+    }
+  },
+  {
+    "context": "Dock",
+    "bindings": {
+      "n": "project_panel::NewFile",
+      "d d": "project_panel::Delete",
+      "r": "project_panel::Rename",
+      "y y": "project_panel::Copy",
+      "p": "project_panel::Paste",
+      "j": "projects::OpenRecent"
+    }
+  },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "alt-shift-k": ["projects::OpenRecent", { "create_new_window": false }]
     }
   }
 ]

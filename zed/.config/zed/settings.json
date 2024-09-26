@@ -7,13 +7,30 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
-  "theme": "Catppuccin Mocha - No Italics",
+  "assistant": {
+    "default_model": {
+      "provider": "openai",
+      "model": "gpt-3.5-turbo"
+    },
+    "version": "2"
+  },
+  "theme": "Gruvbox Dark Hard",
   "vim_mode": true,
-  "ui_font_size": 16,
-  "ui_font_family": "Victor Mono",
+  "ui_font_size": 15,
+  "ui_font_family": "FiraCode Nerd Font Mono",
   // The default font size for text in the editor
-  "buffer_font_size": 14,
-  "buffer_font_family": "BlexMono Nerd Font",
+  "buffer_font_size": 15,
+  "buffer_font_family": "FiraCode Nerd Font Mono",
+  "buffer_font_features": {
+    "calt": false
+  },
+  "tab_bar": {
+    "show": false
+  },
+  "centered_layout": {
+    "left_padding": 0.2,
+    "right_padding": 0.2
+  },
   // Whether the cursor blinks in the editor.
   "cursor_blink": false,
   // Character counts at which to show wrap guides in the editor.
@@ -24,13 +41,17 @@
   // Toolbar related settings
   "toolbar": {
     // Whether to show breadcrumbs.
-    "breadcrumbs": false
+    "breadcrumbs": true,
+    "quick_actions": false
   },
   "gutter": {
     // Whether to show fold buttons in the gutter.
     "folds": false
   },
   "vertical_scroll_margin": 5,
+  "scrollbar": {
+    "show": "never"
+  },
   "relative_line_numbers": true,
   // How to soft-wrap long lines of text. This setting can take
   // three values:
@@ -41,15 +62,43 @@
   //      "soft_wrap": "editor_width",
   // 3. Soft wrap lines at the preferred line length
   //      "soft_wrap": "preferred_line_length",
-  "soft_wrap": "preferred_line_length",
+  "soft_wrap": "none",
+  "current_line_highlight": "line",
   "terminal": {
     "font_size": 14,
     "font_family": "BlexMono Nerd Font"
+  },
+  "git": {
+    "inline_blame": {
+      "enabled": false
+    }
   },
   "java": {
     "lsp": "jdtls"
   },
   "file_types": {
     "HTML": ["*.jsp"]
+  },
+  "lsp": {
+    "texlab": {
+      "settings": {
+        "texlab": {
+          "build": {
+            "onSave": true,
+            "forwardSearchAfter": true
+          },
+          "forwardSearch": {
+            "executable": "skim",
+            "args": [
+              "--synctex-forward",
+              "%l:1:%f",
+              "-x",
+              "zed %%{input}:%%{line}",
+              "%p"
+            ]
+          }
+        }
+      }
+    }
   }
 }
