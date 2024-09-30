@@ -1,3 +1,17 @@
+# Set PATH to default
+PATH=$(tr "\n" ":" < "/etc/paths" | sed 's/.\{1\}$//')
+
+export EDITOR="nvim"
+DOTFILES="$HOME/.mac_config"
+HOSTNAME=$(hostname)
+TERM="screen-256color"
+DISPLAY=$(ifconfig | grep -E "192\.168\.[0-9]{1,3}\.[0-9]{1,3}" | awk '{print $2}'):0.0
+export BAT_THEME="OneHalfDark"
+
+#########
+# ZINIT #
+#########
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -54,7 +68,14 @@ function zvm_after_init() {
   [ -f ~/.fzf.zsh ] && source "$HOME/.fzf.zsh"
 }
 
-# options
+# zsh vi mode
+export ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
+export ZVM_INSERT_MODE_CURSOR='bl'
+
+###########
+# OPTIONS #
+###########
+
 HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=$HISTSIZE
@@ -69,56 +90,39 @@ setopt hist_ignore_dups
 setopt hist_find_no_dups
 unsetopt beep extendedglob nomatch
 
-# CONFIG
-DOTFILES="$HOME/.mac_config"
-export DOTFILES
-HOSTNAME=$(hostname)
-export HOSTNAME
-export TERM="screen-256color"
-DISPLAY=$(ifconfig | grep -E "192\.168\.[0-9]{1,3}\.[0-9]{1,3}" | awk '{print $2}'):0.0
-export DISPLAY
-
-# Bat
-export BAT_THEME="OneHalfDark"
+#############
+# FUNCTIONS #
+#############
 
 # Alacritty themes
-function alacritty-themes() {
+function alacritty-themes {
   docker run --rm -it -v "$HOME/.config/alacritty:/app/alacritty" vieitesss/alacritty-themes
 }
 
-if [[ -d /opt/jdk-11.0.13 ]]; then
-    export JAVA_HOME="/opt/jdk-11.0.13"
-    PATH="$JAVA_HOME/bin:$PATH"
-fi
+# Add home variable and includes into the path
+# $1 -> home name, to name env variable
+# $2 -> home dir, to save into the env variable
+# $3 -> inner dir to add to the path instead of the home dir
+function add-to-path {
+  if [[ ! -d "$2" ]]; then
+    echo "The path $2 does not exist"
+    return 1
+  fi
 
-if [[ -d /opt/ltex-ls-15.2.0 ]]; then
-    export LTEX_HOME="/opt/ltex-ls-15.2.0"
-    PATH="$LTEX_HOME/bin:$PATH"
-fi
+  export "$1"="$2"
 
-if [[ -d /usr/local/go ]]; then
-    export GO_HOME="/usr/local/go"
-    PATH="$GO_HOME/bin:$PATH"
-fi
+  if [[ -z "$3" ]]; then
+    PATH="$1:$PATH"
+  elif [[ -d "$2/$3" ]]; then
+    PATH="$2/$3:$PATH"
+  else
+    "The path $2/$3 does not exist"
+  fi
+}
 
-export JAVA_HOME="/Library/Java/JavaVirtualMachines/openjdk.jdk/Contents/Home/"
-PATH="$JAVA_HOME:$PATH"
-
-export M2_HOME="/Users/vieites/apache-maven-3.9.5"
-PATH="$M2_HOME/bin:$PATH"
-
-export POSTGRESQL="/Library/Java/Extensions/postgresql-42.5.2.jar"
-PATH="$POSTGRESQL:$PATH"
-
-PATH="/bin:/usr/bin:/usr/local/bin:$PATH"
-
-export PATH
-
-# C LIBS
-export CPATH=$HOME/uni/2/coga/practicas/lib/glad/include_lib:/usr/local/Cellar/freetype/2.13.0_1/include/freetype2
-
-function source_folder() {
-  # source every file inside the folder passed as argument, depth 1
+# Source every file inside the folder passed as argument, depth 1
+# $1 -> The path to de folder
+function source_folder {
   for file in "$1"/*; do
     if [[ -f "$file" ]]; then
       source "$file"
@@ -126,40 +130,16 @@ function source_folder() {
   done
 }
 
+add-to-path "JAVA_HOME" "/Library/Java/JavaVirtualMachines/openjdk.jdk/Contents/Home" "bin"
+add-to-path "OPENSSL_HOME" "/usr/local/opt/openssl@3.0" "bin"
+
+export PATH
+
 source_folder "$DOTFILES/aliases"
 source_folder "$HOME/obsidian/terminal"
 
 source "$HOME/.cargo/env"
-
-# if [[ ! -z $(which colorscript) ]]; then
-#     colorscript random
-# fi
-
-# export FZF_DEFAULT_COMMAND="find ."
-# export FZF_CTRL_T_COMMAND="find ."
-# export FZF_TMUX_OPTS="-p"
-# export FZF_CTRL_T_OPTS="--reverse --preview 'bat {}'"
-# export FZF_CTRL_R_OPTS=""
-# export FZF_TMUX=1
-# export FZF_TMUX_OPTS=''
-
-alias luamake="\$HOME/lua-language-server/3rd/luamake/luamake"
-export PATH="/usr/local/opt/llvm/bin:$PATH"
-
-export EDITOR="nvim"
-
-# zsh vi mode
-export ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
-export ZVM_INSERT_MODE_CURSOR='bl'
-# Change to Zsh's default readkey engine
-# export ZVM_READKEY_ENGINE=$ZVM_READKEY_ENGINE_ZLE
-
-# ~/.tmux/scripts/init.sh
-export BUN_INSTALL="$HOME/Library/Application Support/reflex/bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
-export PATH="/usr/local/opt/openssl@3.0/bin:$PATH"
-
-# source "$HOME/.aoc"
+source "$HOME/.aws-tokens"
 
 # eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
