@@ -1,0 +1,41 @@
+# Alacritty themes
+function alacritty-themes {
+  docker run --rm -it -v "$HOME/.config/alacritty:/app/alacritty" vieitesss/alacritty-themes
+}
+
+# Add home variable and includes into the path
+# $1 -> home name, to name env variable
+# $2 -> home dir, to save into the env variable
+# $3 -> inner dir to add to the path instead of the home dir
+function add-to-path {
+  if [[ ! -d "$2" ]]; then
+    echo "The path $2 does not exist"
+    return 1
+  fi
+
+  export "$1"="$2"
+
+  if [[ -z "$3" ]]; then
+    PATH="$2:$PATH"
+  elif [[ -d "$2/$3" ]]; then
+    PATH="$2/$3:$PATH"
+  else
+    "The path $2/$3 does not exist"
+  fi
+}
+
+# Source every file inside the folder passed as argument, depth 1
+# $1 -> The path to de folder
+function source_folder {
+  for file in "$1"/*; do
+    if [[ -f "$file" ]]; then
+      source "$file"
+    fi
+  done
+}
+
+# Add the previous command to a new snippet
+function prev() {
+  PREV=$(fc -lrn | head -n 1)
+  sh -c "pet new $(printf %q "$PREV")"
+}

@@ -46,11 +46,14 @@ autoload -Uz compinit && compinit
 
 zinit cdreplay -q
 
+zstyle ':completion:*:directory-stack' list-colors '=(#b) #([0-9]#)*( *)==95=38;5;12'
+zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':completion:*' menu no
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
-zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
+zstyle ':completion:*:descriptions' format '[%d]'
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
+zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'eza -1 --color=always $realpath'
 
 # to rewrite keybindings
 function zvm_after_init() {
@@ -81,57 +84,24 @@ HISTSIZE=1000
 SAVEHIST=$HISTSIZE
 HIISTDUP=erase
 setopt autocd notify
-setopt appendhistory
-setopt sharehistory
-setopt hist_ignore_space
+setopt append_history
+setopt extended_glob
+setopt share_history
+setopt inc_append_history
+unsetopt hist_ignore_space
 setopt hist_ignore_all_dups
 setopt hist_save_no_dups
 setopt hist_ignore_dups
 setopt hist_find_no_dups
+setopt hist_verify
+setopt hist_reduce_blanks
 unsetopt beep extendedglob nomatch
 
-#############
-# FUNCTIONS #
-#############
-
-# Alacritty themes
-function alacritty-themes {
-  docker run --rm -it -v "$HOME/.config/alacritty:/app/alacritty" vieitesss/alacritty-themes
-}
-
-# Add home variable and includes into the path
-# $1 -> home name, to name env variable
-# $2 -> home dir, to save into the env variable
-# $3 -> inner dir to add to the path instead of the home dir
-function add-to-path {
-  if [[ ! -d "$2" ]]; then
-    echo "The path $2 does not exist"
-    return 1
-  fi
-
-  export "$1"="$2"
-
-  if [[ -z "$3" ]]; then
-    PATH="$1:$PATH"
-  elif [[ -d "$2/$3" ]]; then
-    PATH="$2/$3:$PATH"
-  else
-    "The path $2/$3 does not exist"
-  fi
-}
-
-# Source every file inside the folder passed as argument, depth 1
-# $1 -> The path to de folder
-function source_folder {
-  for file in "$1"/*; do
-    if [[ -f "$file" ]]; then
-      source "$file"
-    fi
-  done
-}
+source "$HOME/.zsh_functions"
 
 add-to-path "JAVA_HOME" "/Library/Java/JavaVirtualMachines/openjdk.jdk/Contents/Home" "bin"
 add-to-path "OPENSSL_HOME" "/usr/local/opt/openssl@3.0" "bin"
+add-to-path "PET_HOME" "$HOME/pet"
 
 export PATH
 
@@ -140,6 +110,10 @@ source_folder "$HOME/obsidian/terminal"
 
 source "$HOME/.cargo/env"
 source "$HOME/.aws-tokens"
+
+export FZF_DEFAULT_COMMAND='fd --hidden --exclude .git'
+export FZF_CTRL_T_COMMAND='fd --hidden'
+export FZF_ALT_C_COMMAND='fd --hidden'
 
 # eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
