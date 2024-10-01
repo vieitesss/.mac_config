@@ -1,0 +1,14 @@
+
+[[Snippets]]
+  Description = "Remove the last unpushed n_commits mantaining the changes"
+  Filename = "/Users/vieites/.config/pet/snippet.toml"
+  Output = ""
+  Tag = ["git"]
+  command = "git reset --soft HEAD~<n_commits=1>"
+
+[[Snippets]]
+  Description = "Remove the last unpushed n_commits without mantaining the changes"
+  Filename = "/Users/vieites/.config/pet/snippet.toml"
+  Output = ""
+  Tag = ["git"]
+  command = "git reset --hard HEAD~<n_commits=1>"
