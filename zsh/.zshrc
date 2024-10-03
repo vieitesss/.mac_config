@@ -47,7 +47,6 @@ autoload -Uz compinit && compinit
 zinit cdreplay -q
 
 zstyle ':completion:*:directory-stack' list-colors '=(#b) #([0-9]#)*( *)==95=38;5;12'
-zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':completion:*' menu no
@@ -111,6 +110,7 @@ source_folder "$HOME/obsidian/terminal"
 source "$HOME/.cargo/env"
 source "$HOME/.aws-tokens"
 
+export FZF_DEFAULT_OPTS='--preview "bat --style=numbers --color=always --line-range :500 {}"'
 export FZF_DEFAULT_COMMAND='fd --hidden --exclude .git'
 export FZF_CTRL_T_COMMAND='fd --hidden'
 export FZF_ALT_C_COMMAND='fd --hidden'

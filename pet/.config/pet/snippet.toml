@@ -12,3 +12,17 @@
   Output = ""
   Tag = ["git"]
   command = "git reset --hard HEAD~<n_commits=1>"
+
+[[Snippets]]
+  Description = "Remove untracked files"
+  Filename = "/Users/vieites/.config/pet/snippet.toml"
+  Output = ""
+  Tag = ["git"]
+  command = "git clean -f"
+
+[[Snippets]]
+  Description = "Check untracked files to be removed"
+  Filename = "/Users/vieites/.config/pet/snippet.toml"
+  Output = ""
+  Tag = ["git"]
+  command = "git clean -n -d"

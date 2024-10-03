@@ -35,7 +35,25 @@ function source_folder {
 }
 
 # Add the previous command to a new snippet
-function prev() {
+function prev {
   PREV=$(fc -lrn | head -n 1)
   sh -c "pet new $(printf %q "$PREV")"
+}
+
+function docker_remove_images {
+  docker images | awk 'NR>1 {print $0}' | fzf --multi --bind='enter:become(docker rmi {+3})'
+}
+
+_fzf_complete_docker() {
+    # docker ps | awk 'NR>1 {print $1}' | fzf --preview ''
+    ARGS="$@"
+    if [[ "$ARGS" == "docker exec"* ]]; then
+      _fzf_complete --preview 'docker container logs {1} | tail' -- "$@" < <(
+        docker container ls --format "table {{ .ID }}\t{{ .Image }}\t{{ .Names }}" | awk 'NR>1 {print $0}'
+      )
+    fi
+}
+
+_fzf_complete_docker_post() {
+  awk '{print $1}'
 }
