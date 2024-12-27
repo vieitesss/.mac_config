@@ -188,7 +188,7 @@ alias gtd="git tag -d"
 alias gtl="git tag -l"
 
 # update gitignore
-alias gig='cd $(git rev-parse --show-toplevel) && git rm -r --cached . && git commit -m 'gitignore updated''
+alias gig='cd $(git rev-parse --show-toplevel) && git rm -r --cached . && git add . && git commit -m 'gitignore updated''
 
 case $OSTYPE in
     darwin*)
