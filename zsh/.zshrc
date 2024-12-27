@@ -71,7 +71,7 @@ function zvm_after_init() {
 }
 
 # zsh vi mode
-export ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
+export ZVM_VI_INSERT_ESCAPE_BINDKEY=nk
 export ZVM_INSERT_MODE_CURSOR='bl'
 
 ###########
@@ -101,6 +101,9 @@ source "$HOME/.zsh_functions"
 add-to-path "JAVA_HOME" "/Library/Java/JavaVirtualMachines/openjdk.jdk/Contents/Home" "bin"
 add-to-path "OPENSSL_HOME" "/usr/local/opt/openssl@3.0" "bin"
 add-to-path "PET_HOME" "$HOME/pet"
+add-to-path "MY_SCRIPTS" "$HOME/.mac_config/scripts"
+add-to-path "LTX_HOME" "/Library/TeX" "/texbin"
+
 
 export PATH
 
@@ -110,6 +113,7 @@ source_folder "$HOME/obsidian/terminal"
 source "$HOME/.cargo/env"
 source "$HOME/.aws-tokens"
 
+export STARSHIP_CONFIG=~/.config/starship/starship.toml
 export FZF_DEFAULT_OPTS='--preview "bat --style=numbers --color=always --line-range :500 {}"'
 export FZF_DEFAULT_COMMAND='fd --hidden --exclude .git'
 export FZF_CTRL_T_COMMAND='fd --hidden'

@@ -40,20 +40,31 @@ function prev {
   sh -c "pet new $(printf %q "$PREV")"
 }
 
-function docker_remove_images {
-  docker images | awk 'NR>1 {print $0}' | fzf --multi --bind='enter:become(docker rmi {+3})'
-}
-
 _fzf_complete_docker() {
-    # docker ps | awk 'NR>1 {print $1}' | fzf --preview ''
     ARGS="$@"
-    if [[ "$ARGS" == "docker exec"* ]]; then
+    if [[ "$ARGS" == "docker exec "* ]]; then
       _fzf_complete --preview 'docker container logs {1} | tail' -- "$@" < <(
         docker container ls --format "table {{ .ID }}\t{{ .Image }}\t{{ .Names }}" | awk 'NR>1 {print $0}'
+      )
+    fi
+    if [[ "$ARGS" == "docker rm "* ]]; then
+      _fzf_complete --multi --preview 'docker container logs {1} | tail' -- "$@" < <(
+        docker ps -a --format "table {{ .ID }}\t{{ .Image }}\t{{ .Names }}" | awk 'NR>1 {print $0}'
+      )
+    fi
+    if [[ "$ARGS" == "docker rmi "* ]]; then
+      _fzf_complete --multi --preview 'docker images | grep {1}' -- "$@" < <(
+        docker images --format "table {{ .ID }}\t{{ .Repository }}\t{{ .Size }}" | awk 'NR>1 {print $0}'
       )
     fi
 }
 
 _fzf_complete_docker_post() {
   awk '{print $1}'
+}
+
+_fzf_complete_just() {
+    _fzf_complete --multi --preview "just --unstable --color always --show {}" -- "$@" < <(
+      just -l | awk 'NR>1 {print $1}'
+    )
 }
