@@ -1,0 +1,5 @@
+# config-file = keybinds
+
+macos-titlebar-style = hidden
+font-family = BlexMono Nerd Font Mono
+theme = mellifluous
