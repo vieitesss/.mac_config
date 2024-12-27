@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+dirs=$(find -L ~/.config ~/uni/3 ~/uni/4 ~/sudespacho ~/prefapp -type d -mindepth 1 -maxdepth 1)
+git_projects=$(fd -H -d 2 -E "Library" -t d "^\.git$" "$HOME" | sed "s#/\.git/##g")
+
+selected=$(echo -e "${dirs[*]}\n${git_projects}" | fzf --preview-window up --preview "eza --color=always -l {}")
+
+if [[ -z "$selected" ]]; then
+  exit 0
+fi
+
+session_name=$(basename "$selected" | tr '.' '_')
+tmux_running=$(pgrep tmux)
+
+if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
+  tmux new-session -s "$session_name" -c "$selected"
+  exit 0
+fi
+
+if ! tmux has-session -t "$session_name" 2&> /dev/null; then
+  tmux new-session -ds "$session_name" -c "$selected"
+fi
+
+tmux switch-client -t "$session_name"
