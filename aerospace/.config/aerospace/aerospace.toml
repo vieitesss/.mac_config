@@ -152,3 +152,11 @@ alt-shift-h = ['join-with left', 'mode main']
 alt-shift-j = ['join-with down', 'mode main']
 alt-shift-k = ['join-with up', 'mode main']
 alt-shift-l = ['join-with right', 'mode main']
+
+[[on-window-detected]]
+if.app-name-regex-substring = "warp"
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = "com.apple.systempreferences"
+run = 'layout floating'
