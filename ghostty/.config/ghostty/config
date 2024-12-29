@@ -1,5 +1,15 @@
 # config-file = keybinds
 
-macos-titlebar-style = hidden
+# font
 font-family = BlexMono Nerd Font Mono
+font-size = 17
+font-thicken = true
+window-inherit-font-size = false
+
+# window
+macos-titlebar-style = hidden
+mouse-hide-while-typing = true
+window-save-state = always
+
+# theme
 theme = mellifluous
