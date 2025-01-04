@@ -136,8 +136,7 @@ alt-shift-u = 'mode service'
 # fullscreen
 alt-f = 'fullscreen'
 
-# alt-shift-f = []
-# alt-shift-t = 'layout tiling'
+alt-shift-f = 'layout floating tiling'
 
 # 'service' binding mode declaration.
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
