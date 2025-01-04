@@ -1,6 +1,6 @@
 ---@diagnostic disable: undefined-global
 
-local padding = 15
+local padding = 30
 
 local center_tall = function()
     local win = hs.window.focusedWindow()
@@ -8,10 +8,14 @@ local center_tall = function()
     local screen = win:screen()
     local max = screen:frame()
 
-    f.w = max.w / 2 - padding * 2
-    f.h = max.h - padding * 2
+    -- Then resize and position it
+    f.w = 3 * max.w / 5
+    f.h = max.h - padding
     win:setFrame(f)
     win:centerOnScreen()
+    f = win:frame()
+    f.y = f.y + 10
+    win:setFrame(f)
 end
 
 local center = function()
@@ -20,8 +24,8 @@ local center = function()
     local screen = win:screen()
     local max = screen:frame()
 
-    f.w = max.w / 2 - padding * 2
-    f.h = max.h / 1.5 - padding * 2
+    f.w = 3 * max.w / 5
+    f.h = max.h / 1.5
     win:setFrame(f)
     win:centerOnScreen()
 end
