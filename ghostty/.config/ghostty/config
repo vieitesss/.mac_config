@@ -12,4 +12,5 @@ mouse-hide-while-typing = true
 window-save-state = always
 
 # theme
-theme = mellifluous
+# theme = mellifluous
+theme = ashen
