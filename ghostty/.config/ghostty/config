@@ -13,4 +13,5 @@ window-save-state = always
 
 # theme
 # theme = mellifluous
-theme = ashen
+# theme = ashen
+theme = Kanagawa Dragon
