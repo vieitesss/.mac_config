@@ -8,7 +8,6 @@ local center_tall = function()
     local screen = win:screen()
     local max = screen:frame()
 
-    -- Then resize and position it
     f.w = 3 * max.w / 5
     f.h = max.h - padding
     win:setFrame(f)
