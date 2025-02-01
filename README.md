@@ -1,6 +1,3 @@
-# mac_config
-Configuración del Mac
+# My mac configuration
 
-Clone with `--recurse-submodules` flag
-
-Al actualizar el zsh-vi-mode, modificar la opción end-of-line a Ctrl-U
+Just execute de `install` script to apply de default configuration.
