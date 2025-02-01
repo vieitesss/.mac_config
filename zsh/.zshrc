@@ -1,3 +1,4 @@
+#!/usr/bin/env zsh
 # Set PATH to default
 PATH=$(tr "\n" ":" < "/etc/paths" | sed 's/.\{1\}$//')
 
@@ -98,10 +99,11 @@ unsetopt beep extendedglob nomatch
 
 source "$HOME/.zsh_functions"
 
-add-to-path "JAVA_HOME" "/Library/Java/JavaVirtualMachines/openjdk.jdk/Contents/Home" "bin"
-add-to-path "OPENSSL_HOME" "/usr/local/opt/openssl@3.0" "bin"
-add-to-path "PET_HOME" "$HOME/pet"
+# add-to-path "JAVA_HOME" "/Library/Java/JavaVirtualMachines/openjdk.jdk/Contents/Home" "bin"
+# add-to-path "OPENSSL_HOME" "/usr/local/opt/openssl@3.0" "bin"
+# add-to-path "PET_HOME" "$HOME/pet"
 add-to-path "MY_SCRIPTS" "$HOME/.mac_config/scripts"
+add-to-path "HOMEBREW" "/opt/homebrew/bin"
 add-to-path "LTX_HOME" "/Library/TeX" "/texbin"
 
 
@@ -111,7 +113,7 @@ source_folder "$DOTFILES/aliases"
 source_folder "$HOME/obsidian/terminal"
 
 source "$HOME/.cargo/env"
-source "$HOME/.aws-tokens"
+# source "$HOME/.aws-tokens"
 
 export STARSHIP_CONFIG=~/.config/starship/starship.toml
 export FZF_DEFAULT_OPTS='--preview "bat --style=numbers --color=always --line-range :500 {}"'
@@ -121,3 +123,5 @@ export FZF_ALT_C_COMMAND='fd --hidden'
 
 # eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
+
+source $(brew --cellar fzf)/**/key-bindings.zsh
