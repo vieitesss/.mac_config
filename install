@@ -1,0 +1,101 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+YELLOW='\033[0;33m'
+NC='\033[0m' # No Color
+
+DOTFILES="$HOME/.mac_config"
+KBD_LAYOUT="$DOTFILES/mac_keyboard_layout"
+CONFIG_DIR="$DOTFILES/installation"
+DEPENDENCIES="${CONFIG_DIR}/brew_dependencies.txt"
+DEFAULTS="${CONFIG_DIR}/mac_defaults"
+
+log() {
+  echo -e "${GREEN}[INFO]${NC} $1"
+}
+
+warn() {
+  echo -e "${YELLOW}[WARN]${NC} $1"
+}
+
+error() {
+  echo -e "${RED}[ERROR]${NC} $1" >&2
+  exit 1
+}
+
+exists_command() {
+  command -v "$1" >/dev/null 2>&1
+}
+
+needs_root() {
+  if [ "$EUID" -ne 0 ]; then
+    warn "This step needs root privileges."
+    sudo -v || { echo "Error obtaining root privileges."; exit 1; }
+  fi
+}
+
+install_brew() {
+  if exists_command "brew"; then
+    log "Homebrew is already installed."
+    return 0
+  fi
+
+  log "Installing Homebrew..."
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" || error "Error al instalar Homebrew."
+}
+
+install_brew_dependencies() {
+  [ ! -f "$DEPENDENCIES" ] && error "The file $DEPENDENCIES does not exist."
+
+  log "Installing Homebrew dependencies..."
+  brew bundle install --file="$DEPENDENCIES" || error "Error installing Homebrew dependencies."
+}
+
+apply_defaults() {
+  [ ! -f "$DEFAULTS" ] && error "The file $DEFAULTS does not exist."
+
+  log "Applying default configurations..."
+  "$DEFAULTS" || error "Error applying default configurations."
+}
+
+clone_repo() {
+  [ -d "$DOTFILES" ] && { log "The dotfiles are already cloned"; return 0; }
+  git clone https://github.com/vieitesss/.mac_config "$DOTFILES"
+}
+
+load_configs() {
+  clone_repo
+
+  local configs=("ghostty" "aerospace" "hammerspoon" "karabiner" "tmux" "zsh" "hola")
+  for c in "${configs[@]}"; do
+    if [ -d "$DOTFILES/$c" ]; then
+      log "Loading configuration for $c..."
+      stow "$c" -d "$DOTFILES" -t "$HOME" || error "Error loading configuration for $c."
+    else
+      warn "Could not find configuration for $c."
+    fi
+  done
+}
+
+save_kbd_layout() {
+  [ ! -d "$KBD_LAYOUT" ] && error "The directory $KBD_LAYOUT does not exist."
+
+  log "Copying keyboard layout..."
+  needs_root
+  sudo cp -r "$KBD_LAYOUT"/* "/Library/Keyboard Layouts" || error "Error copying keyboard layout."
+  log "Restart your computer to apply the changes."
+}
+
+main() {
+  install_brew
+  install_brew_dependencies
+  apply_defaults
+  load_configs
+  save_kbd_layout
+  log "Configuration completed successfully."
+}
+
+main

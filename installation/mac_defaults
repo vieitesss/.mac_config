@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+defaults write com.apple.desktopservices DSDontWriteNetworkStores true
+defaults write com.apple.dock "autohide" -bool "true"
+defaults write com.apple.dock "tilesize" -int "48"
+defaults write com.apple.dock "show-recents" -bool "false"
+defaults write com.apple.finder "FXPreferredViewStyle" -string "clmv"
+defaults write com.apple.finder "_FXSortFoldersFirst" -bool "true"
+
+killall Dock
