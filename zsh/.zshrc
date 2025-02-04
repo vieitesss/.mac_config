@@ -123,5 +123,6 @@ export FZF_ALT_C_COMMAND='fd --hidden'
 
 # eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
+source <(fzf --zsh)
 
 source $(brew --cellar fzf)/**/key-bindings.zsh
