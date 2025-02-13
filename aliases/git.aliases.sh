@@ -215,3 +215,9 @@ get_default_branch() {
 get_current_branch() {
     git branch | awk '{print $2}'
 }
+
+git_apply_gitignore() {
+  git rm -r --cached .
+  git add .
+  git commit -m "apply .gitignore"
+}
