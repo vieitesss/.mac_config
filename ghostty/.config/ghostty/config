@@ -11,7 +11,9 @@ macos-titlebar-style = hidden
 mouse-hide-while-typing = true
 window-save-state = always
 
+background-opacity = 0.9
+
 # theme
-# theme = mellifluous
+theme = mellifluous
 # theme = ashen
-theme = rose-pine
+# theme = rose-pine
