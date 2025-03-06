@@ -32,6 +32,13 @@ alias gcm="git commit -v -m"
 alias gci="git commit --interactive"
 alias gcsam="git commit -S -am"
 alias gcup="git log origin/main..HEAD --oneline"
+gcd () {
+  git log --oneline |
+    fzf --bind "enter:become(git show {1})" \
+    --bind "ctrl-d:preview-half-page-down" \
+    --bind "ctrl-u:preview-half-page-up" \
+    --preview "bat -fn -l diff <(git show {1})"
+}
 
 # checkout
 alias gcb="git checkout -b"
@@ -70,9 +77,6 @@ alias gmu='git fetch origin -v; git fetch upstream -v; git merge upstream/"$(get
 alias gup="git fetch && git rebase"
 
 # log
-alias gg="git log --graph --pretty=format:'\''%C(bold)%h%Creset%C(magenta)%d%Creset %s %C(yellow)<%an> %C(cyan)(%cr)%Creset'\'' --abbrev-commit --date=relative"
-alias ggf="git log --graph --date=short --pretty=format:'\''%C(auto)%h %Cgreen%an%Creset %Cblue%cd%Creset %C(auto)%d %s'\''"
-alias ggs="gg --stat"
 alias ggup="git log --branches --not --remotes --no-walk --decorate --oneline" # FROM https://stackoverflow.com/questions/39220870/in-git-list-names-of-branches-with-unpushed-commits
 alias gll="git log --graph --pretty=oneline --abbrev-commit"
 alias gnew="git log HEAD@{1}..HEAD@{0}" # Show commits since last pull, see http://blogs.atlassian.com/2014/10/advanced-git-aliases/
