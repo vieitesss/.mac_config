@@ -56,7 +56,7 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
 zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'eza -1 --color=always $realpath'
 
 # to rewrite keybindings
-function zvm_after_init() {
+zvm_after_init () {
   # Edit line in vim with ctrl-e
   autoload -z edit-command-line
   zle -N edit-command-line
@@ -69,6 +69,9 @@ function zvm_after_init() {
   # bindkey -M viins "^[[1;5D" backward-word
 
   [ -f ~/.fzf.zsh ] && source "$HOME/.fzf.zsh"
+
+  source <(fzf --zsh)
+  source $(brew --cellar fzf)/**/key-bindings.zsh
 }
 
 # zsh vi mode
@@ -103,8 +106,10 @@ source "$HOME/.zsh_functions"
 # add-to-path "OPENSSL_HOME" "/usr/local/opt/openssl@3.0" "bin"
 # add-to-path "PET_HOME" "$HOME/pet"
 add-to-path "MY_SCRIPTS" "$HOME/.mac_config/scripts"
-add-to-path "HOMEBREW" "/opt/homebrew/bin"
+test "$(uname -p)" == "arm" && add-to-path "HOMEBREW" "/opt/homebrew" "/bin" || add-to-path "HOMEBREW" "/usr/local/Homebrew" "/bin"
 add-to-path "LTX_HOME" "/Library/TeX" "/texbin"
+add-to-path "LOCAL_BIN" "$HOME/.local/bin"
+add-to-path "CARGO_HOME" "$HOME/.cargo" "/bin"
 
 
 export PATH
@@ -115,7 +120,7 @@ source_folder "$HOME/obsidian/terminal"
 source "$HOME/.cargo/env"
 # source "$HOME/.aws-tokens"
 
-export STARSHIP_CONFIG=~/.config/starship/starship.toml
+# export STARSHIP_CONFIG=~/.config/starship/starship.toml
 export FZF_DEFAULT_OPTS='--preview "bat --style=numbers --color=always --line-range :500 {}"'
 export FZF_DEFAULT_COMMAND='fd --hidden --exclude .git'
 export FZF_CTRL_T_COMMAND='fd --hidden'
@@ -123,6 +128,3 @@ export FZF_ALT_C_COMMAND='fd --hidden'
 
 # eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
-source <(fzf --zsh)
-
-source $(brew --cellar fzf)/**/key-bindings.zsh
