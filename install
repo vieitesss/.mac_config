@@ -75,7 +75,6 @@ install_neovim_arm () {
 
 	# Download nvim source
 	curl -Lk -o nvim-macos-arm64.tar.gz "https://github.com/neovim/neovim/releases/latest/download/nvim-macos-arm64.tar.gz"
-	test $? != 0 || warn 
 	tar xzvf nvim-macos-arm64.tar.gz
 	rm nvim-macos-arm64.tar.gz
 	mkdir -p $HOME/.local/{opt,bin}
