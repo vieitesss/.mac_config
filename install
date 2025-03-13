@@ -74,7 +74,8 @@ install_neovim_arm () {
 	log "Installing Neovim..."
 
 	# Download nvim source
-	curl -L --output nvim-macos-arm64.tar.gz "https://github.com/neovim/neovim/releases/latest/download/nvim-macos-arm64.tar.gz"
+	curl -Lk -o nvim-macos-arm64.tar.gz "https://github.com/neovim/neovim/releases/latest/download/nvim-macos-arm64.tar.gz"
+	test $? != 0 || warn 
 	tar xzvf nvim-macos-arm64.tar.gz
 	rm nvim-macos-arm64.tar.gz
 	mkdir -p $HOME/.local/{opt,bin}
@@ -83,7 +84,7 @@ install_neovim_arm () {
 
 	# Create link
 	test -d "$HOME/local/opt/nvim-macos-arm64" && rm -rf "$HOME/local/opt/nvim-macos-arm64"
-	ls -s "$HOME/.local/opt/nvim-macos-arm64/bin/nvim" "$HOME/.local/bin/nvim"
+	ln -s "$HOME/.local/opt/nvim-macos-arm64/bin/nvim" "$HOME/.local/bin/nvim"
 
 	# Download config
 	git clone https://github.com/vieitesss/nvim "$HOME/.config/nvim"
@@ -101,7 +102,7 @@ install_neovim () {
 	log "Installing Neovim..."
 
 	# Download nvim source
-	curl -L --output nvim-macos-x86_64.tar.gz "https://github.com/neovim/neovim/releases/latest/download/nvim-macos-x86_64.tar.gz"
+	curl -Lk -o nvim-macos-x86_64.tar.gz "https://github.com/neovim/neovim/releases/latest/download/nvim-macos-x86_64.tar.gz"
 	tar xzvf nvim-macos-x86_64.tar.gz
 	rm nvim-macos-x86_64.tar.gz
 	mkdir -p /usr/local/opt
