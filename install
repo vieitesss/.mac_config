@@ -12,83 +12,133 @@ KBD_LAYOUT="$DOTFILES/mac_keyboard_layout"
 CONFIG_DIR="$DOTFILES/installation"
 DEPENDENCIES="${CONFIG_DIR}/brew_dependencies.txt"
 DEFAULTS="${CONFIG_DIR}/mac_defaults"
+ARQ="$(uname -p)"
 
-log() {
-  echo -e "${GREEN}[INFO]${NC} $1"
+log () {
+	echo -e "${GREEN}[INFO]${NC} $1"
 }
 
-warn() {
-  echo -e "${YELLOW}[WARN]${NC} $1"
+warn () {
+	echo -e "${YELLOW}[WARN]${NC} $1"
 }
 
-error() {
-  echo -e "${RED}[ERROR]${NC} $1" >&2
-  exit 1
+error () {
+	echo -e "${RED}[ERROR]${NC} $1" >&2
+	exit 1
 }
 
-exists_command() {
-  command -v "$1" >/dev/null 2>&1
+exists_command () {
+	command -v "$1" >/dev/null 2>&1
 }
 
-needs_root() {
-  if [ "$EUID" -ne 0 ]; then
-    warn "This step needs root privileges."
-    sudo -v || { echo "Error obtaining root privileges."; exit 1; }
-  fi
+needs_root () {
+	if [ "$EUID" -ne 0 ]
+	then
+		warn "This step needs root privileges."
+		sudo -v || { echo "Error obtaining root privileges."; exit 1; }
+	fi
 }
 
-install_brew() {
-  if exists_command "brew"; then
-    log "Homebrew is already installed."
-    return 0
-  fi
+install_brew () {
+	if exists_command "brew"
+	then
+		log "Homebrew is already installed."
+		return 0
+	fi
 
-  log "Installing Homebrew..."
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" || error "Error al instalar Homebrew."
+	log "Installing Homebrew..."
+	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" || error "Error installing Homebrew."
 }
 
-install_brew_dependencies() {
-  [ ! -f "$DEPENDENCIES" ] && error "The file $DEPENDENCIES does not exist."
+install_brew_dependencies () {
+	[ ! -f "$DEPENDENCIES" ] && error "The file $DEPENDENCIES does not exist."
 
-  log "Installing Homebrew dependencies..."
-  brew bundle install --file="$DEPENDENCIES" || error "Error installing Homebrew dependencies."
+	log "Installing Homebrew dependencies..."
+	brew bundle install --file="$DEPENDENCIES" || error "Error installing Homebrew dependencies."
 }
 
-apply_defaults() {
-  [ ! -f "$DEFAULTS" ] && error "The file $DEFAULTS does not exist."
+apply_defaults () {
+	[ ! -f "$DEFAULTS" ] && error "The file $DEFAULTS does not exist."
 
-  log "Applying default configurations..."
-  "$DEFAULTS" || error "Error applying default configurations."
+	log "Applying default configurations..."
+	"$DEFAULTS" || error "Error applying default configurations."
 }
 
-load_configs() {
-  local configs=("ghostty" "aerospace" "hammerspoon" "karabiner" "tmux" "zsh")
-  for c in "${configs[@]}"; do
-    if [ -d "$DOTFILES/$c" ]; then
-      log "Loading configuration for $c..."
-      stow "$c" -d "$DOTFILES" -t "$HOME" || error "Error loading configuration for $c."
-    else
-      warn "Could not find configuration for $c."
-    fi
-  done
+install_neovim_arm () {
+	if exists_command "nvim"
+	then
+		log "Neovim is already installed."
+		return 0
+	fi
+
+	log "Installing Neovim..."
+
+	curl "https://github.com/neovim/neovim/releases/latest/download/nvim-macos-arm64.tar.gz"
+	tar xzvf nvim-macos-arm64.tar.gz
+	rm nvim-macos-arm64.tar.gz
+	mkdir -p $HOME/.local/{opt,bin}
+	mv "./nvim-macos-arm64" "$HOME/.local/opt"
+	ls -s "$HOME/.local/opt/nvim-macos-arm64/bin/nvim" "$HOME/.local/bin/nvim"
+	git clone https://github.com/vieitesss/nvim "$HOME/.config"
+
+	log "Neovim installed successfully"
 }
 
-save_kbd_layout() {
-  [ ! -d "$KBD_LAYOUT" ] && error "The directory $KBD_LAYOUT does not exist."
+install_neovim () {
+	if exists_command "nvim"
+	then
+		log "Neovim is already installed."
+		return 0
+	fi
 
-  log "Copying keyboard layout..."
-  needs_root
-  sudo cp -r "$KBD_LAYOUT"/* "/Library/Keyboard Layouts" || error "Error copying keyboard layout."
-  log "Restart your computer to apply the changes."
+	log "Installing Neovim..."
+
+	curl "https://github.com/neovim/neovim/releases/latest/download/nvim-macos-x86_64.tar.gz"
+	tar xzvf nvim-macos-x86_64.tar.gz
+	rm nvim-macos-x86_64.tar.gz
+	mkdir -p /usr/local/opt
+	mv ./nvim-macos-x86_64 /usr/local/opt
+	ln -s /usr/local/opt/nvim-macos-x86_64/bin/nvim /usr/local/bin/nvim
+	git clone https://github.com/vieitesss/nvim "$HOME/.config"
+
+	log "Neovim installed successfully"
 }
 
-main() {
-  install_brew
-  install_brew_dependencies
-  apply_defaults
-  load_configs
-  save_kbd_layout
-  log "Configuration completed successfully."
+load_configs () {
+	local configs=("ghostty" "aerospace" "hammerspoon" "karabiner" "tmux" "zsh")
+	for c in "${configs[@]}"
+	do
+		if [ -d "$DOTFILES/$c" ]
+		then
+			log "Loading configuration for $c..."
+			stow "$c" -d "$DOTFILES" -t "$HOME" || error "Error loading configuration for $c."
+		else
+			warn "Could not find configuration for $c."
+		fi
+	done
+}
+
+save_kbd_layout () {
+	[ ! -d "$KBD_LAYOUT" ] && error "The directory $KBD_LAYOUT does not exist."
+
+	log "Copying keyboard layout..."
+
+	needs_root
+	sudo cp -r "$KBD_LAYOUT"/* "/Library/Keyboard Layouts" || error "Error copying keyboard layout."
+
+	warn "Restart your computer to apply the changes."
+}
+
+main () {
+	install_brew
+	install_brew_dependencies
+	apply_defaults
+	test $ARQ == "arm" && install_neovim_arm || install_neovim
+	load_configs
+	save_kbd_layout
+
+	log "Configuration completed successfully."
+	warn "Remember to create an ssh key for GitHub."
 }
 
 main
