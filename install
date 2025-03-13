@@ -79,7 +79,7 @@ install_neovim_arm () {
 	mkdir -p $HOME/.local/{opt,bin}
 	mv "./nvim-macos-arm64" "$HOME/.local/opt"
 	ls -s "$HOME/.local/opt/nvim-macos-arm64/bin/nvim" "$HOME/.local/bin/nvim"
-	git clone https://github.com/vieitesss/nvim "$HOME/.config"
+	git clone https://github.com/vieitesss/nvim "$HOME/.config/nvim"
 
 	log "Neovim installed successfully"
 }
@@ -99,7 +99,7 @@ install_neovim () {
 	mkdir -p /usr/local/opt
 	mv ./nvim-macos-x86_64 /usr/local/opt
 	ln -s /usr/local/opt/nvim-macos-x86_64/bin/nvim /usr/local/bin/nvim
-	git clone https://github.com/vieitesss/nvim "$HOME/.config"
+	git clone https://github.com/vieitesss/nvim "$HOME/.config/nvim"
 
 	log "Neovim installed successfully"
 }
