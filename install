@@ -79,11 +79,11 @@ install_neovim_arm () {
 	tar xzvf nvim-macos-arm64.tar.gz
 	rm nvim-macos-arm64.tar.gz
 	mkdir -p $HOME/.local/{opt,bin}
-	test -d /usr/local/opt/nvim-macos-arm64 && rm -rf /usr/local/opt/nvim-macos-arm64
+	test -d "$HOME/local/opt/nvim-macos-arm64" && rm -rf "$HOME/local/opt/nvim-macos-arm64"
 	mv "./nvim-macos-arm64" "$HOME/.local/opt"
 
 	# Create link
-	test -d "$HOME/local/opt/nvim-macos-arm64" && rm -rf "$HOME/local/opt/nvim-macos-arm64"
+	test -d "$HOME/.local/bin/nvim" && rm -rf "$HOME/.local/bin/nvim"
 	ln -s "$HOME/.local/opt/nvim-macos-arm64/bin/nvim" "$HOME/.local/bin/nvim"
 
 	# Download config
