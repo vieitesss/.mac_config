@@ -106,10 +106,15 @@ source "$HOME/.zsh_functions"
 # add-to-path "OPENSSL_HOME" "/usr/local/opt/openssl@3.0" "bin"
 # add-to-path "PET_HOME" "$HOME/pet"
 add-to-path "MY_SCRIPTS" "$HOME/.mac_config/scripts"
-test "$(uname -p)" == "arm" && add-to-path "HOMEBREW" "/opt/homebrew" "/bin" || add-to-path "HOMEBREW" "/usr/local/Homebrew" "/bin"
 add-to-path "LTX_HOME" "/Library/TeX" "/texbin"
-add-to-path "LOCAL_BIN" "$HOME/.local/bin"
 add-to-path "CARGO_HOME" "$HOME/.cargo" "/bin"
+add-to-path "HOMEBREW" "/usr/local/Homebrew" "/bin"
+
+if [[ "$(uname -p)" == "arm" ]]
+then
+  add-to-path "LOCAL_BIN" "$HOME/.local/bin"
+  add-to-path "HOMEBREW" "/opt/homebrew" "/bin"
+fi
 
 
 export PATH
