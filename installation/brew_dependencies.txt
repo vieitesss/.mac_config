@@ -6,7 +6,7 @@ brew "azure-cli"
 brew "bat"
 brew "node"
 brew "bitwarden-cli"
-brew "docker", link: false
+brew "docker"
 brew "eza"
 brew "fd"
 brew "fzf"

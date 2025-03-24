@@ -108,12 +108,13 @@ source "$HOME/.zsh_functions"
 add-to-path "MY_SCRIPTS" "$HOME/.mac_config/scripts"
 add-to-path "LTX_HOME" "/Library/TeX" "/texbin"
 add-to-path "CARGO_HOME" "$HOME/.cargo" "/bin"
-add-to-path "HOMEBREW" "/usr/local/Homebrew" "/bin"
 
 if [[ "$(uname -p)" == "arm" ]]
 then
   add-to-path "LOCAL_BIN" "$HOME/.local/bin"
   add-to-path "HOMEBREW" "/opt/homebrew" "/bin"
+else
+  add-to-path "HOMEBREW" "/usr/local/Homebrew" "/bin"
 fi
 
 
