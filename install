@@ -65,12 +65,6 @@ apply_defaults () {
 }
 
 install_neovim_arm () {
-	if exists_command "nvim"
-	then
-		log "Neovim is already installed."
-		return 0
-	fi
-
 	log "Installing Neovim..."
 
 	# Download nvim source
@@ -86,18 +80,12 @@ install_neovim_arm () {
 	ln -s "$HOME/.local/opt/nvim-macos-arm64/bin/nvim" "$HOME/.local/bin/nvim"
 
 	# Download config
-	git clone https://github.com/vieitesss/nvim "$HOME/.config/nvim"
+	git clone https://github.com/vieitesss/nvim "$HOME/.config/nvim" || true
 
 	log "Neovim installed successfully"
 }
 
 install_neovim () {
-	if exists_command "nvim"
-	then
-		log "Neovim is already installed."
-		return 0
-	fi
-
 	log "Installing Neovim..."
 
 	# Download nvim source
@@ -113,7 +101,7 @@ install_neovim () {
 	ln -s /usr/local/opt/nvim-macos-x86_64/bin/nvim /usr/local/bin/nvim
 
 	# Download config
-	git clone https://github.com/vieitesss/nvim "$HOME/.config/nvim"
+	git clone https://github.com/vieitesss/nvim "$HOME/.config/nvim" || true
 
 	log "Neovim installed successfully"
 }
@@ -144,6 +132,12 @@ save_kbd_layout () {
 }
 
 main () {
+	case "$1" in
+	"neovim")
+		test $ARQ == "arm" && install_neovim_arm || install_neovim
+		return
+	esac
+
 	install_brew
 	install_brew_dependencies
 	apply_defaults
@@ -155,4 +149,4 @@ main () {
 	warn "Remember to create an ssh key for GitHub."
 }
 
-main
+main "$@"
