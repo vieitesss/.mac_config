@@ -132,11 +132,14 @@ save_kbd_layout () {
 }
 
 main () {
-	case "$1" in
-	"neovim")
-		test $ARQ == "arm" && install_neovim_arm || install_neovim
-		return
-	esac
+	if [[ "$#" -gt "1" ]]
+	then
+		case "$1" in
+		"neovim")
+			test $ARQ == "arm" && install_neovim_arm || install_neovim
+			return
+		esac
+	fi
 
 	install_brew
 	install_brew_dependencies
