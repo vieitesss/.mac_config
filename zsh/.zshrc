@@ -101,6 +101,7 @@ setopt hist_reduce_blanks
 unsetopt beep extendedglob nomatch
 
 source "$HOME/.zsh_functions"
+source "$HOME/.profile"
 
 # add-to-path "JAVA_HOME" "/Library/Java/JavaVirtualMachines/openjdk.jdk/Contents/Home" "bin"
 # add-to-path "OPENSSL_HOME" "/usr/local/opt/openssl@3.0" "bin"

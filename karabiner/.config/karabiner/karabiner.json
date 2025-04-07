@@ -12,8 +12,8 @@
                                     "modifiers": { "optional": ["any"] }
                                 },
                                 "parameters": {
-                                    "basic.to_delayed_action_delay_milliseconds": 100,
-                                    "basic.to_if_held_down_threshold_milliseconds": 100
+                                    "basic.to_delayed_action_delay_milliseconds": 180,
+                                    "basic.to_if_held_down_threshold_milliseconds": 180
                                 },
                                 "to_delayed_action": { "to_if_canceled": [{ "key_code": "s" }] },
                                 "to_if_alone": [
@@ -31,8 +31,8 @@
                                     "modifiers": { "optional": ["any"] }
                                 },
                                 "parameters": {
-                                    "basic.to_delayed_action_delay_milliseconds": 100,
-                                    "basic.to_if_held_down_threshold_milliseconds": 100
+                                    "basic.to_delayed_action_delay_milliseconds": 180,
+                                    "basic.to_if_held_down_threshold_milliseconds": 180
                                 },
                                 "to_delayed_action": { "to_if_canceled": [{ "key_code": "a" }] },
                                 "to_if_alone": [
@@ -50,8 +50,8 @@
                                     "modifiers": {}
                                 },
                                 "parameters": {
-                                    "basic.to_delayed_action_delay_milliseconds": 200,
-                                    "basic.to_if_held_down_threshold_milliseconds": 200
+                                    "basic.to_delayed_action_delay_milliseconds": 180,
+                                    "basic.to_if_held_down_threshold_milliseconds": 180
                                 },
                                 "to_delayed_action": { "to_if_canceled": [{ "key_code": "semicolon" }] },
                                 "to_if_alone": [
@@ -69,8 +69,8 @@
                                     "modifiers": {}
                                 },
                                 "parameters": {
-                                    "basic.to_delayed_action_delay_milliseconds": 200,
-                                    "basic.to_if_held_down_threshold_milliseconds": 200
+                                    "basic.to_delayed_action_delay_milliseconds": 180,
+                                    "basic.to_if_held_down_threshold_milliseconds": 180
                                 },
                                 "to_delayed_action": { "to_if_canceled": [{ "key_code": "l" }] },
                                 "to_if_alone": [
