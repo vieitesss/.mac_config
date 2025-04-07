@@ -107,7 +107,7 @@ install_neovim () {
 }
 
 load_configs () {
-	local configs=("ghostty" "aerospace" "hammerspoon" "karabiner" "tmux" "zsh")
+	local configs=("ghostty" "aerospace" "hammerspoon" "karabiner" "tmux" "zsh" "git")
 	for c in "${configs[@]}"
 	do
 		if [ -d "$DOTFILES/$c" ]
