@@ -132,21 +132,24 @@ save_kbd_layout () {
 }
 
 main () {
-	if [[ "$#" -gt "1" ]]
+	if [[ "$#" -ge "1" ]]
 	then
 		case "$1" in
 		"neovim")
 			test $ARQ == "arm" && install_neovim_arm || install_neovim
-			return
+			;;
+		"kbd")
+			save_kbd_layout
+			;;
 		esac
+	else
+		install_brew
+		install_brew_dependencies
+		apply_defaults
+		test $ARQ == "arm" && install_neovim_arm || install_neovim
+		load_configs
+		save_kbd_layout
 	fi
-
-	install_brew
-	install_brew_dependencies
-	apply_defaults
-	test $ARQ == "arm" && install_neovim_arm || install_neovim
-	load_configs
-	save_kbd_layout
 
 	log "Configuration completed successfully."
 	warn "Remember to create an ssh key for GitHub."
