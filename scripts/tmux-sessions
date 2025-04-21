@@ -3,7 +3,7 @@
 dirs=$(find -L ~/personal ~/.config ~/tfg ~/sudespacho ~/prefapp -type d -mindepth 1 -maxdepth 1)
 git_projects=$(fd -H -d 2 -E "Library" -t d "^\.git$" "$HOME" | sed "s#/\.git/##g")
 
-selected=$(echo -e "${dirs[*]}\n${git_projects}" | fzf --preview-window up --preview "eza --color=always -l {}")
+selected=$(echo -e "${dirs[*]}\n${git_projects}" | fzf --layout=reverse --preview-window down --preview "eza --color=always -l {}")
 
 if [[ -z "$selected" ]]; then
   exit 0
