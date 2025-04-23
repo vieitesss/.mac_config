@@ -1,62 +1,60 @@
-live_config_reload = true
 
 [env]
-TERM = "screen-256color"
+TERM                   = "screen-256color"
 WINIT_X11_SCALE_FACTOR = "1.25"
 
 [font]
 size = 20
 
-normal.family = "FiraCode Nerd Font Mono"
-normal.style = "Light"
+normal.family = "AnonymicePro Nerd Font Mono"
 
 [mouse]
 hide_when_typing = true
 
-[shell]
+[terminal.shell]
 program = "/bin/zsh"
 
 [window]
-decorations = "Buttonless"
+decorations               = "Buttonless"
 decorations_theme_variant = "Dark"
-dynamic_padding = false
-opacity = 0.95
-startup_mode = "Windowed"
-title = ""
-padding.x = 2
-padding.y = 0
+dynamic_padding           = false
+opacity                   = 1
+startup_mode              = "Windowed"
+title                     = ""
+padding.x                 = 2
+padding.y                 = 0
 
 [window.class]
-general = "Alacritty"
+general  = "Alacritty"
 instance = "Alacritty"
 
-### Colors ###
-# Theme: enfocado_dark
-# Source:  https://github.com/wuelnerdotexe/vim-enfocado
-
-# Default colors
 [colors.primary]
-background =  '#181818'
-foreground =  '#b9b9b9'
+background = '#1a1a19'
+foreground = '#d1d1d1'
 
-# Normal colors
+  # Cursor colors
+[colors.cursor]
+text   = '#1a1a19'
+cursor = '#d1d1d1'
+
+  # Normal colors
 [colors.normal]
-black   = '#3b3b3b'
-red     = '#ed4a46'
-green   = '#70b433'
-yellow  = '#dbb32d'
-blue    = '#368aeb'
-magenta = '#eb6eb7'
-cyan    = '#3fc5b7'
-white   = '#b9b9b9'
+black   = '#333332'
+red     = '#ff968c'
+green   = '#61957f'
+yellow  = '#ffc591'
+blue    = '#8db4d4'
+magenta = '#de9bc8'
+cyan    = '#7bb099'
+white   = '#d1d1d1'
 
-# Bright colors
+  # Bright colors
 [colors.bright]
-black   = '#777777'
-red     = '#ff5e56'
-green   = '#83c746'
-yellow  = '#efc541'
-blue    = '#4f9cfe'
-magenta = '#ff81ca'
-cyan    = '#56d8c9'
-white   = '#dedede'
+black   = '#4c4c4b'
+red     = '#ffafa5'
+green   = '#7aae98'
+yellow  = '#ffdeaa'
+blue    = '#a6cded'
+magenta = '#f7b4e1'
+cyan    = '#94c9b2'
+white   = '#eaeaea'
