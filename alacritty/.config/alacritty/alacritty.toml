@@ -4,9 +4,12 @@ TERM                   = "screen-256color"
 WINIT_X11_SCALE_FACTOR = "1.25"
 
 [font]
-size = 20
+size = 18
 
 normal.family = "AnonymicePro Nerd Font Mono"
+
+offset.x = 1
+offset.y = 1 
 
 [mouse]
 hide_when_typing = true
@@ -28,6 +31,7 @@ padding.y                 = 0
 general  = "Alacritty"
 instance = "Alacritty"
 
+# Rasmus
 [colors.primary]
 background = '#1a1a19'
 foreground = '#d1d1d1'
