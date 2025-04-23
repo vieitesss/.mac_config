@@ -31,34 +31,25 @@ padding.y                 = 0
 general  = "Alacritty"
 instance = "Alacritty"
 
-# Rasmus
+# Mellifluous
 [colors.primary]
-background = '#1a1a19'
-foreground = '#d1d1d1'
+foreground = '#dddddd'
+background = '#1d1d1d'
 
-  # Cursor colors
 [colors.cursor]
-text   = '#1a1a19'
-cursor = '#d1d1d1'
+text = '#1d1d1d'
+cursor = '#dddddd'
 
-  # Normal colors
 [colors.normal]
-black   = '#333332'
-red     = '#ff968c'
-green   = '#61957f'
-yellow  = '#ffc591'
-blue    = '#8db4d4'
-magenta = '#de9bc8'
-cyan    = '#7bb099'
-white   = '#d1d1d1'
+black = '#1d1d1d'
+red = '#d0a08a'
+green = '#accca4'
+magenta = '#bf9ac1'
+white = '#dddddd'
 
-  # Bright colors
 [colors.bright]
-black   = '#4c4c4b'
-red     = '#ffafa5'
-green   = '#7aae98'
-yellow  = '#ffdeaa'
-blue    = '#a6cded'
-magenta = '#f7b4e1'
-cyan    = '#94c9b2'
-white   = '#eaeaea'
+black = '#777777'
+red = '#d0a08a'
+green = '#bccda1'
+magenta = '#bc9ead'
+white = '#ffffff'
