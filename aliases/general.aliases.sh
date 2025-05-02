@@ -11,6 +11,10 @@ alias ltl="eza -T --long --icons --no-time"
 alias la="eza -al --group-directories-first"
 alias tree="eza --tree"
 
+copy () {
+	cat "$1" | pbcopy
+}
+
 alias install="sudo apt install"
 alias remove="sudo apt remove"
 alias purge="sudo apt purge"
