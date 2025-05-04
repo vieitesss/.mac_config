@@ -135,10 +135,13 @@ export FZF_ALT_C_COMMAND='fd --hidden'
 
 # eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
+eval "$(luarocks path)"
+
 source <(fzf --zsh)
 
 source $(brew --cellar fzf)/**/key-bindings.zsh
 
+export LUA_PATH="$LUA_PATH;/usr/local/lib/lua/5.4/?.so"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" || true  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" || true  # This loads nvm bash_completion
