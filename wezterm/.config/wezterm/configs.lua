@@ -45,7 +45,7 @@ configs.apply_to_config = function(config)
         }
     }
 
-    config.font_size = 22
+    config.font_size = 20
     config.harfbuzz_features = { "calt=0", "clig=0", "liga=0" }
 
     -- Tabbar

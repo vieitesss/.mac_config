@@ -33,7 +33,7 @@ wezterm.plugin.update_all()
 local sess = wezterm.plugin.require 'https://github.com/vieitesss/workspacesionizer.wezterm'
 -- local sess = wezterm.plugin.require 'file:///Users/vieites/personal/workspacesionizer.wezterm'
 local o = sess.apply_to_config(config, {
-    paths = { "~/personal", "~/.config" },
+    paths = { "~/personal", "~/.config", "~/tfg", "~/prefapp" },
 })
 
 return config
