@@ -15,7 +15,11 @@ copy () {
 	cat "$1" | pbcopy
 }
 
-alias install="sudo apt install"
+install () {
+	cmd="just -f $HOME/.mac_config/justfile"
+	test "$#" -gt 0 && cmd="$cmd ${@:1}"
+	bash -c "$cmd"
+}
 alias remove="sudo apt remove"
 alias purge="sudo apt purge"
 alias dot="cd \$DOTFILES"

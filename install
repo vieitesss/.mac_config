@@ -72,11 +72,11 @@ install_neovim_arm () {
 	tar xzvf nvim-macos-arm64.tar.gz
 	rm nvim-macos-arm64.tar.gz
 	mkdir -p $HOME/.local/{opt,bin}
-	test -d "$HOME/.local/opt/nvim-macos-arm64" && rm -rf "$HOME/.local/opt/nvim-macos-arm64"
+	rm -rf "$HOME/.local/opt/nvim-macos-arm64" || true
 	mv "./nvim-macos-arm64" "$HOME/.local/opt"
 
 	# Create link
-	test -d "$HOME/.local/bin/nvim" && rm -rf "$HOME/.local/bin/nvim"
+	rm -rf "$HOME/.local/bin/nvim" || true
 	ln -s "$HOME/.local/opt/nvim-macos-arm64/bin/nvim" "$HOME/.local/bin/nvim"
 
 	# Download config
@@ -93,11 +93,11 @@ install_neovim () {
 	tar xzvf nvim-macos-x86_64.tar.gz
 	rm nvim-macos-x86_64.tar.gz
 	mkdir -p /usr/local/opt
-	test -d /usr/local/opt/nvim-macos-x86_64 && rm -rf /usr/local/opt/nvim-macos-x86_64
+	rm -rf /usr/local/opt/nvim-macos-x86_64 || true
 	mv ./nvim-macos-x86_64 /usr/local/opt
 
 	# Create link
-	test -x /usr/local/bin/nvim && rm -rf /usr/local/bin/nvim
+	rm -rf /usr/local/bin/nvim || true
 	ln -s /usr/local/opt/nvim-macos-x86_64/bin/nvim /usr/local/bin/nvim
 
 	# Download config
@@ -107,13 +107,13 @@ install_neovim () {
 }
 
 load_configs () {
-	local configs=("ghostty" "aerospace" "hammerspoon" "karabiner" "tmux" "zsh" "git")
+	local configs=("wezterm" "aerospace" "hammerspoon" "karabiner" "zsh" "git")
 	for c in "${configs[@]}"
 	do
 		if [ -d "$DOTFILES/$c" ]
 		then
 			log "Loading configuration for $c..."
-			stow "$c" -d "$DOTFILES" -t "$HOME" || error "Error loading configuration for $c."
+			stow "$c" -d "$DOTFILES" -t "$HOME" || warn "Error loading configuration for $c."
 		else
 			warn "Could not find configuration for $c."
 		fi
@@ -131,28 +131,57 @@ save_kbd_layout () {
 	warn "Restart your computer to apply the changes."
 }
 
+help () {
+	cat <<EOF
+Usage: $0 OPTION
+
+OPTIONS:
+	deps	install brew and brew dependencies
+	neovim	install Neovim
+	kbd	install keyboard configuration
+	all	install all the above plus: apply defaults and load dotfiles
+EOF
+}
+
 main () {
-	if [[ "$#" -ge "1" ]]
-	then
-		case "$1" in
+	test "$#" -eq 0 && help "$@" && exit 1
+
+	case "$1" in
+		"deps")
+			install_brew
+			install_brew_dependencies
+			;;
+		"defaults")
+			apply_defaults
+			;;
 		"neovim")
 			test $ARQ == "arm" && install_neovim_arm || install_neovim
+			;;
+		"dots")
+			load_configs
 			;;
 		"kbd")
 			save_kbd_layout
 			;;
-		esac
-	else
-		install_brew
-		install_brew_dependencies
-		apply_defaults
-		test $ARQ == "arm" && install_neovim_arm || install_neovim
-		load_configs
-		save_kbd_layout
-	fi
+		"all")
+			install_brew
+			install_brew_dependencies
+			apply_defaults
+			test $ARQ == "arm" && install_neovim_arm || install_neovim
+			load_configs
+			save_kbd_layout
+			;;
+		*)
+			help "$@"
+			exit 1
+			;;
+	esac
+
 
 	log "Configuration completed successfully."
 	warn "Remember to create an ssh key for GitHub."
 }
+
+# TODO: create ssh key for GH if it does not exist
 
 main "$@"
