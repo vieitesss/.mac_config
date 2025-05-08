@@ -19,6 +19,8 @@ M.apply_to_config = function(config)
         { key = 'c', mods = 'LEADER', action = act.SpawnTab 'CurrentPaneDomain' },
         { key = ',', mods = 'LEADER', action = act.ActivateTabRelative(-1) },
         { key = '.', mods = 'LEADER', action = act.ActivateTabRelative(1) },
+        { key = ',', mods = 'CTRL|SHIFT', action = act.MoveTabRelative(-1) },
+        { key = '.', mods = 'CTRL|SHIFT', action = act.MoveTabRelative(1) },
         -- Search
         { key = '[', mods = 'LEADER', action = act.ActivateCopyMode },
     }

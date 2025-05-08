@@ -29,7 +29,8 @@ configs.apply_to_config = function(config)
     -- Colorscheme
     -- config.color_scheme = 'Monokai (base16)'
     -- config.color_scheme = 'Kanagawa (Gogh)'
-    config.color_scheme = 'mellifluous'
+    -- config.color_scheme = 'mellifluous'
+    config.color_scheme = 'kanso-ink'
     -- config.color_scheme = 'tokyonight-storm'
     config.colors = {
         tab_bar = {
