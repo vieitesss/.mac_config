@@ -22,7 +22,7 @@ configs.apply_to_config = function(config)
         bottom = 0,
         top = 0,
     }
-    config.window_background_opacity = 0.85
+    config.window_background_opacity = 1
     config.macos_window_background_blur = 10
     config.window_decorations = "RESIZE"
 
@@ -30,7 +30,8 @@ configs.apply_to_config = function(config)
     -- config.color_scheme = 'Monokai (base16)'
     -- config.color_scheme = 'Kanagawa (Gogh)'
     -- config.color_scheme = 'mellifluous'
-    config.color_scheme = 'kanso-ink'
+    -- config.color_scheme = 'kanso-zen'
+    config.color_scheme = 'Catppuccin Mocha (Gogh)'
     -- config.color_scheme = 'tokyonight-storm'
     config.colors = {
         tab_bar = {
