@@ -15,7 +15,7 @@ copy () {
 	cat "$1" | pbcopy
 }
 
-install () {
+core () {
 	cmd="just -f $HOME/.mac_config/justfile"
 	test "$#" -gt 0 && cmd="$cmd ${@:1}"
 	bash -c "$cmd"

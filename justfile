@@ -3,25 +3,34 @@ file := justfile()
 _default:
   just -l
 
-# Brew and Brew dependencies
+# Install brew and Brew dependencies
 deps:
   -./install deps
 
+# Install Neovim
 neovim:
   -./install neovim
 
-# Keyboard configuration
+# Install keyboard configuration
 kbd:
   -./install kbd
 
-# Mac defaults
+# Apply Mac defaults
 defaults:
   -./install defaults
 
-# Dotfiles
+# Install dotfiles
 dots:
   -./install dots
 
-# Others plus: apply defaults and load dotfiles
+# Install others plus: apply defaults and load dotfiles
 all:
   @just -f {{file}} deps defaults neovim dots kbd
+
+# Update homebrew dependencies
+update:
+  ./update_packages
+
+# Show homebrew dependencies
+show_deps:
+  cat ./installation/brew_dependencies.txt
