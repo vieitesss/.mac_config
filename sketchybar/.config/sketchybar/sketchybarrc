@@ -24,8 +24,8 @@ default=(
   padding_right=5
   icon.font="BlexMono Nerd Font Mono:Bold:15.0"
   label.font="BlexMono Nerd Font Mono:Semibold:15.0"
-  icon.color=0xffffffff
-  label.color=0xffffffff
+  icon.color=0xffcdd6f4
+  label.color=0xffcdd6f4
   icon.padding_left=4
   icon.padding_right=4
   label.padding_left=4
@@ -35,6 +35,7 @@ sketchybar --default "${default[@]}"
 
 bar=(
   height=10
+  color=0x00000000
 )
 sketchybar --bar "${bar[@]}"
 
@@ -51,6 +52,7 @@ sketchybar -m --bar blur_radius=50 \
                                popup.background.border_color=0x0000000 \
                                popup.background.color=0xff000000 \
                                popup.background.drawing=on \
+                               icon.padding_right=10 \
               --default background.padding_left=5 \
                         background.padding_right=5 \
                         icon.padding_right=5 \
@@ -81,31 +83,40 @@ sketchybar -m --bar blur_radius=50 \
 
 sketchybar --default "${default[@]}"
 
-sketchybar --add item separator.left left \
-            --set separator.left icon="[" \
-                  padding_right=0
-
-aerospace=(
-  icon.drawing=on
+no_margin=(
+  icon.padding_left=0
+  icon.padding_right=0
+  label.padding_left=0
+  label.padding_right=0
 )
 
-sketchybar --default "aerospace[@]"
+sketchybar --add item wraper.left left \
+           --set wraper.left icon="[" "${no_margin[@]}"
+
+sketchybar --add event aerospace_workspace_change
 
 SPACE_ICONS=("1" "2" "3" "4" "5")
 for i in "${!SPACE_ICONS[@]}"
 do
   sid="$(($i+1))"
   aero=(
-    icon="${SPACE_ICONS[i]}"
+    icon="$sid"
     script="$PLUGIN_DIR/space.sh"
     click_script="aerospace workspace $sid"
   )
-  sketchybar --add item aerospace."$sid" left --set aerospace."$sid" "${aero[@]}" --subscribe aerospace."$sid" front_app_switched
+  sketchybar --add item aerospace."$sid" left \
+             --set aerospace."$sid" "${aero[@]}" "${no_margin[@]}" \
+             --subscribe aerospace."$sid" aerospace_workspace_change
 done
 
-sketchybar --add item separator.right left \
-            --set separator.right icon="]" \
-                  padding_left=0
+sketchybar --add item wraper.right left \
+           --set wraper.right icon="]" "${no_margin[@]}" \
+                 icon.padding_right=10
+
+# sketchybar --add bracket spaces '/aerospace\..*/'               \
+#            --set         spaces background.color=0xff45475a \
+#                                 background.corner_radius=0  \
+#                                 background.height=20
 
 sketchybar --default "default[@]"
 
@@ -128,16 +139,19 @@ sketchybar --add item front_app left \
 # volume is registered. More info about the event system can be found here:
 # https://felixkratz.github.io/SketchyBar/config/events
 
+sketchybar --add event change_keyboard_layout
+
 sketchybar --add item clock right \
            --set clock update_freq=10 icon=  script="$PLUGIN_DIR/clock.sh" \
 	   --add item keyboard right \
-           --set keyboard update_freq=5 icon="" script="$PLUGIN_DIR/keyboard.sh" \
+           --set keyboard icon="" script="$PLUGIN_DIR/keyboard.sh" \
+           --subscribe keyboard change_keyboard_layout \
            --add item volume right \
            --set volume script="$PLUGIN_DIR/volume.sh" \
            --subscribe volume volume_change \
            --add item battery right \
            --set battery update_freq=120 script="$PLUGIN_DIR/battery.sh" \
-           --subscribe battery system_woke power_source_change
+           --subscribe battery system_woke
 
 ##### Force all scripts to run the first time (never do this in a script) #####
 sketchybar --update
