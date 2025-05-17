@@ -39,12 +39,19 @@ bar=(
 )
 sketchybar --bar "${bar[@]}"
 
+no_margin=(
+  icon.padding_left=0
+  icon.padding_right=0
+  label.padding_left=0
+  label.padding_right=0
+)
+
 ### left system preferences ###
 sketchybar -m --bar blur_radius=50 \
                     height=32 \
               --add item apple.logo left \
               --set apple.logo icon= \
-                               icon.font="AnonymicePro Nerd Font Mono:Bold:18.0" \
+                               icon.font.size=20 \
                                label.drawing=off \
                                click_script="sketchybar -m --set \$NAME popup.drawing=toggle" \
                                popup.background.border_width=2 \
@@ -52,6 +59,7 @@ sketchybar -m --bar blur_radius=50 \
                                popup.background.border_color=0x0000000 \
                                popup.background.color=0xff000000 \
                                popup.background.drawing=on \
+                               "${no_margin[@]}" \
                                icon.padding_right=10 \
               --default background.padding_left=5 \
                         background.padding_right=5 \
@@ -76,22 +84,19 @@ sketchybar -m --bar blur_radius=50 \
                                                $PLUGIN_DIR/syscontrol.sh down"
 ###
 
+sketchybar --default "${default[@]}"
+
+sketchybar --add item front_app left \
+           --set front_app icon.drawing=off script="$PLUGIN_DIR/front_app.sh" \
+           --subscribe front_app front_app_switched
+
 ##### Adding Mission Control Space Indicators #####
 # Let's add some mission control spaces:
 # https://felixkratz.github.io/SketchyBar/config/components#space----associate-mission-control-spaces-with-an-item
 # to indicate active and available mission control spaces.
 
-sketchybar --default "${default[@]}"
-
-no_margin=(
-  icon.padding_left=0
-  icon.padding_right=0
-  label.padding_left=0
-  label.padding_right=0
-)
-
-sketchybar --add item wraper.left left \
-           --set wraper.left icon="[" "${no_margin[@]}"
+# sketchybar --add item wraper.left center \
+#            --set wraper.left icon="[" "${no_margin[@]}"
 
 sketchybar --add event aerospace_workspace_change
 
@@ -104,14 +109,14 @@ do
     script="$PLUGIN_DIR/space.sh"
     click_script="aerospace workspace $sid"
   )
-  sketchybar --add item aerospace."$sid" left \
+  sketchybar --add item aerospace."$sid" center \
              --set aerospace."$sid" "${aero[@]}" "${no_margin[@]}" \
              --subscribe aerospace."$sid" aerospace_workspace_change
 done
 
-sketchybar --add item wraper.right left \
-           --set wraper.right icon="]" "${no_margin[@]}" \
-                 icon.padding_right=10
+# sketchybar --add item wraper.right center \
+#            --set wraper.right icon="]" "${no_margin[@]}" \
+#                  icon.padding_right=10
 
 # sketchybar --add bracket spaces '/aerospace\..*/'               \
 #            --set         spaces background.color=0xff45475a \
@@ -123,10 +128,6 @@ sketchybar --default "default[@]"
 ##### Adding Left Items #####
 # We add some regular items to the left side of the bar, where
 # only the properties deviating from the current defaults need to be set
-
-sketchybar --add item front_app left \
-           --set front_app icon.drawing=off script="$PLUGIN_DIR/front_app.sh" \
-           --subscribe front_app front_app_switched
 
 ##### Adding Right Items #####
 # In the same way as the left items we can add items to the right side.
@@ -141,17 +142,43 @@ sketchybar --add item front_app left \
 
 sketchybar --add event change_keyboard_layout
 
+sketchybar --default icon.font.size=20
+
 sketchybar --add item clock right \
-           --set clock update_freq=10 icon=  script="$PLUGIN_DIR/clock.sh" \
+           --set clock update_freq=10 icon= script="$PLUGIN_DIR/clock.sh" \
 	   --add item keyboard right \
            --set keyboard icon="" script="$PLUGIN_DIR/keyboard.sh" \
            --subscribe keyboard change_keyboard_layout \
            --add item volume right \
-           --set volume script="$PLUGIN_DIR/volume.sh" \
+           --set volume script="$PLUGIN_DIR/volume.sh" icon.font.size=17 \
            --subscribe volume volume_change \
            --add item battery right \
-           --set battery update_freq=120 script="$PLUGIN_DIR/battery.sh" \
+           --set battery update_freq=120 script="$PLUGIN_DIR/battery.sh" icon.font.size=17 \
            --subscribe battery system_woke
+
+cpu=(
+ update_freq=2
+ "${no_margin[@]}"
+ icon.padding_right=5
+ icon=""
+ icon.color=0xffcba6f7
+ script="$PLUGIN_DIR/cpu.sh"
+)
+
+sketchybar --add item cpu right \
+           --set cpu "${cpu[@]}"
+
+mem=(
+ update_freq=2
+ "${no_margin[@]}"
+ icon.padding_right=5
+ icon=""
+ icon.color=0xffa6e3a1
+ script="$PLUGIN_DIR/memory.sh"
+)
+
+sketchybar --add item memory right \
+           --set memory "${mem[@]}"
 
 ##### Force all scripts to run the first time (never do this in a script) #####
 sketchybar --update
