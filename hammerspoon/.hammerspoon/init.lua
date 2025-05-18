@@ -1,6 +1,6 @@
 ---@diagnostic disable: undefined-global
 
-local padding = 30
+local padding = 50
 
 local center_tall = function()
     local win = hs.window.focusedWindow()

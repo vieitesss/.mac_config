@@ -29,7 +29,7 @@ default=(
 
 focused=(
 	icon.background.drawing=true
-	icon.background.color=0xff7f849c
+	icon.background.color=0xffcdd6f4
 	icon.background.height=16
 	icon.background.corner_radius=10
 	icon.padding_right=15
