@@ -24,8 +24,10 @@ default=(
   padding_right=5
   icon.font="BlexMono Nerd Font Mono:Bold:15.0"
   label.font="BlexMono Nerd Font Mono:Semibold:15.0"
-  icon.color=0xdd1e1e2e
-  label.color=0xdd1e1e2e
+  # icon.color=0xdd1e1e2e   # Dark
+  # label.color=0xdd1e1e2e
+  icon.color=0xddcdd6f4     # Light
+  label.color=0xddcdd6f4
   icon.padding_left=4
   icon.padding_right=4
   label.padding_left=4
@@ -35,8 +37,8 @@ sketchybar --default "${default[@]}"
 
 bar=(
   # height=5
-  # color=0x00000000
-  color=0x551e1e2e
+  color=0x3300000
+  # color=0x551e1e2e
 )
 sketchybar --bar "${bar[@]}"
 
@@ -106,7 +108,7 @@ for i in "${!SPACE_ICONS[@]}"
 do
   sid="$(($i+1))"
   aero=(
-    icon="$sid"
+    # icon=""
     script="$PLUGIN_DIR/space.sh"
     click_script="aerospace workspace $sid"
   )
