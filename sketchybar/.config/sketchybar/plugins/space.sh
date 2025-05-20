@@ -20,7 +20,7 @@ fi
 # else
 # 	sketchybar --set "$NAME" icon="$EMPTY" icon.color=0xffcdd6f4
 # fi
-color="0xff7f849c"
+color="0xffcdd6f4"
 
 default=(
 	icon.background.color="$color"
