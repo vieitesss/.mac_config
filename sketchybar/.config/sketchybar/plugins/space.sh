@@ -20,20 +20,24 @@ fi
 # else
 # 	sketchybar --set "$NAME" icon="$EMPTY" icon.color=0xffcdd6f4
 # fi
+color="0xff7f849c"
 
 default=(
-	icon.background.drawing=false
-	icon.padding_right=0
-	icon.padding_left=0
+	icon.background.color="$color"
+	icon.background.height=10
+	icon.background.corner_radius=10
+	icon.padding_right=5
+	icon.padding_left=5
 )
 
 focused=(
 	icon.background.drawing=true
-	icon.background.color=0xffcdd6f4
+	# icon.background.color=0xffcdd6f4 # Dark
+	icon.background.color="$color"
 	icon.background.height=16
 	icon.background.corner_radius=10
-	icon.padding_right=15
-	icon.padding_left=15
+	icon.padding_right=20
+	icon.padding_left=20
 )
 
 if [[ "aerospace.$FOCUSED" == "$NAME" ]]
