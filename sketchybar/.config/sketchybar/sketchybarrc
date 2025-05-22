@@ -19,6 +19,7 @@ sketchybar --bar position=top height=40 blur_radius=30 color=0x40000000
 # For a full list of all available item properties see:
 # https://felixkratz.github.io/SketchyBar/config/items
 
+base="0xffcdd6f4"
 default=(
   padding_left=5
   padding_right=5
@@ -26,8 +27,8 @@ default=(
   label.font="BlexMono Nerd Font Mono:Semibold:15.0"
   # icon.color=0xdd1e1e2e   # Dark
   # label.color=0xdd1e1e2e
-  icon.color=0xddcdd6f4     # Light
-  label.color=0xddcdd6f4
+  icon.color="$base"     # Light
+  label.color="$base"
   icon.padding_left=4
   icon.padding_right=4
   label.padding_left=4
@@ -37,7 +38,7 @@ sketchybar --default "${default[@]}"
 
 bar=(
   # height=5
-  color=0x3300000
+  color=0x3300000 # bar background
   # color=0x551e1e2e
 )
 sketchybar --bar "${bar[@]}"
@@ -98,9 +99,6 @@ sketchybar --add item front_app left \
 # https://felixkratz.github.io/SketchyBar/config/components#space----associate-mission-control-spaces-with-an-item
 # to indicate active and available mission control spaces.
 
-# sketchybar --add item wraper.left center \
-#            --set wraper.left icon="[" "${no_margin[@]}"
-
 sketchybar --add event aerospace_workspace_change
 
 SPACE_ICONS=("1" "2" "3" "4" "5")
@@ -108,23 +106,19 @@ for i in "${!SPACE_ICONS[@]}"
 do
   sid="$(($i+1))"
   aero=(
-    # icon=""
     script="$PLUGIN_DIR/space.sh"
     click_script="aerospace workspace $sid"
+    icon.background.color="$base"
+    icon.background.height=10
+    icon.background.corner_radius=10
+    "${no_margin[@]}"
+    icon.padding_right=5
+    icon.padding_left=5
   )
   sketchybar --add item aerospace."$sid" center \
-             --set aerospace."$sid" "${aero[@]}" "${no_margin[@]}" \
+             --set aerospace."$sid" "${aero[@]}" \
              --subscribe aerospace."$sid" aerospace_workspace_change
 done
-
-# sketchybar --add item wraper.right center \
-#            --set wraper.right icon="]" "${no_margin[@]}" \
-#                  icon.padding_right=10
-
-# sketchybar --add bracket spaces '/aerospace\..*/'               \
-#            --set         spaces background.color=0xff45475a \
-#                                 background.corner_radius=0  \
-#                                 background.height=20
 
 sketchybar --default "default[@]"
 

@@ -45,7 +45,7 @@ key-mapping.preset = 'qwerty'
 on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 
 exec-on-workspace-change = ['/bin/bash', '-c',
-    'sketchybar --trigger aerospace_workspace_change FOCUSED=$AEROSPACE_FOCUSED_WORKSPACE'
+    'sketchybar --trigger aerospace_workspace_change PREV=$AEROSPACE_PREV_WORKSPACE FOCUSED=$AEROSPACE_FOCUSED_WORKSPACE'
 ]
 # Gaps between windows (inner-*) and between monitor edges (outer-*).
 # Possible values:
