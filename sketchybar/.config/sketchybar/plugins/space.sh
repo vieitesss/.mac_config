@@ -42,7 +42,9 @@ focused=(
 
 if [[ "aerospace.$FOCUSED" == "$NAME" ]]
 then
-	sketchybar --set "$NAME" "${focused[@]}"
+	sketchybar --animate linear 5 \
+		   --set "$NAME" "${focused[@]}"
 else
-	sketchybar --set "$NAME" "${default[@]}"
+	sketchybar --animate linear 5 \
+		   --set "$NAME" "${default[@]}"
 fi
