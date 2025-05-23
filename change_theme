@@ -1,0 +1,110 @@
+#!/usr/bin/env bash
+
+set -eou pipefail
+
+PID="$$"
+trap "exit 1" SIGUSR1
+
+exitt () {
+    kill -SIGUSR1 "$PID"
+}
+
+THEMES=( "rose-pine" "catppuccin" )
+PALETTES="$HOME/.mac_config/palettes"
+
+usage () {
+    local format_themes=$(printf "    %s\n" "${THEMES[@]}")
+    cat <<EOF
+Usage: $0 THEME
+
+THEME:
+$format_themes
+EOF
+}
+
+warn () {
+    echo "[WARN] $1"
+}
+
+info () {
+    echo "[INFO] $1"
+}
+
+check_file () {
+    if [[ ! -f "$1" ]]
+    then
+        warn "The file $file does not exist."
+        return
+    fi
+}
+
+set_nvim () {
+    local file="$HOME/.config/nvim/lua/vt/specs.lua"
+    check_file "$file"
+
+    sed -i '' "/spec(\"plugins\.colorschemes\./ s/^spec/-- spec/" "$file" &&
+    sed -i '' "/spec(\"plugins\.colorschemes\.$theme\")/ s/^-- spec/spec/" "$file"
+
+    info "Neovim reloaded"
+}
+
+set_wezterm () {
+    local file="$HOME/.config/wezterm/configs.lua"
+    check_file "$file"
+
+    sed -i '' "/config\.color_scheme/s/^\( *\)config/\1-- config/" "$file" &&
+    sed -i '' "/--.*-- $theme$/s/^\( *\)-- *config/\1config/" "$file"
+
+    info "WezTerm reloaded"
+}
+
+set_sketchybar () {
+    source "$PALETTES/$1"
+
+    file="$HOME/.mac_config/sketchybar/.config/sketchybar/sketchybarrc"
+    check_file "$file"
+
+    COLORS=("BASE" "TEXT" "MALVE" "GREEN" "BLUE" "YELLOW")
+
+    for COLOR in "${COLORS[@]}"; do
+        ENV_VAR="PALETTE_${COLOR}"
+        VALUE="${!ENV_VAR}"
+        if [[ -n "$VALUE" ]]; then
+            PREFIX=$(grep "^PALETTE_${COLOR}=\"0x" "$file" | sed -E 's/.*0x([0-9a-fA-F]{2})[0-9a-fA-F]{6}".*/\1/')
+            if [[ -n "$PREFIX" ]]; then
+                sed -i '' "s/^PALETTE_${COLOR}=\"0x[0-9a-fA-F]\{8\}\"/PALETTE_${COLOR}=\"0x${PREFIX}${VALUE}\"/" "$file"
+            else
+                echo "Warning: Could not find prefix for PALETTE_${COLOR} in $file."
+            fi
+        else
+            echo "Warning: Environment variable $ENV_VAR is not set."
+        fi
+    done
+
+    sketchybar --reload
+
+    info "Sketchybar reloaded"
+}
+
+main () {
+    test "$#" -eq "0" && usage && exit 1
+
+    local theme="$1"
+    local ok=false
+    for t in "${THEMES[@]}"; do
+        if [[ $t == $theme ]]; then
+            ok=true
+            break
+        fi
+    done
+
+    test ! ok && usage && exitt
+
+    set_nvim "$theme"
+    set_wezterm "$theme"
+    set_sketchybar "$theme"
+    export PALETTE="$theme"
+    echo "$PALETTE" > "$PALETTES/current"
+}
+
+main "$@"

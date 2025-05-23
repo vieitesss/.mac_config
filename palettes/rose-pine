@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+export PALETTE_BASE="191724"
+export PALETTE_BLUE="31748f"
+export PALETTE_GREEN="9ccfd8"
+export PALETTE_MALVE="c4a7e7"
+export PALETTE_RED="eb6f92"
+export PALETTE_TEXT="e0def4"
+export PALETTE_YELLOW="f6c177"

@@ -27,12 +27,11 @@ configs.apply_to_config = function(config)
     config.window_decorations = "RESIZE"
 
     -- Colorscheme
-    -- config.color_scheme = 'Monokai (base16)'
-    -- config.color_scheme = 'Kanagawa (Gogh)'
-    -- config.color_scheme = 'mellifluous'
-    -- config.color_scheme = 'kanso-zen'
-    config.color_scheme = 'Catppuccin Mocha (Gogh)'
-    -- config.color_scheme = 'tokyonight-storm'
+    -- config.color_scheme = 'Kanagawa (Gogh)' -- kanagawa
+    -- config.color_scheme = 'mellifluous' -- mellifluous
+    -- config.color_scheme = 'Catppuccin Mocha (Gogh)' -- catppuccin
+    config.color_scheme = 'Rosé Pine (Gogh)' -- rose-pine
+    -- config.color_scheme = 'tokyonight-storm' -- tokyonight
     config.colors = {
         tab_bar = {
             background = "rgba(0, 0, 0, 0)",

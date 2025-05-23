@@ -19,7 +19,15 @@ sketchybar --bar position=top height=40 blur_radius=30 color=0x40000000
 # For a full list of all available item properties see:
 # https://felixkratz.github.io/SketchyBar/config/items
 
-base="0xffcdd6f4"
+##### theme #####
+PALETTE_BASE="0x33191724"
+PALETTE_TEXT="0xffe0def4"
+PALETTE_MALVE="0xffc4a7e7"
+PALETTE_GREEN="0xff9ccfd8"
+PALETTE_BLUE="0xff31748f"
+PALETTE_YELLOW="0xfff6c177"
+#################
+
 default=(
   padding_left=5
   padding_right=5
@@ -27,8 +35,8 @@ default=(
   label.font="BlexMono Nerd Font Mono:Semibold:15.0"
   # icon.color=0xdd1e1e2e   # Dark
   # label.color=0xdd1e1e2e
-  icon.color="$base"     # Light
-  label.color="$base"
+  icon.color="$PALETTE_TEXT"     # Light
+  label.color="$PALETTE_TEXT"
   icon.padding_left=4
   icon.padding_right=4
   label.padding_left=4
@@ -38,8 +46,7 @@ sketchybar --default "${default[@]}"
 
 bar=(
   # height=5
-  color=0x3300000 # bar background
-  # color=0x551e1e2e
+  color="$PALETTE_BASE"
 )
 sketchybar --bar "${bar[@]}"
 
@@ -108,7 +115,7 @@ do
   aero=(
     script="$PLUGIN_DIR/space.sh"
     click_script="aerospace workspace $sid"
-    icon.background.color="$base"
+    icon.background.color="$PALETTE_TEXT"
     icon.background.height=10
     icon.background.corner_radius=10
     "${no_margin[@]}"
@@ -143,14 +150,16 @@ sketchybar --default icon.font.size=20
 
 sketchybar --add item clock right \
            --set clock update_freq=10 icon= script="$PLUGIN_DIR/clock.sh" \
-	   --add item keyboard right \
+           --add item keyboard right \
            --set keyboard icon="" script="$PLUGIN_DIR/keyboard.sh" \
            --subscribe keyboard change_keyboard_layout \
            --add item volume right \
            --set volume script="$PLUGIN_DIR/volume.sh" icon.font.size=17 \
+           --set volume icon.color="$PALETTE_BLUE" \
            --subscribe volume volume_change \
            --add item battery right \
            --set battery update_freq=120 script="$PLUGIN_DIR/battery.sh" icon.font.size=17 \
+           --set battery icon.color="$PALETTE_YELLOW" \
            --subscribe battery system_woke
 
 cpu=(
@@ -158,7 +167,7 @@ cpu=(
  "${no_margin[@]}"
  icon.padding_right=5
  icon=""
- icon.color=0xffcba6f7
+ icon.color="$PALETTE_MALVE"
  script="$PLUGIN_DIR/cpu.sh"
 )
 
@@ -170,7 +179,7 @@ mem=(
  "${no_margin[@]}"
  icon.padding_right=5
  icon=""
- icon.color=0xffa6e3a1
+ icon.color="$PALETTE_GREEN"
  script="$PLUGIN_DIR/memory.sh"
 )
 

@@ -4,6 +4,7 @@ PATH=$(tr "\n" ":" < "/etc/paths" | sed 's/.\{1\}$//')
 
 export EDITOR="nvim"
 DOTFILES="$HOME/.mac_config"
+PALETTES="$DOTFILES/palettes"
 HOSTNAME=$(hostname)
 TERM="screen-256color"
 DISPLAY=$(ifconfig | grep -E "192\.168\.[0-9]{1,3}\.[0-9]{1,3}" | awk '{print $2}'):0.0
@@ -118,11 +119,22 @@ else
   add-to-path "HOMEBREW" "/usr/local/Homebrew" "/bin"
 fi
 
-
 export PATH
 
 source_folder "$DOTFILES/aliases"
 source_folder "$HOME/obsidian/terminal"
+
+default=$(cat "$PALETTES/current" || true)
+if [[ -z "$default" ]] || [[ "$default" == "" ]]
+then
+  export PALETTE="rose-pine" # default theme
+  echo "$PALETTE" > "$PALETTES/current"
+  "$DOTFILES/change_theme" "$PALETTE"
+else
+  export PALETTE="$default"
+fi
+
+source "$PALETTES/$PALETTE"
 
 source "$HOME/.cargo/env"
 # source "$HOME/.aws-tokens"

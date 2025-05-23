@@ -34,3 +34,6 @@ update:
 # Show homebrew dependencies
 show_deps:
   cat ./installation/brew_dependencies.txt
+
+theme t:
+  ./change_theme {{t}}
