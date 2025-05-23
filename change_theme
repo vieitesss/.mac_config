@@ -64,20 +64,20 @@ set_sketchybar () {
     file="$HOME/.mac_config/sketchybar/.config/sketchybar/sketchybarrc"
     check_file "$file"
 
-    COLORS=("BASE" "TEXT" "MALVE" "GREEN" "BLUE" "YELLOW")
+    local colors=("BASE" "TEXT" "MALVE" "GREEN" "BLUE" "YELLOW")
 
-    for COLOR in "${COLORS[@]}"; do
-        ENV_VAR="PALETTE_${COLOR}"
-        VALUE="${!ENV_VAR}"
-        if [[ -n "$VALUE" ]]; then
-            PREFIX=$(grep "^PALETTE_${COLOR}=\"0x" "$file" | sed -E 's/.*0x([0-9a-fA-F]{2})[0-9a-fA-F]{6}".*/\1/')
-            if [[ -n "$PREFIX" ]]; then
-                sed -i '' "s/^PALETTE_${COLOR}=\"0x[0-9a-fA-F]\{8\}\"/PALETTE_${COLOR}=\"0x${PREFIX}${VALUE}\"/" "$file"
+    for color in "${colors[@]}"; do
+        local env_var="PALETTE_${color}"
+        local value="${!env_var}"
+        if [[ -n "$value" ]]; then
+            local prefix=$(grep "^PALETTE_${color}=\"0x" "$file" | sed -E 's/.*0x([0-9a-fA-F]{2})[0-9a-fA-F]{6}".*/\1/')
+            if [[ -n "$prefix" ]]; then
+                sed -i '' "s/^PALETTE_${color}=\"0x[0-9a-fA-F]\{8\}\"/PALETTE_${color}=\"0x${prefix}${value}\"/" "$file"
             else
-                echo "Warning: Could not find prefix for PALETTE_${COLOR} in $file."
+                warn "Could not find prefix for PALETTE_${color} in $file."
             fi
         else
-            echo "Warning: Environment variable $ENV_VAR is not set."
+            warn "Environment variable $env_var is not set."
         fi
     done
 
