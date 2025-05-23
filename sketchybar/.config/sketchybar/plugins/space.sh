@@ -2,35 +2,30 @@
 
 if [[ -z "$FOCUSED" ]]
 then
-	FOCUSED=$(aerospace list-workspaces --focused)
+    FOCUSED=$(aerospace list-workspaces --focused)
 fi
 
-color="0xffcdd6f4"
-
 default=(
-	icon.background.color="$color"
-	icon.background.height=10
-	icon.background.corner_radius=10
-	icon.padding_right=5
-	icon.padding_left=5
+    icon.background.height=10
+    icon.background.corner_radius=10
+    icon.padding_right=5
+    icon.padding_left=5
 )
 
 focused=(
-	icon.background.drawing=true
-	# icon.background.color=0xffcdd6f4 # Dark
-	icon.background.color="$color"
-	icon.background.height=16
-	icon.background.corner_radius=10
-	icon.padding_right=20
-	icon.padding_left=20
+    icon.background.drawing=true
+    icon.background.height=16
+    icon.background.corner_radius=10
+    icon.padding_right=20
+    icon.padding_left=20
 )
 
 if [[ "aerospace.$FOCUSED" == "$NAME" ]]
 then
-	sketchybar --animate linear 5 \
-		   --set "$NAME" "${focused[@]}"
+    sketchybar --animate linear 5 \
+               --set "$NAME" "${focused[@]}"
 elif [[ "aerospace.$PREV" == "$NAME" ]]
 then
-	sketchybar --animate linear 5 \
-		   --set "$NAME" "${default[@]}"
+    sketchybar --animate linear 5 \
+               --set "$NAME" "${default[@]}"
 fi
