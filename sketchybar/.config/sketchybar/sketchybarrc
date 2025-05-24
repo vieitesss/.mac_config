@@ -58,46 +58,46 @@ no_margin=(
 )
 
 ### left system preferences ###
-sketchybar -m --bar blur_radius=50 \
-                    height=32 \
-              --add item apple.logo left \
-              --set apple.logo icon= \
-                               icon.font.size=20 \
-                               label.drawing=off \
-                               click_script="sketchybar -m --set \$NAME popup.drawing=toggle" \
-                               popup.background.border_width=2 \
-                               popup.background.corner_radius=3 \
-                               popup.background.border_color=0x0000000 \
-                               popup.background.color=0xff000000 \
-                               popup.background.drawing=on \
-                               "${no_margin[@]}" \
-                               icon.padding_right=10 \
-              --default background.padding_left=5 \
-                        background.padding_right=5 \
-                        icon.padding_right=5 \
-                        icon.font="AnonymicePro Nerd Font Mono:Bold:18.0" \
-                        label.font="AnonymicePro Nerd Font Mono:Semibold:18.0" \
-              --add item apple.preferences popup.apple.logo \
-              --set apple.preferences icon=󰘳 \
-                               label="Preferences" \
-                               label.drawing=on \
-                               click_script="open -a 'System Preferences';                    
-                                             sketchybar -m --set apple.logo popup.drawing=off" \
-              --add item apple.restart popup.apple.logo \
-              --set apple.restart icon= \
-                               label="Restart" \
-                               click_script="sketchybar -m --set apple.logo popup.drawing=off;
-                                               $PLUGIN_DIR/syscontrol.sh restart" \
-              --add item apple.down popup.apple.logo \
-              --set apple.down icon=⏻ \
-                               label="Shut down" \
-                               click_script="sketchybar -m --set apple.logo popup.drawing=off;
-                                               $PLUGIN_DIR/syscontrol.sh down"
+# sketchybar -m --bar blur_radius=50 \
+#                     height=32 \
+#               --add item apple.logo left \
+#               --set apple.logo icon= \
+#                                icon.font.size=20 \
+#                                label.drawing=off \
+#                                click_script="sketchybar -m --set \$NAME popup.drawing=toggle" \
+#                                popup.background.border_width=2 \
+#                                popup.background.corner_radius=3 \
+#                                popup.background.border_color=0x0000000 \
+#                                popup.background.color=0xff000000 \
+#                                popup.background.drawing=on \
+#                                "${no_margin[@]}" \
+#                                icon.padding_right=10 \
+#               --default background.padding_left=5 \
+#                         background.padding_right=5 \
+#                         icon.padding_right=5 \
+#                         icon.font="AnonymicePro Nerd Font Mono:Bold:18.0" \
+#                         label.font="AnonymicePro Nerd Font Mono:Semibold:18.0" \
+#               --add item apple.preferences popup.apple.logo \
+#               --set apple.preferences icon=󰘳 \
+#                                label="Preferences" \
+#                                label.drawing=on \
+#                                click_script="open -a 'System Preferences';                    
+#                                              sketchybar -m --set apple.logo popup.drawing=off" \
+#               --add item apple.restart popup.apple.logo \
+#               --set apple.restart icon= \
+#                                label="Restart" \
+#                                click_script="sketchybar -m --set apple.logo popup.drawing=off;
+#                                                $PLUGIN_DIR/syscontrol.sh restart" \
+#               --add item apple.down popup.apple.logo \
+#               --set apple.down icon=⏻ \
+#                                label="Shut down" \
+#                                click_script="sketchybar -m --set apple.logo popup.drawing=off;
+#                                                $PLUGIN_DIR/syscontrol.sh down"
 ###
 
 sketchybar --default "${default[@]}"
 
-sketchybar --add item front_app left \
+sketchybar --add item front_app q \
            --set front_app icon.drawing=off script="$PLUGIN_DIR/front_app.sh" \
            --subscribe front_app front_app_switched
 
@@ -109,6 +109,7 @@ sketchybar --add item front_app left \
 sketchybar --add event aerospace_workspace_change
 
 SPACE_ICONS=("1" "2" "3" "4" "5")
+
 for i in "${!SPACE_ICONS[@]}"
 do
   sid="$(($i+1))"
@@ -122,7 +123,8 @@ do
     icon.padding_right=5
     icon.padding_left=5
   )
-  sketchybar --add item aerospace."$sid" center \
+
+  sketchybar --add item aerospace."$sid" left \
              --set aerospace."$sid" "${aero[@]}" \
              --subscribe aerospace."$sid" aerospace_workspace_change
 done
