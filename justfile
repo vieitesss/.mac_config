@@ -25,7 +25,7 @@ dots:
 
 # Install others plus: apply defaults and load dotfiles
 all:
-  @just -f {{file}} deps defaults neovim dots kbd
+  @just -f {{file}} deps defaults dots kbd neovim
 
 # Update homebrew dependencies
 update:
