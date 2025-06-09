@@ -5,23 +5,23 @@ _default:
 
 # Install brew and Brew dependencies
 deps:
-  -./install deps
+  ./install deps
 
 # Install Neovim
 neovim version="latest":
-  -./install neovim {{version}}
+  ./install neovim {{version}}
 
 # Install keyboard configuration
 kbd:
-  -./install kbd
+  ./install kbd
 
 # Apply Mac defaults
 defaults:
-  -./install defaults
+  ./install defaults
 
 # Install dotfiles
 dots:
-  -./install dots
+  ./install dots
 
 # Install others plus: apply defaults and load dotfiles
 all:
