@@ -4,6 +4,7 @@ PATH=$(tr "\n" ":" < "/etc/paths" | sed 's/.\{1\}$//')
 
 export EDITOR="nvim"
 DOTFILES="$HOME/.mac_config"
+OBSIDIAN="$HOME/personal/obsidian"
 PALETTES="$DOTFILES/palettes"
 HOSTNAME=$(hostname)
 TERM="screen-256color"
@@ -111,6 +112,8 @@ add-to-path "MY_SCRIPTS" "$HOME/.mac_config/scripts"
 add-to-path "LTX_HOME" "/Library/TeX" "/texbin"
 add-to-path "CARGO_HOME" "$HOME/.cargo" "/bin"
 
+add-to-path "OBSIDIAN_SCRIPTS" "$OBSIDIAN/terminal/scripts"
+
 if [[ "$(uname -p)" == "arm" ]]
 then
   add-to-path "LOCAL_BIN" "$HOME/.local/bin"
@@ -122,7 +125,7 @@ fi
 export PATH
 
 source_folder "$DOTFILES/aliases"
-source_folder "$HOME/obsidian/terminal"
+source_folder "$OBSIDIAN/terminal"
 
 default=$(cat "$PALETTES/current" || true)
 if [[ -z "$default" ]] || [[ "$default" == "" ]]

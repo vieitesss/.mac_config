@@ -45,7 +45,7 @@ default=(
 sketchybar --default "${default[@]}"
 
 bar=(
-  # height=5
+  height=33
   color="$PALETTE_BASE"
 )
 sketchybar --bar "${bar[@]}"
