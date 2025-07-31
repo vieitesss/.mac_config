@@ -73,10 +73,9 @@ zvm_after_init () {
   [ -f ~/.fzf.zsh ] && source "$HOME/.fzf.zsh"
 
   source <(fzf --zsh)
-  source $(brew --cellar fzf)/**/key-bindings.zsh
 }
 
-# zsh vi mode
+bindkey -v
 export ZVM_VI_INSERT_ESCAPE_BINDKEY=nk
 export ZVM_INSERT_MODE_CURSOR='bl'
 
@@ -142,8 +141,8 @@ source "$PALETTES/$PALETTE"
 source "$HOME/.cargo/env"
 # source "$HOME/.aws-tokens"
 
-# export STARSHIP_CONFIG=~/.config/starship/starship.toml
-export FZF_DEFAULT_OPTS='--preview "bat --style=numbers --color=always --line-range :500 {}"'
+export STARSHIP_CONFIG=~/.config/starship/starship.toml
+export FZF_DEFAULT_OPTS='--preview "bat --theme="Nord" --style=numbers --color=always --line-range :500 {}"'
 export FZF_DEFAULT_COMMAND='fd --hidden --exclude .git'
 export FZF_CTRL_T_COMMAND='fd --hidden'
 export FZF_ALT_C_COMMAND='fd --hidden'
@@ -152,11 +151,16 @@ export FZF_ALT_C_COMMAND='fd --hidden'
 eval "$(zoxide init zsh)"
 eval "$(luarocks path)"
 
-source <(fzf --zsh)
+# source <(fzf --zsh)
 
-source $(brew --cellar fzf)/**/key-bindings.zsh
+# source $(brew --cellar fzf)/**/key-bindings.zsh
 
 export LUA_PATH="$LUA_PATH;/usr/local/lib/lua/5.4/?.so"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" || true  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" || true  # This loads nvm bash_completion
+# The following lines have been added by Docker Desktop to enable Docker CLI completions.
+fpath=(/Users/vieitesprefapp/.docker/completions $fpath)
+autoload -Uz compinit
+compinit
+# End of Docker CLI completions

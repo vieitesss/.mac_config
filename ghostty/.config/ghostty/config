@@ -1,4 +1,5 @@
 # config-file = keybinds
+shell-integration = zsh
 
 # font
 font-family = BlexMono Nerd Font Mono

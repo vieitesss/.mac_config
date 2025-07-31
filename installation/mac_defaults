@@ -8,5 +8,7 @@ defaults write com.apple.finder "FXPreferredViewStyle" -string "clmv"
 defaults write com.apple.finder "_FXSortFoldersFirst" -bool true
 defaults write com.apple.dock "expose-group-apps" -bool true
 defaults write com.apple.WindowManager EnableStandardClickToShowDesktop -bool false
+defaults write com.apple.desktopservices DSDontWriteNetworkStores true
+defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
 
 killall Dock
