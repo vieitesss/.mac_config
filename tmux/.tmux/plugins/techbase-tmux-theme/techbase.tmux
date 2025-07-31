@@ -13,8 +13,6 @@ set-option -ga terminal-overrides ",xterm-256color:Tc"
 
 # Status bar
 set-option -g status-style "fg=#{@color_fg},bg=#{@color_bg}"
-# set-option -g status-bg "#{@color_bg}"
-# set-option -g status-fg "#{@color_fg}"
 
 # Active window title
 set-window-option -g window-status-current-style "fg=#{@color_accent},bg=#{@color_bg_alt},bold"
@@ -36,10 +34,9 @@ set-option -g message-command-style "fg=#{@color_accent},bg=#{@color_bg_alt}"
 set-option -g mode-style "fg=#{@color_bg},bg=#{@color_accent},bold"
 
 # Clock mode colors
-set-window-option -g -F clock-mode-colour "#{@color_number}"
+set-window-option -g clock-mode-colour "#B85B53"
 set-window-option -g clock-mode-style 24
 
 # Bell color
 set-option -g bell-action any
-# set-option -g bell-on-alert on
-# set-option -g bell-style "fg=#F71735,bg=#{@color_bg_alt}"
+set-option -g window-status-bell-style "fg=#F71735,bg=#{@color_bg_alt}"
