@@ -15,171 +15,194 @@ DEFAULTS="${CONFIG_DIR}/mac_defaults"
 ARQ="$(uname -p)"
 
 log () {
-	echo -e "${GREEN}[INFO]${NC} $1"
+    echo -e "${GREEN}[INFO]${NC} $1"
 }
 
 warn () {
-	echo -e "${YELLOW}[WARN]${NC} $1"
+    echo -e "${YELLOW}[WARN]${NC} $1"
 }
 
 error () {
-	echo -e "${RED}[ERROR]${NC} $1" >&2
-	exit 1
+    echo -e "${RED}[ERROR]${NC} $1" >&2
+    exit 1
 }
 
 exists_command () {
-	command -v "$1" >/dev/null 2>&1
+    command -v "$1" >/dev/null 2>&1
 }
 
 needs_root () {
-	if [ "$EUID" -ne 0 ]
-	then
-		warn "This step needs root privileges."
-		sudo -v || { echo "Error obtaining root privileges."; exit 1; }
-	fi
+    if [ "$EUID" -ne 0 ]
+    then
+        warn "This step needs root privileges."
+        sudo -v || { echo "Error obtaining root privileges."; exit 1; }
+    fi
 }
 
 install_brew () {
-	if exists_command "brew"
-	then
-		log "Homebrew is already installed."
-		return 0
-	fi
+    if exists_command "brew"
+    then
+        log "Homebrew is already installed."
+        return 0
+    fi
 
-	log "Installing Homebrew..."
-	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" || error "Error installing Homebrew."
+    log "Installing Homebrew..."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" || error "Error installing Homebrew."
 }
 
 install_brew_dependencies () {
-	[ ! -f "$DEPENDENCIES" ] && error "The file $DEPENDENCIES does not exist."
+    [ ! -f "$DEPENDENCIES" ] && error "The file $DEPENDENCIES does not exist."
 
-	log "Installing Homebrew dependencies..."
-	brew bundle install --file="$DEPENDENCIES" || error "Error installing Homebrew dependencies."
+    log "Installing Homebrew dependencies..."
+    brew bundle install --file="$DEPENDENCIES" || error "Error installing Homebrew dependencies."
 }
 
 apply_defaults () {
-	[ ! -f "$DEFAULTS" ] && error "The file $DEFAULTS does not exist."
+    [ ! -f "$DEFAULTS" ] && error "The file $DEFAULTS does not exist."
 
-	log "Applying default configurations..."
-	"$DEFAULTS" || error "Error applying default configurations."
+    log "Applying default configurations..."
+    "$DEFAULTS" || error "Error applying default configurations."
 }
 
 install_neovim_arm () {
-	log "Installing Neovim..."
+    local url="$1"
+    shift || true
 
-	# Download nvim source
-	curl -Lk -o nvim-macos-arm64.tar.gz "https://github.com/neovim/neovim/releases/latest/download/nvim-macos-arm64.tar.gz"
-	tar xzvf nvim-macos-arm64.tar.gz
-	rm nvim-macos-arm64.tar.gz
-	mkdir -p $HOME/.local/{opt,bin}
-	rm -rf "$HOME/.local/opt/nvim-macos-arm64" || true
-	mv "./nvim-macos-arm64" "$HOME/.local/opt"
+    log "Installing Neovim $url ... "
 
-	# Create link
-	rm -rf "$HOME/.local/bin/nvim" || true
-	ln -s "$HOME/.local/opt/nvim-macos-arm64/bin/nvim" "$HOME/.local/bin/nvim"
+    # Download nvim source
+    curl -Lk -o nvim-macos-arm64.tar.gz "$url"
+    tar xzvf nvim-macos-arm64.tar.gz
+    rm nvim-macos-arm64.tar.gz
+    mkdir -p "$HOME"/.local/{opt,bin}
+    rm -rf "$HOME/.local/opt/nvim-macos-arm64" || true
+    mv "./nvim-macos-arm64" "$HOME/.local/opt"
 
-	# Download config
-	git clone https://github.com/vieitesss/nvim "$HOME/.config/nvim" || true
+    # Create link
+    rm -rf "$HOME/.local/bin/nvim" || true
+    ln -s "$HOME/.local/opt/nvim-macos-arm64/bin/nvim" "$HOME/.local/bin/nvim"
 
-	log "Neovim installed successfully"
+    # Download config
+    git clone https://github.com/vieitesss/nvim "$HOME/.config/nvim" || true
+
+    log "Neovim installed successfully"
 }
 
 install_neovim () {
-	log "Installing Neovim..."
+    local url="$1"
+    shift || true
 
-	# Download nvim source
-	curl -Lk -o nvim-macos-x86_64.tar.gz "https://github.com/neovim/neovim/releases/latest/download/nvim-macos-x86_64.tar.gz"
-	tar xzvf nvim-macos-x86_64.tar.gz
-	rm nvim-macos-x86_64.tar.gz
-	mkdir -p /usr/local/opt
-	rm -rf /usr/local/opt/nvim-macos-x86_64 || true
-	mv ./nvim-macos-x86_64 /usr/local/opt
+    log "Installing Neovim $url ... "
 
-	# Create link
-	rm -rf /usr/local/bin/nvim || true
-	ln -s /usr/local/opt/nvim-macos-x86_64/bin/nvim /usr/local/bin/nvim
+    curl -Lk -o nvim-macos-x86_64.tar.gz "$url"
+    tar xzvf nvim-macos-x86_64.tar.gz
+    rm nvim-macos-x86_64.tar.gz
+    mkdir -p /usr/local/opt
+    rm -rf /usr/local/opt/nvim-macos-x86_64 || true
+    mv ./nvim-macos-x86_64 /usr/local/opt
 
-	# Download config
-	git clone https://github.com/vieitesss/nvim "$HOME/.config/nvim" || true
+    # Create link
+    rm -rf /usr/local/bin/nvim || true
+    ln -s /usr/local/opt/nvim-macos-x86_64/bin/nvim /usr/local/bin/nvim
 
-	log "Neovim installed successfully"
+    # Download config
+    git clone https://github.com/vieitesss/nvim "$HOME/.config/nvim" || true
+
+    log "Neovim installed successfully"
 }
 
 load_configs () {
-	local configs=("wezterm" "aerospace" "hammerspoon" "karabiner" "zsh" "git")
-	for c in "${configs[@]}"
-	do
-		if [ -d "$DOTFILES/$c" ]
-		then
-			log "Loading configuration for $c..."
-			stow "$c" -d "$DOTFILES" -t "$HOME" || warn "Error loading configuration for $c."
-		else
-			warn "Could not find configuration for $c."
-		fi
-	done
+    local configs=("wezterm" "aerospace" "hammerspoon" "karabiner" "zsh" "git")
+    for c in "${configs[@]}"
+    do
+        if [ -d "$DOTFILES/$c" ]
+        then
+            log "Loading configuration for $c..."
+            stow "$c" -d "$DOTFILES" -t "$HOME" || warn "Error loading configuration for $c."
+        else
+            warn "Could not find configuration for $c."
+        fi
+    done
 }
 
 save_kbd_layout () {
-	[ ! -d "$KBD_LAYOUT" ] && error "The directory $KBD_LAYOUT does not exist."
+    [ ! -d "$KBD_LAYOUT" ] && error "The directory $KBD_LAYOUT does not exist."
 
-	log "Copying keyboard layout..."
+    log "Copying keyboard layout..."
 
-	needs_root
-	sudo cp -r "$KBD_LAYOUT"/* "/Library/Keyboard Layouts" || error "Error copying keyboard layout."
+    needs_root
+    sudo cp -r "$KBD_LAYOUT"/* "/Library/Keyboard Layouts" || error "Error copying keyboard layout."
 
-	warn "Restart your computer to apply the changes."
+    warn "Restart your computer to apply the changes."
 }
 
 help () {
-	cat <<EOF
-Usage: $0 OPTION
+    cat <<EOF
+    Usage: $0 OPTION
 
-OPTIONS:
-	deps	install brew and brew dependencies
-	neovim	install Neovim
-	kbd	install keyboard configuration
-	all	install all the above plus: apply defaults and load dotfiles
+    OPTIONS:
+    deps	install brew and brew dependencies
+    neovim	install Neovim
+    kbd	install keyboard configuration
+    all	install all the above plus: apply defaults and load dotfiles
 EOF
 }
 
+pick_neovim () {
+    local version="$1"
+    local version_path=""
+
+    log "Installing Neovim version: $version"
+    case "$version" in
+        "latest")
+            version_path="latest/download"
+            ;;
+        "nightly")
+            version_path="download/nightly"
+            ;;
+        *)
+            error "Invalid Neovim version: $version. Use 'latest' or 'nightly'."
+            ;;
+    esac
+
+    case "$ARQ" in
+        arm) install_neovim_arm "https://github.com/neovim/neovim/releases/${version_path}/nvim-macos-arm64.tar.gz" ;;
+        *) install_neovim "https://github.com/neovim/neovim/releases/${version_path}/nvim-macos-x86_64.tar.gz"  ;;
+    esac
+}
+
 main () {
-	test "$#" -eq 0 && help "$@" && exit 1
+    test "$#" -eq 0 && help "$@" && exit 1
 
-	case "$1" in
-		"deps")
-			install_brew
-			install_brew_dependencies
-			;;
-		"defaults")
-			apply_defaults
-			;;
-		"neovim")
-			test $ARQ == "arm" && install_neovim_arm || install_neovim
-			;;
-		"dots")
-			load_configs
-			;;
-		"kbd")
-			save_kbd_layout
-			;;
-		"all")
-			install_brew
-			install_brew_dependencies
-			apply_defaults
-			test $ARQ == "arm" && install_neovim_arm || install_neovim
-			load_configs
-			save_kbd_layout
-			;;
-		*)
-			help "$@"
-			exit 1
-			;;
-	esac
+    option="$1"
+    neovim_version="$2"
+    shift 2 || true
 
+    case "$option" in
+        "deps")
+            install_brew
+            install_brew_dependencies
+            ;;
+        "defaults") apply_defaults ;;
+        "neovim") pick_neovim "$neovim_version" ;;
+        "dots") load_configs ;;
+        "kbd") save_kbd_layout ;;
+        "all")
+            install_brew
+            install_brew_dependencies
+            apply_defaults
+            pick_neovim "$neovim_version"
+            load_configs
+            save_kbd_layout
+            ;;
+        *)
+            help "$@"
+            exit 1
+            ;;
+    esac
 
-	log "Configuration completed successfully."
-	warn "Remember to create an ssh key for GitHub."
+    log "Configuration completed successfully."
+    warn "Remember to create an ssh key for GitHub."
 }
 
 # TODO: create ssh key for GH if it does not exist

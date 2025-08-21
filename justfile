@@ -8,8 +8,8 @@ deps:
   -./install deps
 
 # Install Neovim
-neovim:
-  -./install neovim
+neovim version="latest":
+  -./install neovim {{version}}
 
 # Install keyboard configuration
 kbd:
