@@ -1,0 +1,10 @@
+[colors]
+background = '#181818'
+foreground = '#E4E4E4'
+cursor = '#FFDD33'
+tabs = '#95A99F'
+tabs-active = '#E4E4E4'
+green = '#73D936'
+red = '#F43841'
+blue = '#96A6C8'
+yellow = '#FFDD33'

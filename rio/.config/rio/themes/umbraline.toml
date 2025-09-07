@@ -1,0 +1,56 @@
+# ~/.config/rio/themes/lacklite.toml
+
+[colors]
+background = "#191c23"
+foreground = "#c0c9d6"
+
+# Selection
+selection-background = "#2b303a"
+selection-foreground = "#c0c9d6"
+
+# Navigation
+tabs-active = "#353b47"
+tabs-active-foreground = "#c0c9d6"
+tabs-active-highlight = "#c9a45f"
+bar = "#22262f"
+cursor = "#e5ecef"
+vi-cursor = "#c9a45f"
+
+# Search
+search-match-background = "#403a30"
+search-match-foreground = "#000000"
+search-focused-match-background = "#3e2930"
+search-focused-match-foreground = "#000000"
+
+# Regular colors
+black = "#191c23"
+blue = "#7c8aa3"     # lack (cool neutral)
+cyan = "#859a86"     # lack + green mix (teal-ish neutral)
+green = "#8eab6a"    # strings / OK
+magenta = "#9b9488"  # desaturated violet-gray (neutral-ish)
+red = "#c3555f"      # errors
+tabs = "#2b303b"     # tab bar background
+white = "#cfd6df"
+yellow = "#c9a45f"
+
+# Dim colors
+dim-black = "#111319"
+dim-blue = "#3c4250"
+dim-cyan = "#3f4846"
+dim-foreground = "#858e9c"
+dim-green = "#424e3c"
+dim-magenta = "#464646"
+dim-red = "#543038"
+dim-white = "#a7afbb"
+dim-yellow = "#574c38"
+
+# Light colors
+light-black = "#6b6b6b"
+light-blue = "#c0cad4"
+light-cyan = "#c3cfca"
+light-foreground = "#cfd6df"
+light-green = "#c7d5c0"
+light-magenta = "#d6d2ce"
+light-red = "#d9b7bd"
+light-white = "#e5ecef"
+light-yellow = "#dbd3bd"
