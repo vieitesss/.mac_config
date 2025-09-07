@@ -175,7 +175,10 @@ main () {
     test "$#" -eq 0 && help "$@" && exit 1
 
     option="$1"
-    neovim_version="$2"
+    if [[ "$#" -gt 1 && ("$option" == "neovim" || "$option" != "all") ]]
+    then
+        neovim_version="$2"
+    fi
     shift 2 || true
 
     case "$option" in
