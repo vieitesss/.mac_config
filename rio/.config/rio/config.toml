@@ -133,7 +133,7 @@ args = []
 #
 # Example:
 [window]
-opacity = 1
+opacity = 0.9
 blur = false
 decorations = "disabled"
 # width = 600
