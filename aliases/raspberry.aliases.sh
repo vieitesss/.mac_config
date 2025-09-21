@@ -14,5 +14,5 @@ function sshpi {
         return
     fi
 
-    ssh vieitesrpi@"$pip"
+    ssh vieitesrpi@"$pip" -p "$RPI_SSH_PORT"
 }

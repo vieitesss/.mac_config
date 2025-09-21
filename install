@@ -1,5 +1,3 @@
-#!/usr/bin/env bash
-
 set -euo pipefail
 
 GREEN='\033[0;32m'
@@ -12,7 +10,8 @@ KBD_LAYOUT="$DOTFILES/mac_keyboard_layout"
 CONFIG_DIR="$DOTFILES/installation"
 DEPENDENCIES="${CONFIG_DIR}/brew_dependencies.txt"
 DEFAULTS="${CONFIG_DIR}/mac_defaults"
-ARQ="$(uname -p)"
+ARQ="$(uname -m)"
+OS="$(uname)"
 
 log () {
     echo -e "${GREEN}[INFO]${NC} $1"
@@ -64,46 +63,26 @@ apply_defaults () {
     "$DEFAULTS" || error "Error applying default configurations."
 }
 
-install_neovim_arm () {
-    local url="$1"
-    shift || true
-
-    log "Installing Neovim $url ... "
-
-    # Download nvim source
-    curl -Lk -o nvim-macos-arm64.tar.gz "$url"
-    tar xzvf nvim-macos-arm64.tar.gz
-    rm nvim-macos-arm64.tar.gz
-    mkdir -p "$HOME"/.local/{opt,bin}
-    rm -rf "$HOME/.local/opt/nvim-macos-arm64" || true
-    mv "./nvim-macos-arm64" "$HOME/.local/opt"
-
-    # Create link
-    rm -rf "$HOME/.local/bin/nvim" || true
-    ln -s "$HOME/.local/opt/nvim-macos-arm64/bin/nvim" "$HOME/.local/bin/nvim"
-
-    # Download config
-    git clone https://github.com/vieitesss/nvim "$HOME/.config/nvim" || true
-
-    log "Neovim installed successfully"
-}
-
 install_neovim () {
     local url="$1"
     shift || true
 
     log "Installing Neovim $url ... "
 
-    curl -Lk -o nvim-macos-x86_64.tar.gz "$url"
-    tar xzvf nvim-macos-x86_64.tar.gz
-    rm nvim-macos-x86_64.tar.gz
-    mkdir -p /usr/local/opt
-    rm -rf /usr/local/opt/nvim-macos-x86_64 || true
-    mv ./nvim-macos-x86_64 /usr/local/opt
+    local dest="$(echo ${url} | xargs basename)"
+    local dir="$(echo $dest | sed 's/\..*//g')"
+
+    curl -Lk -o "$dest" "$url"
+    tar xzvf "$dest"
+    rm "$dest"
+    needs_root
+    sudo mkdir -p /usr/local/opt
+    sudo rm -rf /usr/local/opt/"$dir" || true
+    sudo mv ./"$dir" /usr/local/opt
 
     # Create link
-    rm -rf /usr/local/bin/nvim || true
-    ln -s /usr/local/opt/nvim-macos-x86_64/bin/nvim /usr/local/bin/nvim
+    sudo rm -rf /usr/local/bin/nvim || true
+    sudo ln -s /usr/local/opt/"$dir"/bin/nvim /usr/local/bin/nvim
 
     # Download config
     git clone https://github.com/vieitesss/nvim "$HOME/.config/nvim" || true
@@ -165,10 +144,19 @@ pick_neovim () {
             ;;
     esac
 
+    local os="macos"
+    if [[ "$OS" == "Linux" ]]
+    then
+        os="linux"
+    fi
+
+    local url="https://github.com/neovim/neovim/releases/${version_path}"
     case "$ARQ" in
-        arm) install_neovim_arm "https://github.com/neovim/neovim/releases/${version_path}/nvim-macos-arm64.tar.gz" ;;
-        *) install_neovim "https://github.com/neovim/neovim/releases/${version_path}/nvim-macos-x86_64.tar.gz"  ;;
+        arm64|aarch64) url="${url}/nvim-${os}-arm64.tar.gz" ;;
+        *) url="${url}/nvim-${os}-x86_64.tar.gz" ;;
     esac
+
+    install_neovim "$url"
 }
 
 main () {
