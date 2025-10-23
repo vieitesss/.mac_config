@@ -1,3 +1,7 @@
+[general]
+import = [
+    "./themes/themes/umbraline.toml",
+]
 
 [env]
 TERM                   = "screen-256color"
@@ -6,7 +10,7 @@ WINIT_X11_SCALE_FACTOR = "1.25"
 [font]
 size = 18
 
-normal.family = "AnonymicePro Nerd Font Mono"
+normal.family = "Terminess Nerd Font Mono"
 
 offset.x = 1
 offset.y = 1 
@@ -31,25 +35,4 @@ padding.y                 = 0
 general  = "Alacritty"
 instance = "Alacritty"
 
-# Mellifluous
-[colors.primary]
-foreground = '#dddddd'
-background = '#1d1d1d'
 
-[colors.cursor]
-text = '#1d1d1d'
-cursor = '#dddddd'
-
-[colors.normal]
-black = '#1d1d1d'
-red = '#d0a08a'
-green = '#accca4'
-magenta = '#bf9ac1'
-white = '#dddddd'
-
-[colors.bright]
-black = '#777777'
-red = '#d0a08a'
-green = '#bccda1'
-magenta = '#bc9ead'
-white = '#ffffff'

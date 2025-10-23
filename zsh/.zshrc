@@ -121,6 +121,18 @@ else
   add-to-path "HOMEBREW" "/usr/local/Homebrew" "/bin"
 fi
 
+PATH=$PATH:$(go env GOPATH)/bin
+
+exists_command () {
+    command -v "$1" &>/dev/null
+}
+
+if exists_command "dagger"; then
+    dagger completion zsh > /opt/homebrew/share/zsh/site-functions/_dagger
+    autoload -U compinit
+    compinit -i
+fi
+
 export PATH
 
 source_folder "$DOTFILES/aliases"
@@ -161,8 +173,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" || true  # This loads nvm bash_completion
 # The following lines have been added by Docker Desktop to enable Docker CLI completions.
 fpath=(/Users/vieitesprefapp/.docker/completions $fpath)
-autoload -Uz compinit
-compinit
+autoload -Uz compinit && compinit
 # End of Docker CLI completions
 source /opt/homebrew/opt/chruby/share/chruby/chruby.sh
 source /opt/homebrew/opt/chruby/share/chruby/auto.sh
