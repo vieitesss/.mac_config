@@ -1,11 +1,6 @@
 #!/usr/bin/env zsh
 
-# Locale settings (must be first to avoid warnings)
-export LANG=en_US.UTF-8
-export LC_ALL=en_US.UTF-8
-export LANGUAGE=en_US.UTF-8
-
-# Set PATH to default (cross-platform)
+# Set PATH FIRST before anything else (cross-platform)
 if [[ -f "/etc/paths" ]]; then
     # macOS: Read from /etc/paths
     PATH=$(tr "\n" ":" < "/etc/paths" | sed 's/.\{1\}$//')
@@ -13,6 +8,12 @@ else
     # Linux: Set standard PATH
     PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
 fi
+export PATH
+
+# Locale settings
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+export LANGUAGE=en_US.UTF-8
 
 export EDITOR="nvim"
 DOTFILES="$HOME/.mac_config"
