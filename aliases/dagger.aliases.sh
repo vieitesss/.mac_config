@@ -13,6 +13,6 @@ dagger_work () {
     install_dagger "0.18.8"
 }
 
-dagger_latest () {
-    install_dagger
+dagger_kedada () {
+    install_dagger "0.19.2"
 }

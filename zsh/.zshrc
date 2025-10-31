@@ -128,7 +128,7 @@ exists_command () {
 }
 
 if exists_command "dagger"; then
-    dagger completion zsh > /opt/homebrew/share/zsh/site-functions/_dagger
+    dagger completion zsh --quiet > /opt/homebrew/share/zsh/site-functions/_dagger
     autoload -U compinit
     compinit -i
 fi
