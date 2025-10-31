@@ -1,14 +1,37 @@
 #!/usr/bin/env zsh
-# Set PATH to default
-PATH=$(tr "\n" ":" < "/etc/paths" | sed 's/.\{1\}$//')
+
+# Locale settings (must be first to avoid warnings)
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+export LANGUAGE=en_US.UTF-8
+
+# Set PATH to default (cross-platform)
+if [[ -f "/etc/paths" ]]; then
+    # macOS: Read from /etc/paths
+    PATH=$(tr "\n" ":" < "/etc/paths" | sed 's/.\{1\}$//')
+else
+    # Linux: Set standard PATH
+    PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
+fi
 
 export EDITOR="nvim"
 DOTFILES="$HOME/.mac_config"
 OBSIDIAN="$HOME/personal/obsidian"
 PALETTES="$DOTFILES/palettes"
-HOSTNAME=$(hostname)
+HOSTNAME=$(hostname 2>/dev/null || echo "unknown")
 TERM="screen-256color"
-DISPLAY=$(ifconfig | grep -E "192\.168\.[0-9]{1,3}\.[0-9]{1,3}" | awk '{print $2}'):0.0
+
+# Get display IP (cross-platform)
+if command -v ifconfig &>/dev/null; then
+    # macOS/BSD style
+    DISPLAY=$(ifconfig 2>/dev/null | grep -E "192\.168\.[0-9]{1,3}\.[0-9]{1,3}" | awk '{print $2}' | head -1):0.0
+elif command -v ip &>/dev/null; then
+    # Linux style
+    DISPLAY=$(ip addr 2>/dev/null | grep -oE "192\.168\.[0-9]{1,3}\.[0-9]{1,3}" | head -1):0.0
+else
+    DISPLAY=":0.0"
+fi
+
 export BAT_THEME="OneHalfDark"
 
 #########
@@ -150,7 +173,7 @@ fi
 
 source "$PALETTES/$PALETTE"
 
-source "$HOME/.cargo/env"
+[ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
 # source "$HOME/.aws-tokens"
 
 export STARSHIP_CONFIG=~/.config/starship/starship.toml
@@ -160,8 +183,8 @@ export FZF_CTRL_T_COMMAND='fd --hidden'
 export FZF_ALT_C_COMMAND='fd --hidden'
 
 # eval "$(starship init zsh)"
-eval "$(zoxide init zsh)"
-eval "$(luarocks path)"
+command -v zoxide &>/dev/null && eval "$(zoxide init zsh)"
+command -v luarocks &>/dev/null && eval "$(luarocks path)"
 
 # source <(fzf --zsh)
 
@@ -171,13 +194,19 @@ export LUA_PATH="$LUA_PATH;/usr/local/lib/lua/5.4/?.so"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" || true  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" || true  # This loads nvm bash_completion
-# The following lines have been added by Docker Desktop to enable Docker CLI completions.
-fpath=(/Users/vieitesprefapp/.docker/completions $fpath)
-autoload -Uz compinit && compinit
-# End of Docker CLI completions
-source /opt/homebrew/opt/chruby/share/chruby/chruby.sh
-source /opt/homebrew/opt/chruby/share/chruby/auto.sh
-chruby ruby-3.4.1 # run chruby to see actual version
 
-# opencode
-export PATH=/Users/vieitesprefapp/.opencode/bin:$PATH
+# Docker CLI completions (cross-platform)
+if [[ -d "$HOME/.docker/completions" ]]; then
+    fpath=($HOME/.docker/completions $fpath)
+    autoload -Uz compinit && compinit
+fi
+
+# Ruby version manager (macOS with Homebrew)
+if [[ -f "/opt/homebrew/opt/chruby/share/chruby/chruby.sh" ]]; then
+    source /opt/homebrew/opt/chruby/share/chruby/chruby.sh
+    source /opt/homebrew/opt/chruby/share/chruby/auto.sh
+    chruby ruby-3.4.1 2>/dev/null || true # run chruby to see actual version
+fi
+
+# opencode (if installed)
+[ -d "$HOME/.opencode/bin" ] && export PATH=$HOME/.opencode/bin:$PATH
