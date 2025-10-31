@@ -1,7 +1,12 @@
 #!/usr/bin/env bash
 
-# List directory contents
-alias ls="ls --color"
+# List directory contents (cross-platform)
+if [[ "$(uname)" == "Darwin" ]]; then
+	alias ls="ls -G"
+else
+	alias ls="ls --color"
+fi
+
 alias ll="eza --long --group-directories-first --icons --no-time"
 alias le="eza --group-directories-first --icons"
 alias leg="eza --long --git --group-directories-first --icons --no-time --no-user --no-permissions --no-filesize"
@@ -11,8 +16,18 @@ alias ltl="eza -T --long --icons --no-time"
 alias la="eza -al --group-directories-first"
 alias tree="eza --tree"
 
+# Cross-platform copy to clipboard
 copy () {
-	cat "$1" | pbcopy
+	if [[ "$(uname)" == "Darwin" ]]; then
+		cat "$1" | pbcopy
+	elif command -v xclip &> /dev/null; then
+		cat "$1" | xclip -selection clipboard
+	elif command -v xsel &> /dev/null; then
+		cat "$1" | xsel --clipboard
+	else
+		echo "Error: No clipboard utility found. Install xclip or xsel."
+		return 1
+	fi
 }
 
 core () {

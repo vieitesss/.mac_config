@@ -10,7 +10,16 @@ RED='\033[0;31m'
 NC='\033[0m' # No Color
 
 DOTFILES="$HOME/.mac_config"
-OUTPUT=$DOTFILES"/installation/brew_dependencies.txt"
+OS="$(uname)"
+
+if [[ "$OS" == "Darwin" ]]; then
+	OUTPUT=$DOTFILES"/installation/brew_dependencies.txt"
+elif [[ "$OS" == "Linux" ]]; then
+	OUTPUT=$DOTFILES"/installation/linux_dependencies.txt"
+else
+	echo -e "${RED}[ERROR]${NC} Unsupported operating system: $OS" >&2
+	exit 1
+fi
 
 log () {
 	echo -e "${GREEN}[INFO]${NC} $1"
@@ -25,10 +34,36 @@ error () {
 	exitt
 }
 
-main () {
+update_brew_deps () {
 	[ -f $OUTPUT ] && log "Removing current dependency file: $OUTPUT" && rm $OUTPUT
 	brew bundle dump --file=$OUTPUT || error "Could not save the dependencies."
 	log "Dependencies written successfully."
+}
+
+update_apt_deps () {
+	log "Updating Linux dependencies file..."
+
+	# Create header
+	cat > $OUTPUT <<'EOF'
+# Linux (apt) package dependencies
+# This file lists packages for Debian/Ubuntu-based distributions
+# Install with: sudo apt update && xargs -a linux_dependencies.txt sudo apt install -y
+
+EOF
+
+	# Get explicitly installed packages (excluding auto-installed dependencies)
+	apt-mark showmanual | sort >> $OUTPUT || error "Could not query apt packages."
+
+	log "Dependencies written successfully."
+	log "Note: You may want to manually review and clean up $OUTPUT to remove unnecessary packages."
+}
+
+main () {
+	if [[ "$OS" == "Darwin" ]]; then
+		update_brew_deps
+	else
+		update_apt_deps
+	fi
 }
 
 main

@@ -3,7 +3,7 @@ file := justfile()
 _default:
   just -l
 
-# Install brew and Brew dependencies
+# Install package dependencies (brew on macOS, apt on Linux)
 deps:
   ./install deps
 
@@ -11,11 +11,15 @@ deps:
 neovim version="latest":
   ./install neovim {{version}}
 
-# Install keyboard configuration
+# Install zinit and powerlevel10k
+zinit:
+  ./install zinit
+
+# Install keyboard configuration (macOS only)
 kbd:
   ./install kbd
 
-# Apply Mac defaults
+# Apply Mac defaults (macOS only)
 defaults:
   ./install defaults
 
@@ -23,17 +27,17 @@ defaults:
 dots:
   ./install dots
 
-# Install others plus: apply defaults and load dotfiles
+# Install everything
 all:
-  @just -f {{file}} deps defaults dots kbd neovim
+  @just -f {{file}} deps defaults neovim zinit dots kbd
 
-# Update homebrew dependencies
+# Update package dependencies
 update:
   ./update_packages
 
-# Show homebrew dependencies
+# Show package dependencies for current OS
 show_deps:
-  cat ./installation/brew_dependencies.txt
+  @if [ "$(uname)" = "Darwin" ]; then cat ./installation/brew_dependencies.txt; else cat ./installation/linux_dependencies.txt; fi
 
 theme t:
   ./change_theme {{t}}

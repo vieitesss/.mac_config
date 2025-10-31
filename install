@@ -8,10 +8,20 @@ NC='\033[0m' # No Color
 DOTFILES="$HOME/.mac_config"
 KBD_LAYOUT="$DOTFILES/mac_keyboard_layout"
 CONFIG_DIR="$DOTFILES/installation"
-DEPENDENCIES="${CONFIG_DIR}/brew_dependencies.txt"
-DEFAULTS="${CONFIG_DIR}/mac_defaults"
 ARQ="$(uname -m)"
 OS="$(uname)"
+
+# Set OS-specific variables
+if [[ "$OS" == "Darwin" ]]; then
+    DEPENDENCIES="${CONFIG_DIR}/brew_dependencies.txt"
+    DEFAULTS="${CONFIG_DIR}/mac_defaults"
+    IS_MACOS=true
+elif [[ "$OS" == "Linux" ]]; then
+    DEPENDENCIES="${CONFIG_DIR}/linux_dependencies.txt"
+    IS_MACOS=false
+else
+    error "Unsupported operating system: $OS"
+fi
 
 log () {
     echo -e "${GREEN}[INFO]${NC} $1"
@@ -49,6 +59,21 @@ install_brew () {
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" || error "Error installing Homebrew."
 }
 
+install_apt_dependencies () {
+    [ ! -f "$DEPENDENCIES" ] && error "The file $DEPENDENCIES does not exist."
+
+    log "Installing apt dependencies..."
+    sudo apt update || error "Error updating apt cache."
+
+    # Read packages from file, excluding comments and empty lines
+    grep -v '^#' "$DEPENDENCIES" | grep -v '^$' | while read -r package; do
+        if ! dpkg -l | grep -q "^ii  $package "; then
+            log "Installing $package..."
+            sudo apt install -y "$package" || warn "Could not install $package (may need manual installation)"
+        fi
+    done
+}
+
 install_brew_dependencies () {
     [ ! -f "$DEPENDENCIES" ] && error "The file $DEPENDENCIES does not exist."
 
@@ -56,7 +81,21 @@ install_brew_dependencies () {
     brew bundle install --file="$DEPENDENCIES" || error "Error installing Homebrew dependencies."
 }
 
+install_dependencies () {
+    if [[ "$IS_MACOS" == true ]]; then
+        install_brew
+        install_brew_dependencies
+    else
+        install_apt_dependencies
+    fi
+}
+
 apply_defaults () {
+    if [[ "$IS_MACOS" != true ]]; then
+        log "Skipping macOS defaults (not on macOS)"
+        return 0
+    fi
+
     [ ! -f "$DEFAULTS" ] && error "The file $DEFAULTS does not exist."
 
     log "Applying default configurations..."
@@ -90,8 +129,30 @@ install_neovim () {
     log "Neovim installed successfully"
 }
 
+install_zinit () {
+    local zinit_home="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+
+    if [ -d "$zinit_home" ]; then
+        log "Zinit is already installed."
+        return 0
+    fi
+
+    log "Installing zinit..."
+    mkdir -p "$(dirname "$zinit_home")"
+    git clone https://github.com/zdharma-continuum/zinit.git "$zinit_home" || error "Error installing zinit."
+
+    log "Zinit installed successfully. Powerlevel10k will be installed when zsh is first launched."
+}
+
 load_configs () {
-    local configs=("wezterm" "aerospace" "hammerspoon" "karabiner" "zsh" "git")
+    # Define configs based on OS
+    local configs=("alacritty" "zsh" "git")
+
+    # Add macOS-specific configs
+    if [[ "$IS_MACOS" == true ]]; then
+        configs+=("aerospace" "hammerspoon" "karabiner")
+    fi
+
     for c in "${configs[@]}"
     do
         if [ -d "$DOTFILES/$c" ]
@@ -105,6 +166,11 @@ load_configs () {
 }
 
 save_kbd_layout () {
+    if [[ "$IS_MACOS" != true ]]; then
+        log "Skipping keyboard layout installation (not on macOS)"
+        return 0
+    fi
+
     [ ! -d "$KBD_LAYOUT" ] && error "The directory $KBD_LAYOUT does not exist."
 
     log "Copying keyboard layout..."
@@ -120,10 +186,13 @@ help () {
     Usage: $0 OPTION
 
     OPTIONS:
-    deps	install brew and brew dependencies
+    deps	install package dependencies (brew on macOS, apt on Linux)
     neovim	install Neovim
-    kbd	install keyboard configuration
-    all	install all the above plus: apply defaults and load dotfiles
+    zinit	install zinit and powerlevel10k
+    kbd	install keyboard configuration (macOS only)
+    dots	load dotfiles configuration
+    defaults	apply macOS defaults (macOS only)
+    all	install all the above
 EOF
 }
 
@@ -171,18 +240,18 @@ main () {
 
     case "$option" in
         "deps")
-            install_brew
-            install_brew_dependencies
+            install_dependencies
             ;;
         "defaults") apply_defaults ;;
         "neovim") pick_neovim "$neovim_version" ;;
+        "zinit") install_zinit ;;
         "dots") load_configs ;;
         "kbd") save_kbd_layout ;;
         "all")
-            install_brew
-            install_brew_dependencies
+            install_dependencies
             apply_defaults
             pick_neovim "$neovim_version"
+            install_zinit
             load_configs
             save_kbd_layout
             ;;

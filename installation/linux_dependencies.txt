@@ -1,0 +1,101 @@
+# Linux (apt) package dependencies
+# This file lists packages for Debian/Ubuntu-based distributions
+# Install with: sudo apt update && xargs -a linux_dependencies.txt sudo apt install -y
+
+# Build essentials and libraries
+build-essential
+automake
+bison
+libssl-dev
+libreadline-dev
+libyaml-dev
+libffi-dev
+libncurses5-dev
+libgdbm-dev
+liblzma-dev
+zlib1g-dev
+libsqlite3-dev
+libbz2-dev
+p7zip-full
+xz-utils
+
+# CLI tools
+act
+bat
+fd-find
+fzf
+ripgrep
+stow
+tmux
+vim
+wget
+git
+git-delta
+gnupg
+curl
+unzip
+zip
+nmap
+telnet
+
+# Modern replacements
+eza
+zoxide
+
+# Cloud & DevOps
+awscli
+azure-cli
+terraform
+helm
+kubectl
+docker.io
+docker-compose
+
+# Development tools
+nodejs
+npm
+golang-go
+rustc
+cargo
+lua5.4
+liblua5.4-dev
+luarocks
+
+# Multimedia
+ffmpeg
+
+# Security & utilities
+age
+bitwarden-cli
+
+# GitHub CLI
+gh
+
+# Terminal emulators (available via apt)
+alacritty
+kitty
+
+# Note: The following packages may need manual installation or different sources:
+# - just (via cargo: cargo install just)
+# - k9s (download from: https://github.com/derailed/k9s/releases)
+# - kind (download from: https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
+# - helmfile (download from: https://github.com/helmfile/helmfile/releases)
+# - yq (download from: https://github.com/mikefarah/yq/releases)
+# - velero (download from: https://velero.io/docs/main/basic-install/)
+# - neofetch (may be in universe repo)
+# - tree-sitter (via npm: npm install -g tree-sitter-cli)
+# - typescript (via npm: npm install -g typescript)
+# - lerna (via npm: npm install -g lerna)
+# - node@20 (use nvm for specific versions)
+# - ruby-install (https://github.com/postmodern/ruby-install)
+# - chruby (https://github.com/postmodern/chruby)
+# - gemini-cli (download from source)
+# - wezterm (download from: https://wezfurlong.org/wezterm/install/linux.html)
+# - obsidian (download from: https://obsidian.md/download)
+# - brave-browser (https://brave.com/linux/)
+# - sketchybar (macOS only - no Linux equivalent)
+# - supabase CLI (via npm: npm install -g supabase)
+# - actionlint (installed via go install)
+# - oapi-codegen (installed via go install)
+# - dagger (download from: https://docs.dagger.io/install)
+# - kubelogin (download from: https://github.com/Azure/kubelogin/releases)
