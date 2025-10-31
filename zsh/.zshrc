@@ -96,7 +96,10 @@ zvm_after_init () {
 
   [ -f ~/.fzf.zsh ] && source "$HOME/.fzf.zsh"
 
-  source <(fzf --zsh)
+  # fzf key bindings (check if --zsh flag is supported)
+  if fzf --zsh &>/dev/null; then
+    source <(fzf --zsh)
+  fi
 }
 
 bindkey -v
@@ -132,17 +135,35 @@ source "$HOME/.profile"
 # add-to-path "OPENSSL_HOME" "/usr/local/opt/openssl@3.0" "bin"
 # add-to-path "PET_HOME" "$HOME/pet"
 add-to-path "MY_SCRIPTS" "$HOME/.mac_config/scripts"
-add-to-path "LTX_HOME" "/Library/TeX" "/texbin"
-add-to-path "CARGO_HOME" "$HOME/.cargo" "/bin"
 
-add-to-path "OBSIDIAN_SCRIPTS" "$OBSIDIAN/terminal/scripts"
+# macOS-specific: LaTeX
+if [[ "$(uname)" == "Darwin" ]] && [[ -d "/Library/TeX/texbin" ]]; then
+  add-to-path "LTX_HOME" "/Library/TeX" "/texbin"
+fi
 
-if [[ "$(uname -p)" == "arm" ]]
-then
-  add-to-path "LOCAL_BIN" "$HOME/.local/bin"
-  add-to-path "HOMEBREW" "/opt/homebrew" "/bin"
+# Cross-platform: Cargo (Rust)
+if [[ -d "$HOME/.cargo/bin" ]]; then
+  add-to-path "CARGO_HOME" "$HOME/.cargo" "bin"
+fi
+
+# Optional: Obsidian scripts
+if [[ -d "$OBSIDIAN/terminal/scripts" ]]; then
+  add-to-path "OBSIDIAN_SCRIPTS" "$OBSIDIAN/terminal/scripts"
+fi
+
+# Platform-specific homebrew paths
+if [[ "$(uname)" == "Darwin" ]]; then
+  if [[ "$(uname -p)" == "arm" ]]; then
+    add-to-path "LOCAL_BIN" "$HOME/.local/bin"
+    add-to-path "HOMEBREW" "/opt/homebrew" "/bin"
+  else
+    add-to-path "HOMEBREW" "/usr/local/Homebrew" "/bin"
+  fi
 else
-  add-to-path "HOMEBREW" "/usr/local/Homebrew" "/bin"
+  # Linux: add local bin if exists
+  if [[ -d "$HOME/.local/bin" ]]; then
+    add-to-path "LOCAL_BIN" "$HOME/.local/bin"
+  fi
 fi
 
 PATH=$PATH:$(go env GOPATH)/bin
@@ -151,8 +172,18 @@ exists_command () {
     command -v "$1" &>/dev/null
 }
 
+# Dagger completion (cross-platform)
 if exists_command "dagger"; then
-    dagger completion zsh --quiet > /opt/homebrew/share/zsh/site-functions/_dagger
+    if [[ "$(uname)" == "Darwin" ]]; then
+        # macOS with Homebrew
+        dagger completion zsh --quiet > /opt/homebrew/share/zsh/site-functions/_dagger 2>/dev/null || \
+        dagger completion zsh --quiet > /usr/local/share/zsh/site-functions/_dagger 2>/dev/null
+    else
+        # Linux: use user's local zsh functions directory
+        mkdir -p "$HOME/.local/share/zsh/site-functions"
+        dagger completion zsh --quiet > "$HOME/.local/share/zsh/site-functions/_dagger" 2>/dev/null
+        fpath=($HOME/.local/share/zsh/site-functions $fpath)
+    fi
     autoload -U compinit
     compinit -i
 fi
@@ -184,7 +215,8 @@ export FZF_CTRL_T_COMMAND='fd --hidden'
 export FZF_ALT_C_COMMAND='fd --hidden'
 
 # eval "$(starship init zsh)"
-command -v zoxide &>/dev/null && eval "$(zoxide init zsh)"
+# zoxide: use --no-cmd to avoid zi alias conflict with zinit
+command -v zoxide &>/dev/null && eval "$(zoxide init zsh --no-aliases)"
 command -v luarocks &>/dev/null && eval "$(luarocks path)"
 
 # source <(fzf --zsh)

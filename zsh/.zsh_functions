@@ -23,7 +23,8 @@ add-to-path () {
   then
     PATH="$2/$3:$PATH"
   else
-    "The path $2/$3 does not exist"
+    echo "The path $2/$3 does not exist"
+    return 1
   fi
 }
 
