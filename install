@@ -183,6 +183,22 @@ save_kbd_layout () {
     warn "Restart your computer to apply the changes."
 }
 
+install_from_source () {
+    local tool="$1"
+    local script="${CONFIG_DIR}/from_source/${tool}.sh"
+
+    if [ ! -f "$script" ]; then
+        error "No installation script found for '$tool' at $script"
+    fi
+
+    if [ ! -x "$script" ]; then
+        chmod +x "$script"
+    fi
+
+    log "Installing $tool from source..."
+    "$script" || error "Error installing $tool from source."
+}
+
 help () {
     cat <<EOF
     Usage: $0 OPTION
@@ -194,6 +210,7 @@ help () {
     kbd	install keyboard configuration (macOS only)
     dots	load dotfiles configuration
     defaults	apply macOS defaults (macOS only)
+    source <tool>	install a specific tool from source (e.g., fzf, eza)
     all	install all the above
 EOF
 }
@@ -249,6 +266,12 @@ main () {
         "zinit") install_zinit ;;
         "dots") load_configs ;;
         "kbd") save_kbd_layout ;;
+        "source")
+            if [ -z "${1:-}" ]; then
+                error "Please specify a tool to install from source (e.g., ./install source fzf)"
+            fi
+            install_from_source "$1"
+            ;;
         "all")
             install_dependencies
             apply_defaults

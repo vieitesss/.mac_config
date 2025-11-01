@@ -6,7 +6,8 @@ if [[ -f "/etc/paths" ]]; then
     PATH=$(tr "\n" ":" < "/etc/paths" | sed 's/.\{1\}$//')
 else
     # Linux: Set standard PATH
-    PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
+    mkdir -p "$HOME/.local/bin"
+    PATH="$HOME/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
 fi
 export PATH
 
@@ -138,32 +139,40 @@ add-to-path "MY_SCRIPTS" "$HOME/.mac_config/scripts"
 
 # macOS-specific: LaTeX
 if [[ "$(uname)" == "Darwin" ]] && [[ -d "/Library/TeX/texbin" ]]; then
-  add-to-path "LTX_HOME" "/Library/TeX" "/texbin"
+    add-to-path "LTX_HOME" "/Library/TeX" "/texbin"
 fi
 
 # Cross-platform: Cargo (Rust)
 if [[ -d "$HOME/.cargo/bin" ]]; then
-  add-to-path "CARGO_HOME" "$HOME/.cargo" "bin"
+    add-to-path "CARGO_HOME" "$HOME/.cargo" "bin"
 fi
 
 # Optional: Obsidian scripts
 if [[ -d "$OBSIDIAN/terminal/scripts" ]]; then
-  add-to-path "OBSIDIAN_SCRIPTS" "$OBSIDIAN/terminal/scripts"
+    add-to-path "OBSIDIAN_SCRIPTS" "$OBSIDIAN/terminal/scripts"
+fi
+
+if [[ ! -f ~/.local/bin/fd ]]; then
+    ln -s $(which fdfind) ~/.local/bin/fd
+fi
+
+if [[ ! -f ~/.local/bin/bat ]]; then
+    ln -s $(which batcat) ~/.local/bin/bat
 fi
 
 # Platform-specific homebrew paths
 if [[ "$(uname)" == "Darwin" ]]; then
-  if [[ "$(uname -p)" == "arm" ]]; then
-    add-to-path "LOCAL_BIN" "$HOME/.local/bin"
-    add-to-path "HOMEBREW" "/opt/homebrew" "/bin"
-  else
-    add-to-path "HOMEBREW" "/usr/local/Homebrew" "/bin"
-  fi
+    if [[ "$(uname -p)" == "arm" ]]; then
+        add-to-path "LOCAL_BIN" "$HOME/.local/bin"
+        add-to-path "HOMEBREW" "/opt/homebrew" "/bin"
+    else
+        add-to-path "HOMEBREW" "/usr/local/Homebrew" "/bin"
+    fi
 else
-  # Linux: add local bin if exists
-  if [[ -d "$HOME/.local/bin" ]]; then
-    add-to-path "LOCAL_BIN" "$HOME/.local/bin"
-  fi
+    # Linux: add local bin if exists
+    if [[ -d "$HOME/.local/bin" ]]; then
+        add-to-path "LOCAL_BIN" "$HOME/.local/bin"
+    fi
 fi
 
 PATH=$PATH:$(go env GOPATH)/bin
@@ -215,8 +224,8 @@ export FZF_CTRL_T_COMMAND='fd --hidden'
 export FZF_ALT_C_COMMAND='fd --hidden'
 
 # eval "$(starship init zsh)"
-# zoxide: use --no-cmd to avoid zi alias conflict with zinit
-command -v zoxide &>/dev/null && eval "$(zoxide init zsh --no-aliases)"
+# zoxide: use --cmd to rename commands to avoid zi conflict with zinit (creates zz/zzi instead of z/zi)
+command -v zoxide &>/dev/null && eval "$(zoxide init zsh --cmd c)"
 command -v luarocks &>/dev/null && eval "$(luarocks path)"
 
 # source <(fzf --zsh)

@@ -27,6 +27,10 @@ defaults:
 dots:
   ./install dots
 
+# Install a tool from source (e.g., just source fzf)
+source tool:
+  ./install source {{tool}}
+
 # Install everything
 all:
   @just -f {{file}} deps defaults neovim zinit dots kbd

@@ -20,7 +20,6 @@ p7zip-full
 xz-utils
 
 # CLI tools
-act
 bat
 fd-find
 fzf
@@ -39,7 +38,6 @@ nmap
 telnet
 
 # Modern replacements
-eza
 zoxide
 
 # Cloud & DevOps
@@ -77,6 +75,7 @@ kitty
 
 # Note: The following packages may need manual installation or different sources:
 # - just (via cargo: cargo install just)
+# - eza (download from: https://github.com/eza-community/eza/blob/main/INSTALL.md)
 # - k9s (download from: https://github.com/derailed/k9s/releases)
 # - kind (download from: https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
 # - helmfile (download from: https://github.com/helmfile/helmfile/releases)

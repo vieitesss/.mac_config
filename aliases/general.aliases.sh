@@ -99,12 +99,6 @@ pacs() {
     find "$(echo "$PATH" | tr ':' ' ')" | sed -e '/\/.*/d' -e '/^$/d' | fzf --preview="tldr {}" --ansi
 }
 
-#clear
-alias c="clear"
-alias k="clear"
-alias cls="clear"
-# alias clear='clear && tput cup 9999 0'
-
 # find process with fzf and kill it
 fkill() {
     ps ax | awk '{print $5}' | tail -n +2 | fzf | xargs kill -9
