@@ -22,7 +22,6 @@ xz-utils
 # CLI tools
 bat
 fd-find
-fzf
 ripgrep
 stow
 tmux
@@ -53,7 +52,6 @@ docker-compose
 nodejs
 npm
 golang-go
-rustc
 cargo
 lua5.4
 liblua5.4-dev
@@ -74,8 +72,6 @@ alacritty
 kitty
 
 # Note: The following packages may need manual installation or different sources:
-# - just (via cargo: cargo install just)
-# - eza (download from: https://github.com/eza-community/eza/blob/main/INSTALL.md)
 # - k9s (download from: https://github.com/derailed/k9s/releases)
 # - kind (download from: https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
 # - helmfile (download from: https://github.com/helmfile/helmfile/releases)

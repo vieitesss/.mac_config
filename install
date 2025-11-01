@@ -251,18 +251,17 @@ main () {
     test "$#" -eq 0 && help "$@" && exit 1
 
     option="$1"
-    if [[ "$#" -gt 1 && ("$option" == "neovim" || "$option" != "all") ]]
-    then
-        neovim_version="$2"
-    fi
-    shift 2 || true
+    shift
 
     case "$option" in
         "deps")
             install_dependencies
             ;;
         "defaults") apply_defaults ;;
-        "neovim") pick_neovim "$neovim_version" ;;
+        "neovim")
+            neovim_version="${1:-latest}"
+            pick_neovim "$neovim_version"
+            ;;
         "zinit") install_zinit ;;
         "dots") load_configs ;;
         "kbd") save_kbd_layout ;;
@@ -273,6 +272,7 @@ main () {
             install_from_source "$1"
             ;;
         "all")
+            neovim_version="${1:-latest}"
             install_dependencies
             apply_defaults
             pick_neovim "$neovim_version"
@@ -281,7 +281,7 @@ main () {
             save_kbd_layout
             ;;
         *)
-            help "$@"
+            help
             exit 1
             ;;
     esac
