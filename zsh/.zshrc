@@ -210,7 +210,9 @@ export FZF_ALT_C_COMMAND='fd --hidden'
 
 # prmt - simple prompt
 setopt PROMPT_SUBST
-PROMPT='$(prmt --code $? "{path:cyan} {git:purple} \n{ok:green:✓}{fail:red:✗} ")'
+if exists_command "prmt"; then
+    PROMPT='$(prmt --code $? "{path:cyan} {git:purple} \n{ok:green:✓}{fail:red:✗} ")'
+fi
 # zoxide: use --cmd to rename commands to avoid zi conflict with zinit (creates zz/zzi instead of z/zi)
 command -v zoxide &>/dev/null && eval "$(zoxide init zsh --cmd c)"
 command -v luarocks &>/dev/null && eval "$(luarocks path)"
