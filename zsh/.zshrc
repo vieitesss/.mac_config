@@ -40,13 +40,6 @@ export BAT_THEME="OneHalfDark"
 # ZINIT #
 #########
 
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
 # zinit install
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 
@@ -57,11 +50,7 @@ fi
 
 source "${ZINIT_HOME}/zinit.zsh"
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
 # zsh plugins
-zinit ice depth=1; zinit light romkatv/powerlevel10k
 zinit light zsh-users/zsh-autosuggestions
 zinit light zsh-users/zsh-completions
 zinit light jeffreytse/zsh-vi-mode
@@ -87,13 +76,9 @@ zvm_after_init () {
   # Edit line in vim with ctrl-e
   autoload -z edit-command-line
   zle -N edit-command-line
-  bindkey "^x^e" edit-command-line
 
+  bindkey "^x^e" edit-command-line
   bindkey -M viins "^u" end-of-line
-  # bindkey "^n" history-search-forward
-  # bindkey "^p" history-search-backward
-  # bindkey -M viins "^[[1;5C" forward-word
-  # bindkey -M viins "^[[1;5D" backward-word
 
   [ -f ~/.fzf.zsh ] && source "$HOME/.fzf.zsh"
 
@@ -104,8 +89,6 @@ zvm_after_init () {
 }
 
 bindkey -v
-export ZVM_VI_INSERT_ESCAPE_BINDKEY=nk
-export ZVM_INSERT_MODE_CURSOR='bl'
 
 ###########
 # OPTIONS #
@@ -153,11 +136,11 @@ if [[ -d "$OBSIDIAN/terminal/scripts" ]]; then
 fi
 
 if [[ ! -f ~/.local/bin/fd ]]; then
-    ln -s $(which fdfind) ~/.local/bin/fd
+    ln -s $(which fdfind) ~/.local/bin/fd 2>/dev/null || true
 fi
 
 if [[ ! -f ~/.local/bin/bat ]]; then
-    ln -s $(which batcat) ~/.local/bin/bat
+    ln -s $(which batcat) ~/.local/bin/bat 2>/dev/null || true
 fi
 
 # Platform-specific homebrew paths
@@ -224,6 +207,10 @@ export FZF_CTRL_T_COMMAND='fd --hidden'
 export FZF_ALT_C_COMMAND='fd --hidden'
 
 # eval "$(starship init zsh)"
+
+# prmt - simple prompt
+setopt PROMPT_SUBST
+PROMPT='$(prmt --code $? "{path:cyan} {git:purple} \n{ok:green:✓}{fail:red:✗} ")'
 # zoxide: use --cmd to rename commands to avoid zi conflict with zinit (creates zz/zzi instead of z/zi)
 command -v zoxide &>/dev/null && eval "$(zoxide init zsh --cmd c)"
 command -v luarocks &>/dev/null && eval "$(luarocks path)"
