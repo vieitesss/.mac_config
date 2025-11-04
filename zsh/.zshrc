@@ -1,5 +1,9 @@
 #!/usr/bin/env zsh
 
+exists_command () {
+    command -v "$1" &>/dev/null
+}
+
 # Set PATH FIRST before anything else (cross-platform)
 if [[ -f "/etc/paths" ]]; then
     # macOS: Read from /etc/paths
@@ -24,10 +28,10 @@ HOSTNAME=$(hostname 2>/dev/null || echo "unknown")
 TERM="screen-256color"
 
 # Get display IP (cross-platform)
-if command -v ifconfig &>/dev/null; then
+if exists_command "ifconfig"; then
     # macOS/BSD style
     DISPLAY=$(ifconfig 2>/dev/null | grep -E "192\.168\.[0-9]{1,3}\.[0-9]{1,3}" | awk '{print $2}' | head -1):0.0
-elif command -v ip &>/dev/null; then
+elif exists_command "ip"; then
     # Linux style
     DISPLAY=$(ip addr 2>/dev/null | grep -oE "192\.168\.[0-9]{1,3}\.[0-9]{1,3}" | head -1):0.0
 else
@@ -160,10 +164,6 @@ fi
 
 PATH=$PATH:$(go env GOPATH)/bin
 
-exists_command () {
-    command -v "$1" &>/dev/null
-}
-
 # Dagger completion (cross-platform)
 if exists_command "dagger"; then
     if [[ "$(uname)" == "Darwin" ]]; then
@@ -214,10 +214,8 @@ if exists_command "prmt"; then
     PROMPT='$(prmt --code $? "{path:cyan} {git:purple} \n{ok:green:✓}{fail:red:✗} ")'
 fi
 # zoxide: use --cmd to rename commands to avoid zi conflict with zinit (creates zz/zzi instead of z/zi)
-command -v zoxide &>/dev/null && eval "$(zoxide init zsh --cmd c)"
-command -v luarocks &>/dev/null && eval "$(luarocks path)"
-
-# source <(fzf --zsh)
+exists_command "zoxide" && eval "$(zoxide init zsh --cmd c)"
+exists_command "luarocks" && eval "$(luarocks path)"
 
 # source $(brew --cellar fzf)/**/key-bindings.zsh
 
