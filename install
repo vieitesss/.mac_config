@@ -13,18 +13,6 @@ CONFIG_DIR="$DOTFILES/installation"
 ARQ="$(uname -m)"
 OS="$(uname)"
 
-# Set OS-specific variables
-if [[ "$OS" == "Darwin" ]]; then
-    DEPENDENCIES="${CONFIG_DIR}/brew_dependencies.txt"
-    DEFAULTS="${CONFIG_DIR}/mac_defaults"
-    IS_MACOS=true
-elif [[ "$OS" == "Linux" ]]; then
-    DEPENDENCIES="${CONFIG_DIR}/linux_dependencies.txt"
-    IS_MACOS=false
-else
-    error "Unsupported operating system: $OS"
-fi
-
 log () {
     echo -e "${GREEN}[INFO]${NC} $1"
 }
@@ -37,6 +25,19 @@ error () {
     echo -e "${RED}[ERROR]${NC} $1" >&2
     exit 1
 }
+
+# Set OS-specific variables
+if [[ "$OS" == "Darwin" ]]; then
+    DEPENDENCIES="${CONFIG_DIR}/brew_dependencies.txt"
+    DEFAULTS="${CONFIG_DIR}/mac_defaults"
+    IS_MACOS=true
+elif [[ "$OS" == "Linux" ]]; then
+    DEPENDENCIES="${CONFIG_DIR}/linux_dependencies.txt"
+    IS_MACOS=false
+else
+    error "Unsupported operating system: $OS"
+fi
+
 
 exists_command () {
     command -v "$1" >/dev/null 2>&1
@@ -110,8 +111,10 @@ install_neovim () {
 
     log "Installing Neovim $url ... "
 
-    local dest="$(echo ${url} | xargs basename)"
-    local dir="$(echo $dest | sed 's/\..*//g')"
+    local dest
+    dest=$(echo "${url}" | xargs basename)
+    local dir
+    dir=$(echo "$dest" | sed 's/\..*//g')
 
     curl -Lk -o "$dest" "$url"
     tar xzvf "$dest"
