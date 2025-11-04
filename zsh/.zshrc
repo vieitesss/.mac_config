@@ -54,18 +54,24 @@ fi
 
 source "${ZINIT_HOME}/zinit.zsh"
 
-# zsh plugins
-zinit light zsh-users/zsh-autosuggestions
-zinit light zsh-users/zsh-completions
+# zsh plugins - with turbo mode for faster startup
+zinit wait lucid light-mode for \
+    atload"_zsh_autosuggest_start" \
+    zsh-users/zsh-autosuggestions \
+    blockf atpull'zinit creinstall -q .' \
+    zsh-users/zsh-completions
+
 zinit light jeffreytse/zsh-vi-mode
 zinit light Aloxaf/fzf-tab
-zinit snippet OMZP::sudo
-zinit snippet OMZP::command-not-found
 
-# completions setup
-autoload -Uz compinit && compinit
+zinit wait lucid for \
+    OMZP::sudo \
+    OMZP::command-not-found
 
-zinit cdreplay -q
+# Defer expensive compinit - will be called by zinit in background
+# This makes shell interactive faster
+autoload -Uz compinit
+compinit -C -d ~/.zcompdump
 
 zstyle ':completion:*:directory-stack' list-colors '=(#b) #([0-9]#)*( *)==95=38;5;12'
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
@@ -164,38 +170,35 @@ fi
 
 PATH=$PATH:$(go env GOPATH)/bin
 
-# Dagger completion (cross-platform)
+# Dagger completion (cross-platform) - cached for performance
 if exists_command "dagger"; then
     if [[ "$(uname)" == "Darwin" ]]; then
         # macOS with Homebrew
-        dagger completion zsh --quiet > /opt/homebrew/share/zsh/site-functions/_dagger 2>/dev/null || \
-        dagger completion zsh --quiet > /usr/local/share/zsh/site-functions/_dagger 2>/dev/null
+        DAGGER_COMP_FILE="/opt/homebrew/share/zsh/site-functions/_dagger"
+        [[ ! -f "$DAGGER_COMP_FILE" ]] && DAGGER_COMP_FILE="/usr/local/share/zsh/site-functions/_dagger"
+
+        # Regenerate only if missing or dagger binary is newer
+        if [[ ! -f "$DAGGER_COMP_FILE" ]] || [[ "$(command -v dagger)" -nt "$DAGGER_COMP_FILE" ]]; then
+            dagger completion zsh --quiet > /opt/homebrew/share/zsh/site-functions/_dagger 2>/dev/null || \
+            dagger completion zsh --quiet > /usr/local/share/zsh/site-functions/_dagger 2>/dev/null
+        fi
     else
         # Linux: use user's local zsh functions directory
         mkdir -p "$HOME/.local/share/zsh/site-functions"
-        dagger completion zsh --quiet > "$HOME/.local/share/zsh/site-functions/_dagger" 2>/dev/null
+        DAGGER_COMP_FILE="$HOME/.local/share/zsh/site-functions/_dagger"
+
+        # Regenerate only if missing or dagger binary is newer
+        if [[ ! -f "$DAGGER_COMP_FILE" ]] || [[ "$(command -v dagger)" -nt "$DAGGER_COMP_FILE" ]]; then
+            dagger completion zsh --quiet > "$DAGGER_COMP_FILE" 2>/dev/null
+        fi
         fpath=($HOME/.local/share/zsh/site-functions $fpath)
     fi
-    autoload -U compinit
-    compinit -i
 fi
 
 export PATH
 
 source_folder "$DOTFILES/aliases"
 source_folder "$OBSIDIAN/terminal"
-
-default=$(cat "$PALETTES/current" || true)
-if [[ -z "$default" ]] || [[ "$default" == "" ]]
-then
-  export PALETTE="rose-pine" # default theme
-  echo "$PALETTE" > "$PALETTES/current"
-  "$DOTFILES/change_theme" "$PALETTE"
-else
-  export PALETTE="$default"
-fi
-
-source "$PALETTES/$PALETTE"
 
 [ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
 # source "$HOME/.aws-tokens"
@@ -220,21 +223,50 @@ exists_command "luarocks" && eval "$(luarocks path)"
 # source $(brew --cellar fzf)/**/key-bindings.zsh
 
 export LUA_PATH="$LUA_PATH;/usr/local/lib/lua/5.4/?.so"
+
+# NVM lazy loading for faster startup
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" || true  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" || true  # This loads nvm bash_completion
+if [ -s "$NVM_DIR/nvm.sh" ]; then
+    # Add nvm's bin to PATH without loading nvm
+    export PATH="$NVM_DIR/versions/node/$(cat $NVM_DIR/alias/default 2>/dev/null || echo 'v20.0.0')/bin:$PATH"
+
+    _load_nvm() {
+        unset -f nvm node npm npx _load_nvm
+        \. "$NVM_DIR/nvm.sh"
+        [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+    }
+
+    # Lazy load nvm when called
+    nvm() { _load_nvm && nvm "$@" }
+    node() { _load_nvm && node "$@" }
+    npm() { _load_nvm && npm "$@" }
+    npx() { _load_nvm && npx "$@" }
+fi
 
 # Docker CLI completions (cross-platform)
 if [[ -d "$HOME/.docker/completions" ]]; then
     fpath=($HOME/.docker/completions $fpath)
-    autoload -Uz compinit && compinit
 fi
 
-# Ruby version manager (macOS with Homebrew)
+# Ruby version manager (macOS with Homebrew) - lazy loaded
 if [[ -f "/opt/homebrew/opt/chruby/share/chruby/chruby.sh" ]]; then
-    source /opt/homebrew/opt/chruby/share/chruby/chruby.sh
-    source /opt/homebrew/opt/chruby/share/chruby/auto.sh
-    chruby ruby-3.4.1 2>/dev/null || true # run chruby to see actual version
+    # Add ruby to PATH without loading chruby (faster)
+    if [[ -d "/opt/homebrew/opt/ruby/bin" ]]; then
+        export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
+    fi
+
+    # Helper function to load chruby once
+    _load_chruby() {
+        unset -f chruby ruby gem bundle _load_chruby
+        source /opt/homebrew/opt/chruby/share/chruby/chruby.sh
+        source /opt/homebrew/opt/chruby/share/chruby/auto.sh
+    }
+
+    # Lazy load wrappers
+    chruby() { _load_chruby && chruby "$@"; }
+    ruby() { _load_chruby && ruby "$@"; }
+    gem() { _load_chruby && gem "$@"; }
+    bundle() { _load_chruby && bundle "$@"; }
 fi
 
 # opencode (if installed)
