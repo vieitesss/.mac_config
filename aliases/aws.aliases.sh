@@ -1,12 +1,19 @@
 #!/usr/bin/env zsh
 
 prefapp() {
-    # catch sigterm and sigint to avoid leaving temp files around
-    trap 'echo "[info] exiting..."; return 1' SIGTERM SIGINT
+    # Check aws is installed
+    if ! command -v aws >/dev/null 2>&1; then
+        echo "[error] aws cli not found. Please install aws cli v2 from https://aws.amazon.com/cli/"
+        return 1
+    fi
 
     local profile="${1:-prefapp-admin}"
     echo -n "[info] Logging in to AWS profile: $profile ..."
-    aws sso login --profile "$profile" >/dev/null
+    aws sso login --profile "$profile" >/dev/null 2>&1
+    if [[ $? -ne 0 ]]; then
+        echo -e "\r[info] Login cancelled or failed"
+        return 1
+    fi
     echo -e "\r[info] Logged in to AWS SSO for profile $profile ✅"
     echo -n "[info] Exporting AWS credentials ..."
     eval "$(aws configure export-credentials --profile "$profile" --format env)"
