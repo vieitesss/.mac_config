@@ -212,8 +212,8 @@ export FZF_ALT_C_COMMAND='fd --hidden'
 # eval "$(starship init zsh)"
 
 # prmt - simple prompt
-setopt PROMPT_SUBST
 if exists_command "prmt"; then
+    setopt PROMPT_SUBST
     PROMPT='$(prmt --code $? "{path:cyan} {git:purple} \n{ok:green:✓}{fail:red:✗} ")'
 fi
 # zoxide: use --cmd to rename commands to avoid zi conflict with zinit (creates zz/zzi instead of z/zi)
@@ -221,6 +221,8 @@ exists_command "zoxide" && eval "$(zoxide init zsh --cmd c)"
 exists_command "luarocks" && eval "$(luarocks path)"
 
 # source $(brew --cellar fzf)/**/key-bindings.zsh
+
+export KUBECONFIG=~/.kube/config
 
 export LUA_PATH="$LUA_PATH;/usr/local/lib/lua/5.4/?.so"
 

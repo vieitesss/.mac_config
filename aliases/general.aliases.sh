@@ -16,6 +16,40 @@ alias ltl="eza -T --long --icons --no-time"
 alias la="eza -al --group-directories-first"
 alias tree="eza --tree"
 
+export GREEN='\033[0;32m'
+export RED='\033[0;31m'
+export YELLOW='\033[0;33m'
+export NC='\033[0m' # No Color
+
+info () {
+    echo -e "${GREEN}[INFO]${NC} $1"
+}
+
+warn () {
+    echo -e "${YELLOW}[WARN]${NC} $1"
+}
+
+error () {
+    echo -e "${RED}[ERROR]${NC} $1" >&2
+    exit 1
+}
+
+get_arch() {
+  local arch_name=$(uname -m)
+
+  case "$arch_name" in
+    x86_64|amd64)
+      echo "amd64"
+      ;;
+    arm64|aarch64|arm*)
+      echo "arm64"
+      ;;
+    *)
+      echo "unknown"
+      ;;
+  esac
+}
+
 # Cross-platform copy to clipboard
 copy () {
 	if [[ "$(uname)" == "Darwin" ]]; then
