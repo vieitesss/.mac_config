@@ -2,30 +2,30 @@
 
 # List of potential directories
 potential_dirs=(
-  ~/kedada
-  ~/personal
-  ~/.config
-  ~/tfg
-  ~/firestartr-ia
-  ~/firestartr-pro
-  ~/firestartr-test
-  ~/councilbox
-  ~/prefapp
+    ~/kedada
+    ~/personal
+    ~/.config
+    ~/tfg
+    ~/firestartr-ia
+    ~/firestartr-pro
+    ~/firestartr-test
+    ~/councilbox
+    ~/prefapp
 )
 
 # Filter to only existing directories
 existing_dirs=()
 for dir in "${potential_dirs[@]}"; do
-  if [[ -d "$dir" ]]; then
-    existing_dirs+=("$dir")
-  fi
+    if [[ -d "$dir" ]]; then
+        existing_dirs+=("$dir")
+    fi
 done
 
 # Only run find if we have existing directories
 if [[ ${#existing_dirs[@]} -gt 0 ]]; then
-  dirs=$(find -L "${existing_dirs[@]}" -mindepth 1 -maxdepth 1 -type d)
+    dirs=$(find -L "${existing_dirs[@]}" -mindepth 1 -maxdepth 1 -type d)
 else
-  dirs=""
+    dirs=""
 fi
 
 git_projects=$(fd -H -d 2 -E "Library" -t d "^\.git$" "$HOME" | sed "s#/\.git/##g")
@@ -33,19 +33,43 @@ git_projects=$(fd -H -d 2 -E "Library" -t d "^\.git$" "$HOME" | sed "s#/\.git/##
 selected=$(echo -e "${dirs[*]}\n${git_projects}" | fzf --layout=reverse --preview-window down --preview "eza --color=always -l {}")
 
 if [[ -z "$selected" ]]; then
-  exit 0
+    exit 0
 fi
 
-session_name=$(basename "$selected" | tr '.' '_')
+# Create unique session name with smart parent directory handling
+base_name=$(basename "$selected" | tr '.' '_')
+parent_path=$(dirname "$selected")
+parent_dir=$(basename "$parent_path" | tr '.' '_')
+
+# Only include parent dir if:
+# 1. Parent is not the home directory itself
+# 2. Parent is not directly under home (second level check)
+if [[ "$parent_path" != "$HOME" ]]; then
+    # Check if parent is a direct child of HOME
+    parent_of_parent=$(dirname "$parent_path")
+    if [[ "$parent_of_parent" == "$HOME" ]]; then
+        # Direct child of HOME - include parent if it's not the username
+        if [[ "$parent_dir" != "$(whoami)" ]]; then
+            session_name="${parent_dir}_${base_name}"
+        else
+            session_name="$base_name"
+        fi
+    else
+        # Deeper than second level - always include parent
+        session_name="${parent_dir}_${base_name}"
+    fi
+else
+    session_name="$base_name"
+fi
 tmux_running=$(pgrep tmux)
 
 if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
-  tmux new-session -s "$session_name" -c "$selected"
-  exit 0
+    tmux new-session -s "$session_name" -c "$selected"
+    exit 0
 fi
 
 if ! tmux has-session -t "$session_name" 2&> /dev/null; then
-  tmux new-session -ds "$session_name" -c "$selected"
+    tmux new-session -ds "$session_name" -c "$selected"
 fi
 
 tmux switch-client -t "$session_name"
