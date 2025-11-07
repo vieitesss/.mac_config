@@ -5,8 +5,6 @@
 
 set -euo pipefail
 
-echo "Installing helmfile..."
-
 source ~/.mac_config/aliases/general.aliases.sh
 
 arch=$(get_arch)
@@ -17,18 +15,24 @@ then
 fi
 
 version="1.1.9"
-file="helmfile_${version}_linux_${arch}"
+file="helmfile_${version}_linux_${arch}.tar.gz"
 share_dir="$HOME/.local/share/helmfile"
 
-wget "https://github.com/helmfile/helmfile/releases/download/v${version}/${file}.tar.gz"
+wget "https://github.com/helmfile/helmfile/releases/download/v${version}/${file}"
 
 mkdir -p "${share_dir}"
 rm -rf "${share_dir}/**"
-mv "${file}.tar.gz" "${share_dir}"
+mv "${file}" "${share_dir}"
 
-tar xzvf "${share_dir}/${file}.tar.gz" -C "${share_dir}"
-ln -s "${share_dir}/helmfile" "$HOME/.local/bin/helmfile" 
+tar xzvf "${share_dir}/${file}" -C "${share_dir}"
 
-rm "${share_dir}/${file}.tar.gz"
+binary="$HOME/.local/bin/helmfile" 
+if [[ -f "$binary" ]]
+then
+    rm "$binary" 
+fi
+ln -s "${share_dir}/helmfile" "$binary"
 
-echo "helmfile installed successfully!"
+rm "${share_dir}/${file}"
+
+echo "[INFO] helmfile installed successfully!"
