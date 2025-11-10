@@ -14,3 +14,9 @@ sudo apt-get update
 sudo apt-get install helm
 
 echo "Helm installed successfully!"
+
+echo "Installing Helm diff plugin..."
+
+helm plugin install https://github.com/databus23/helm-diff
+
+echo "Helm diff plugin installed successfully!"
