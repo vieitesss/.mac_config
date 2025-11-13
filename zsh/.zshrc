@@ -61,6 +61,8 @@ zinit wait lucid light-mode for \
     blockf atpull'zinit creinstall -q .' \
     zsh-users/zsh-completions
 
+zinit ice compile'(pure|async).zsh' pick'async.zsh' src'pure.zsh'
+zinit light sindresorhus/pure
 zinit light jeffreytse/zsh-vi-mode
 zinit light Aloxaf/fzf-tab
 
@@ -203,7 +205,17 @@ source_folder "$OBSIDIAN/terminal"
 [ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
 # source "$HOME/.aws-tokens"
 
-export STARSHIP_CONFIG=~/.config/starship/starship.toml
+# PURE prompt settings
+export PURE_CMD_MAX_EXEC_TIME=2
+export PURE_PROMPT_SYMBOL=""
+export PURE_PROMPT_VICMD_SYMBOL=""
+zstyle :prompt:pure:git:fetch only_upstream yes
+zstyle :prompt:pure:prompt:success color green
+zstyle :prompt:pure:git:dirty color yellow
+
+# export STARSHIP_CONFIG=~/.config/starship/starship.toml
+
+# fzf settings
 export FZF_DEFAULT_OPTS='--preview "bat --theme="Nord" --style=numbers --color=always --line-range :500 {}"'
 export FZF_DEFAULT_COMMAND='fd --hidden --exclude .git'
 export FZF_CTRL_T_COMMAND='fd --hidden'
@@ -211,11 +223,6 @@ export FZF_ALT_C_COMMAND='fd --hidden'
 
 # eval "$(starship init zsh)"
 
-# prmt - simple prompt
-if exists_command "prmt"; then
-    setopt PROMPT_SUBST
-    PROMPT='$(prmt --code $? "{path:cyan} {git:purple} \n{ok:green:✓}{fail:red:✗} ")'
-fi
 # zoxide: use --cmd to rename commands to avoid zi conflict with zinit (creates zz/zzi instead of z/zi)
 exists_command "zoxide" && eval "$(zoxide init zsh --cmd c)"
 exists_command "luarocks" && eval "$(luarocks path)"
