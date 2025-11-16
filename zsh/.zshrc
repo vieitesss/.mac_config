@@ -65,6 +65,10 @@ zinit ice compile'(pure|async).zsh' pick'async.zsh' src'pure.zsh'
 zinit light sindresorhus/pure
 zinit light jeffreytse/zsh-vi-mode
 zinit light Aloxaf/fzf-tab
+# Override print to avoid pure precmd print calls during init
+print() {
+  [ 0 -eq $# -a "prompt_pure_precmd" = "${funcstack[-1]}" ] || builtin print "$@";
+}
 
 zinit wait lucid for \
     OMZP::sudo \
