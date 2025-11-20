@@ -11,6 +11,7 @@ potential_dirs=(
     ~/firestartr-test
     ~/councilbox
     ~/prefapp
+    ~/vieitesss
 )
 
 # Filter to only existing directories
