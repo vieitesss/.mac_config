@@ -10,6 +10,7 @@ alacritty
 alsa-utils
 apt
 apt-listchanges
+apt-transport-https
 apt-utils
 automake
 avahi-daemon
@@ -20,6 +21,7 @@ base-passwd
 bash
 bash-completion
 bat
+bc
 bison
 bsdutils
 build-essential
@@ -68,6 +70,7 @@ fdisk
 ffmpeg
 file
 findutils
+fio
 firefox
 firmware-atheros
 firmware-brcm80211
@@ -87,6 +90,7 @@ gnome-keyring
 gnome-themes-extra-data
 gnupg
 golang-go
+google-cloud-cli
 gpg
 gpgv
 gpiod
@@ -102,17 +106,22 @@ gvfs
 gvfs-backends
 gvfs-fuse
 gzip
+hdparm
+helm
 hostname
 htop
 hunspell-en-gb
+hwinfo
 hyphen-en-gb
 init
 initramfs-tools
 init-system-helpers
+iozone3
 iproute2
 iputils-ping
 isc-dhcp-client
 isc-dhcp-common
+k9s
 keyboard-configuration
 kitty
 kmod
@@ -220,6 +229,7 @@ libudev1
 libunistring2
 libuuid1
 libwidevinecdm0
+libxml-dumper-perl
 libxtables12
 libxxhash0
 libyaml-dev
@@ -233,6 +243,8 @@ locales
 login
 logrotate
 logsave
+lshw
+lsscsi
 lua5.1
 lua5.4
 luajit
@@ -261,6 +273,7 @@ nmap
 nodejs
 npm
 ntfs-3g
+nvme-cli
 obconf
 openocd
 openssl
@@ -321,9 +334,11 @@ rpi-update
 rp-prefapps
 rsync
 rustc
+sdparm
 sed
 sense-hat
 sensible-utils
+smartmontools
 squeekboard
 ssh
 ssh-import-id
@@ -334,6 +349,7 @@ systemd
 systemd-sysv
 systemd-timesyncd
 sysvinit-utils
+tailscale
 tailscale-archive-keyring
 tar
 tasksel
@@ -369,6 +385,7 @@ xcompmgr
 xdg-utils
 xinit
 xserver-xorg
+xxd
 zenity
 zip
 zlib1g
