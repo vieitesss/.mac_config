@@ -151,7 +151,7 @@ install_zinit () {
 
 load_configs () {
     # Define configs based on OS
-    local configs=("alacritty" "zsh" "git")
+    local configs=("alacritty" "tmux" "zsh" "git")
 
     # Add macOS-specific configs
     if [[ "$IS_MACOS" == true ]]; then
