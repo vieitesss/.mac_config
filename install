@@ -114,7 +114,7 @@ install_neovim () {
     local dest
     dest=$(echo "${url}" | xargs basename)
     local dir
-    dir=$(echo "$dest" | sed 's/\..*//g')
+    dir="${dest%%.*}"
 
     curl -Lk -o "$dest" "$url"
     tar xzvf "$dest"
