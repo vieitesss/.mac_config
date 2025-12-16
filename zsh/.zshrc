@@ -284,3 +284,10 @@ fi
 
 # opencode (if installed)
 [ -d "$HOME/.opencode/bin" ] && export PATH=$HOME/.opencode/bin:$PATH
+
+# bun completions
+[ -s "/Users/vieitesprefapp/.bun/_bun" ] && source "/Users/vieitesprefapp/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"

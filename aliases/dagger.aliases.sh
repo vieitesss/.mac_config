@@ -10,7 +10,7 @@ install_dagger () {
 }
 
 dagger_work () {
-    install_dagger "0.18.8"
+    install_dagger "0.19.7"
 }
 
 dagger_kedada () {
