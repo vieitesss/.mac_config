@@ -3,6 +3,7 @@
 # List of potential directories
 potential_dirs=(
     ~/kedada
+    ~/lumia-demo
     ~/personal
     ~/.config
     ~/tfg
