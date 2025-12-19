@@ -3,12 +3,11 @@
 # List of potential directories
 potential_dirs=(
     ~/kedada
-    ~/lumia-demo
     ~/personal
     ~/.config
     ~/tfg
     ~/firestartr-ia
-    ~/firestartr-lumia
+    ~/firestartr-lumeia
     ~/firestartr-pro
     ~/firestartr-pre
     ~/firestartr-test
