@@ -1,49 +1,52 @@
-# Colors (lacklite)
+# Colors (umbraline)
+# Gruvbox-inspired palette with 3 main accents:
+# Yellow (functions/types/constants), Green (strings), Red (errors)
+# "lack" blue as cool neutral hint color
 
 # Default colors
 [colors.primary]
-background = '#191c23'
-foreground = '#c0c9d6'
+background = '#1d2021'
+foreground = '#fbf1c7'
 
 # Cursor colors
 [colors.cursor]
-cursor = '#e5ecef'
-text = '#191c23'
+cursor = '#fbf1c7'
+text = '#1d2021'
 
 # Selection colors
 [colors.selection]
-background = '#2b303a'
-text = '#c0c9d6'
+background = '#2f3836'
+text = '#fbf1c7'
 
-# Normal colors
+# Normal colors (matching Neovim terminal ANSI)
 [colors.normal]
-black   = '#191c23'
-red     = '#c3555f'
-green   = '#8eab6a'
-yellow  = '#c9a45f'
-blue    = '#7c8aa3'
-magenta = '#9b9488'
-cyan    = '#859a86'
-white   = '#cfd6df'
+black   = '#504945'
+red     = '#fb4934'
+green   = '#b8bb26'
+yellow  = '#fabd2f'
+blue    = '#83a598'
+magenta = '#83a598'
+cyan    = '#83a598'
+white   = '#fbf1c7'
 
-# Bright colors
+# Bright colors (matching Neovim terminal ANSI)
 [colors.bright]
-black   = '#6b6b6b'
-red     = '#d9b7bd'
+black   = '#928374'
+red     = '#d98a93'
 green   = '#c7d5c0'
 yellow  = '#dbd3bd'
 blue    = '#c0cad4'
-magenta = '#d6d2ce'
-cyan    = '#c3cfca'
-white   = '#e5ecef'
+magenta = '#c0cad4'
+cyan    = '#c0cad4'
+white   = '#fbf1c7'
 
-# Dim colors (optional)
+# Dim colors
 [colors.dim]
-black   = '#111319'
-red     = '#543038'
-green   = '#424e3c'
-yellow  = '#574c38'
-blue    = '#3c4250'
-magenta = '#464646'
-cyan    = '#3f4846'
-white   = '#a7afbb'
+black   = '#141617'
+red     = '#a0454e'
+green   = '#7a7d1e'
+yellow  = '#a1834c'
+blue    = '#566c64'
+magenta = '#566c64'
+cyan    = '#566c64'
+white   = '#a89984'
