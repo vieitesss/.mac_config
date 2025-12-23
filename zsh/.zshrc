@@ -174,7 +174,12 @@ else
     fi
 fi
 
-PATH=$PATH:$(go env GOPATH)/bin
+# go path depending on machine
+if [[ "$(uname)" == "Darwin" ]]; then
+    add-to-path "GOPATH" "/Users/$USER/go/bin"
+else
+    add-to-path "GOPATH" "/usr/local/go/bin"
+fi
 
 # Dagger completion (cross-platform) - cached for performance
 if exists_command "dagger"; then
