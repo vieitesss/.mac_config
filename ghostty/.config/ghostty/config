@@ -2,7 +2,7 @@
 shell-integration = zsh
 
 # font
-font-family = BlexMono Nerd Font Mono
+font-family = Terminess Nerd Font Mono
 font-size = 17
 font-thicken = true
 window-inherit-font-size = false
@@ -16,7 +16,7 @@ background-opacity = 0.9
 
 # theme
 # theme = Teerb
-theme = Everforest Dark - Hard
 # theme = mellifluous
 # theme = ashen
 # theme = rose-pine
+theme = umbraline
