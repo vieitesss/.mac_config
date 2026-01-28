@@ -92,40 +92,6 @@ For accepted comments, I will:
 2. Test that the changes don't break anything (run builds/tests if available)
 3. Track the file path and line number for the summary
 
-### Step 6: Resolve comment threads
-
-After implementing a fix or rejecting a comment, I'll resolve the review thread:
-
-```bash
-# Resolve a thread by replying
-gh api graphql -f query='
-mutation {
-  addPullRequestReviewComment(input: {
-    pullRequestReviewId: "<REVIEW_ID>",
-    body: "✅ Implemented: <brief explanation>"
-  }) {
-    comment {
-      id
-    }
-  }
-}'
-
-# Or for rejected comments
-gh api graphql -f query='
-mutation {
-  addPullRequestReviewComment(input: {
-    pullRequestReviewId: "<REVIEW_ID>",
-    body: "❌ Rejected: <reason>"
-  }) {
-    comment {
-      id
-    }
-  }
-}'
-```
-
-Note: Resolving threads may require additional GraphQL mutations or using `gh pr review` commands.
-
 ### Step 7: Provide summary
 
 I'll create a structured summary:
