@@ -17,6 +17,7 @@ metadata:
 - One-line messages only (no body)
 - Never mix unrelated changes in the same commit
 - Skip secrets or sensitive files (e.g., `.env`)
+- Do not add yourself as a co-author
 
 ## How I work
 1. Review unstaged and staged changes.
