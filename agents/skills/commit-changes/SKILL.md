@@ -17,7 +17,6 @@ metadata:
 - One-line messages only (no body)
 - Never mix unrelated changes in the same commit
 - Skip secrets or sensitive files (e.g., `.env`)
-- Do not add yourself as a co-author
 
 ## How I work
 1. Review unstaged and staged changes.
@@ -29,3 +28,6 @@ metadata:
 ## When to use me
 
 Use this when you are ready to commit changes in your git repository and want to ensure a clean, organized commit history.
+
+# REALLY IMPORTANT:
+- Do NOT add yourself as a co-author

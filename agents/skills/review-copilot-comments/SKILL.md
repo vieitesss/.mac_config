@@ -92,7 +92,7 @@ For accepted comments, I will:
 2. Test that the changes don't break anything (run builds/tests if available)
 3. Track the file path and line number for the summary
 
-### Step 7: Provide summary
+### Step 6: Provide summary
 
 I'll create a structured summary:
 
