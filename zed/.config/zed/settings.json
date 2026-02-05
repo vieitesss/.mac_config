@@ -4,101 +4,96 @@
 // documentation: https://zed.dev/docs/configuring-zed
 //
 // To see all of Zed's default settings without changing your
-// custom settings, run the `open default settings` command
-// from the command palette or from `Zed` application menu.
+// custom settings, run `zed: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
 {
-  "assistant": {
-    "default_model": {
-      "provider": "openai",
-      "model": "gpt-3.5-turbo"
+  "edit_predictions": {
+    "provider": "copilot",
+  },
+  "buffer_line_height": "standard",
+  "agent_servers": {
+    "kimi2.5": {
+      "type": "custom",
+      "command": "kimi",
     },
-    "version": "2"
+    "github-copilot": {
+      "type": "registry",
+    },
   },
-  "theme": "Gruvbox Dark Hard",
-  "vim_mode": true,
-  "ui_font_size": 15,
-  "ui_font_family": "FiraCode Nerd Font Mono",
-  // The default font size for text in the editor
-  "buffer_font_size": 15,
-  "buffer_font_family": "FiraCode Nerd Font Mono",
-  "buffer_font_features": {
-    "calt": false
-  },
-  "tab_bar": {
-    "show": false
-  },
-  "centered_layout": {
-    "left_padding": 0.2,
-    "right_padding": 0.2
-  },
-  // Whether the cursor blinks in the editor.
-  "cursor_blink": false,
-  // Character counts at which to show wrap guides in the editor.
-  "wrap_guides": [100],
-  // Whether to automatically type closing characters for you. For example,
-  // when you type (, Zed will automatically add a closing ) at the correct position.
-  "use_autoclose": false,
-  // Toolbar related settings
-  "toolbar": {
-    // Whether to show breadcrumbs.
-    "breadcrumbs": true,
-    "quick_actions": false
-  },
-  "gutter": {
-    // Whether to show fold buttons in the gutter.
-    "folds": false
-  },
-  "vertical_scroll_margin": 5,
-  "scrollbar": {
-    "show": "never"
-  },
-  "relative_line_numbers": true,
-  // How to soft-wrap long lines of text. This setting can take
-  // three values:
-  //
-  // 1. Do not soft wrap.
-  //      "soft_wrap": "none",
-  // 2. Soft wrap lines that overflow the editor:
-  //      "soft_wrap": "editor_width",
-  // 3. Soft wrap lines at the preferred line length
-  //      "soft_wrap": "preferred_line_length",
-  "soft_wrap": "none",
-  "current_line_highlight": "line",
-  "terminal": {
-    "font_size": 14,
-    "font_family": "BlexMono Nerd Font"
-  },
+  "agent_ui_font_size": 18.0,
+  "agent_buffer_font_size": 16.0,
   "git": {
     "inline_blame": {
-      "enabled": false
-    }
+      "enabled": false,
+    },
   },
-  "java": {
-    "lsp": "jdtls"
+  "use_autoclose": false,
+  "toolbar": {
+    "code_actions": false,
+    "agent_review": true,
+    "selections_menu": true,
+    "quick_actions": false,
+    "breadcrumbs": false,
   },
-  "file_types": {
-    "HTML": ["*.jsp"]
+  "use_on_type_format": true,
+  "scrollbar": {
+    "selected_symbol": true,
   },
-  "lsp": {
-    "texlab": {
-      "settings": {
-        "texlab": {
-          "build": {
-            "onSave": true,
-            "forwardSearchAfter": true
-          },
-          "forwardSearch": {
-            "executable": "skim",
-            "args": [
-              "--synctex-forward",
-              "%l:1:%f",
-              "-x",
-              "zed %%{input}:%%{line}",
-              "%p"
-            ]
-          }
-        }
-      }
-    }
-  }
+  "title_bar": {
+    "show_menus": false,
+    "show_user_picture": true,
+    "show_user_menu": true,
+    "show_sign_in": true,
+    "show_onboarding_banner": true,
+    "show_branch_name": true,
+  },
+  "use_system_window_tabs": false,
+  "tabs": {
+    "show_diagnostics": "off",
+    "file_icons": false,
+    "git_status": false,
+  },
+  "tab_bar": {
+    "show_pinned_tabs_in_separate_row": false,
+    "show_nav_history_buttons": false,
+    "show": true,
+  },
+  "relative_line_numbers": "enabled",
+  "buffer_font_family": "Terminess Nerd Font Mono",
+  "terminal": {
+    "font_size": 17.0,
+    "cursor_shape": "block",
+    "shell": {
+      "with_arguments": {
+        "program": "zsh",
+        "args": [],
+        "title_override": null,
+      },
+    },
+    "font_family": "Terminess Nerd Font Mono",
+  },
+  "session": {
+    "trust_all_worktrees": true,
+  },
+  "vim_mode": true,
+  "icon_theme": {
+    "mode": "dark",
+    "light": "Zed (Default)",
+    "dark": "Zed (Default)",
+  },
+  "ui_font_size": 16,
+  "buffer_font_size": 17.0,
+  "theme": {
+    "mode": "dark",
+    "light": "Ayu Light",
+    "dark": "macOS Classic Dark",
+  },
+  "languages": {
+    "TypeScript": {
+      "formatter": [],
+      "code_actions_on_format": {
+        "source.fixAll.eslint": true,
+      },
+    },
+  },
 }
