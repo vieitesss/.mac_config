@@ -10,5 +10,6 @@ defaults write com.apple.dock "expose-group-apps" -bool true
 defaults write com.apple.WindowManager EnableStandardClickToShowDesktop -bool false
 defaults write com.apple.desktopservices DSDontWriteNetworkStores true
 defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
+defaults write com.apple.finder CreateDesktop false; killall Finder
 
 killall Dock
