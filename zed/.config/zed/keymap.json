@@ -8,10 +8,10 @@
 [
   {
     "bindings": {
-      "ctrl-l": "workspace::ActivatePaneRight",
-      "ctrl-h": "workspace::ActivatePaneLeft",
-      "ctrl-j": "workspace::ActivatePaneDown",
-      "ctrl-k": "workspace::ActivatePaneUp",
+      "ctrl-w l": "workspace::ActivatePaneRight",
+      "ctrl-w h": "workspace::ActivatePaneLeft",
+      "ctrl-w j": "workspace::ActivatePaneDown",
+      "ctrl-w k": "workspace::ActivatePaneUp",
     },
   },
   {
@@ -27,18 +27,23 @@
     },
   },
   {
+    "context": "Editor && vim_mode == normal",
+    "bindings": {
+      "space f f": "file_finder::Toggle",
+    },
+  },
+  {
     "context": "VimControl && !menu && vim_mode == normal",
     "bindings": {
       "space w": "workspace::Save",
       "ctrl-d": [
         "action::Sequence",
-        ["editor::MovePageDown", "editor::ScrollCursorCenter"],
+        ["vim::ScrollDown", "editor::ScrollCursorCenter"],
       ],
       "ctrl-u": [
         "action::Sequence",
-        ["editor::MovePageUp", "editor::ScrollCursorCenter"],
+        ["vim::ScrollUp", "editor::ScrollCursorCenter"],
       ],
-      "space f f": "file_finder::Toggle",
 
       // tabs
       "ctrl-n": "pane::ActivateNextItem",
@@ -48,7 +53,19 @@
       "space g s": "git_panel::ToggleFocus",
 
       // file tree
-      "space f o": "project_panel::ToggleFocus",
+      "space o f": "project_panel::ToggleFocus",
+    },
+  },
+  {
+    "context": "(Editor && edit_prediction)",
+    "bindings": {
+      "shift-tab": "editor::AcceptEditPrediction",
+    },
+  },
+  {
+    "context": "(Editor && edit_prediction)",
+    "bindings": {
+      "tab": null,
     },
   },
 ]

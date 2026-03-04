@@ -7,7 +7,16 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "vertical_scroll_margin": 8.0,
+  "project_panel": {
+    "sort_mode": "directories_first",
+    "bold_folder_labels": true,
+  },
+  "extend_comment_on_newline": false,
   "edit_predictions": {
+    "copilot": {
+      "enable_next_edit_suggestions": false
+    },
     "provider": "copilot",
   },
   "buffer_line_height": "standard",
@@ -33,7 +42,7 @@
     "agent_review": true,
     "selections_menu": true,
     "quick_actions": false,
-    "breadcrumbs": false,
+    "breadcrumbs": true,
   },
   "use_on_type_format": true,
   "scrollbar": {
@@ -56,7 +65,7 @@
   "tab_bar": {
     "show_pinned_tabs_in_separate_row": false,
     "show_nav_history_buttons": false,
-    "show": true,
+    "show": false,
   },
   "relative_line_numbers": "enabled",
   "buffer_font_family": "Terminess Nerd Font Mono",
@@ -89,6 +98,10 @@
     "dark": "macOS Classic Dark",
   },
   "languages": {
+    "Go": {
+      "hard_tabs": true,
+      "tab_size": 4,
+    },
     "TypeScript": {
       "formatter": [],
       "code_actions_on_format": {
