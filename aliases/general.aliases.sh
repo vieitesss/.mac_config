@@ -64,6 +64,9 @@ copy () {
 	fi
 }
 
+# just
+alias justc="just --choose"
+
 core () {
 	cmd="just -f $HOME/.mac_config/justfile"
 	test "$#" -gt 0 && cmd="$cmd ${@:1}"

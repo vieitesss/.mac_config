@@ -15,6 +15,7 @@ potential_dirs=(
     ~/councilbox
     ~/prefapp
     ~/pre-vieitesss
+    ~/trak
 )
 
 # Filter to only existing directories

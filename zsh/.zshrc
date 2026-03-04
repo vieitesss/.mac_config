@@ -296,3 +296,8 @@ fi
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+# The following lines have been added by Docker Desktop to enable Docker CLI completions.
+fpath=(/Users/vieitesprefapp/.docker/completions $fpath)
+autoload -Uz compinit
+compinit
+# End of Docker CLI completions
