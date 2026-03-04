@@ -8,9 +8,10 @@ metadata:
 
 ## What I do
 - Detect the current branch and associated PR number
+- Gather context about the PR (description, diff, commit history) and project (conventions, linting configs, local code patterns)
 - Fetch unresolved review comments from GitHub Copilot
-- Analyze each comment for correctness and implementation value
-- Implement valid suggestions or reject invalid ones
+- Analyze each comment for correctness and value, cross-referencing against the PR's intent and project conventions
+- Implement valid suggestions or reject invalid ones with informed reasoning
 - Provide a comprehensive summary of actions taken
 
 ## How I work
@@ -38,7 +39,58 @@ I need the repository owner and name:
 gh repo view --json owner,name --jq '{owner: .owner.login, name: .name}'
 ```
 
-### Step 3: Retrieve unresolved Copilot comments
+### Step 3: Gather PR and project context
+
+Before evaluating any comments, I need to understand what this PR is about and how the project works. This context is critical for making informed accept/reject decisions — Copilot suggestions that seem correct in isolation may be wrong in the context of the PR's intent or the project's conventions.
+
+#### 3a. Read the PR description and metadata
+
+```bash
+# Get PR title, body, labels, and base branch
+gh pr view --json title,body,labels,baseRefName,headRefName,files
+
+# Get the full diff to understand the scope of changes
+gh pr diff
+```
+
+#### 3b. Read the commit history on this branch
+
+```bash
+# Understand what the PR is trying to accomplish from commit messages
+git log $(gh pr view --json baseRefName --jq '.baseRefName')..HEAD --oneline
+```
+
+#### 3c. Identify project conventions
+
+Look for configuration and convention files that inform how code should be written:
+
+```bash
+# Check for linting/formatting configs, CI config, contribution guidelines
+ls -a .editorconfig .eslintrc* .prettierrc* .rubocop.yml .flake8 pyproject.toml \
+  biome.json deno.json tsconfig.json Makefile justfile \
+  CONTRIBUTING.md .github/CODEOWNERS 2>/dev/null
+```
+
+Read any relevant config files to understand the project's style and rules. Also scan nearby code in the same directories as the commented files to understand local patterns:
+
+```bash
+# For each file with a Copilot comment, read sibling files to understand local conventions
+ls $(dirname <commented_file_path>)
+```
+
+#### 3d. Check for existing tests and CI
+
+```bash
+# Identify test framework and test location
+gh pr checks --json name,status,conclusion 2>/dev/null || true
+
+# Look for test files related to commented files
+# e.g., if comment is on src/utils/parser.ts, look for tests/utils/parser.test.ts
+```
+
+This context will be used in Step 5 to make better-informed decisions about each comment.
+
+### Step 4: Retrieve unresolved Copilot comments
 
 Using the GitHub GraphQL API, I'll fetch all unresolved review thread comments:
 
@@ -70,21 +122,26 @@ query {
 
 I'll filter for comments where `author.login` contains "copilot" or matches known Copilot bot usernames (e.g., "github-copilot[bot]", "copilot").
 
-### Step 4: Analyze each comment
+### Step 5: Analyze each comment
 
 For each unresolved Copilot comment, I will:
 
-1. **Read the file and context**: Use the `Read` tool to examine the file at the specified path and line
-2. **Evaluate the suggestion**: Assess whether:
+1. **Read the file and surrounding context**: Use the `Read` tool to examine the file at the specified path and line, reading a wide window (at least 50 lines above and below) to understand the full function/block
+2. **Cross-reference with PR context**: Using the context gathered in Step 3:
+   - **PR intent**: Does the comment align with or contradict the purpose of the PR? A suggestion to refactor code that was intentionally written that way for this PR should likely be rejected
+   - **Project conventions**: Does the suggested change follow the project's established patterns (linting rules, naming conventions, error handling style, etc.)? Reject suggestions that violate project-specific conventions even if they are "generally correct"
+   - **Diff scope**: Is the comment on code that was actually changed in this PR, or on pre-existing code? Suggestions on unchanged code may be valid but out of scope
+   - **Related changes**: Were similar patterns used elsewhere in the same PR? If the author used a pattern consistently, a suggestion to change one instance is likely wrong or should apply everywhere
+3. **Evaluate the suggestion**: Assess whether:
    - The comment identifies a real issue (bug, code smell, security concern, etc.)
    - The suggested fix is correct and valuable
    - The fix aligns with the codebase style and conventions
    - The change would improve code quality, performance, or maintainability
-3. **Make a decision**: Either:
-   - **Accept**: Implement the fix if it's valid and valuable
-   - **Reject**: Skip if the comment is incorrect, trivial, or not applicable
+4. **Make a decision**: Either:
+   - **Accept**: Implement the fix if it's valid, valuable, and consistent with the PR's goals and project conventions
+   - **Reject**: Skip if the comment is incorrect, trivial, out of scope, or conflicts with project conventions
 
-### Step 5: Implement accepted fixes
+### Step 6: Implement accepted fixes
 
 For accepted comments, I will:
 
@@ -92,7 +149,7 @@ For accepted comments, I will:
 2. Test that the changes don't break anything (run builds/tests if available)
 3. Track the file path and line number for the summary
 
-### Step 6: Provide summary
+### Step 7: Provide summary
 
 I'll create a structured summary:
 
@@ -137,6 +194,10 @@ I apply these criteria when evaluating Copilot suggestions:
 - **Incorrect**: The suggestion is factually wrong or would introduce bugs
 - **Trivial**: The change is too minor to be worth implementing (e.g., stylistic nitpick)
 - **Context-unaware**: Copilot misunderstood the code's purpose or context
+- **Contradicts PR intent**: The suggestion conflicts with the deliberate goals of the PR
+- **Violates project conventions**: The change goes against established project patterns, linting rules, or style guides
+- **Out of scope**: The comment targets pre-existing code not modified in this PR (flag for a separate PR/issue instead)
+- **Inconsistent application**: The suggestion changes one instance of a pattern that is used consistently throughout the PR
 - **Already handled**: The issue is already addressed elsewhere
 - **Opinionated**: Pure style preference without clear benefit
 - **Breaking**: Would break existing functionality or tests
