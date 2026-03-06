@@ -21,7 +21,7 @@ exists_command () {
 
 defer_run() {
     if (( $+functions[zsh-defer] )); then
-        zsh-defer "$@"
+        zsh-defer -t 0.1 "$@"
     else
         "$@"
     fi
@@ -94,7 +94,7 @@ zinit light romkatv/zsh-defer
 _profile_phase "zsh-defer ready"
 
 # zsh plugins
-_profile_phase "autosuggestions deferred"
+_profile_phase "Core plugins"
 
 zinit ice compile'(pure|async).zsh' pick'async.zsh' src'pure.zsh'
 zinit light sindresorhus/pure
@@ -105,41 +105,51 @@ zinit light jeffreytse/zsh-vi-mode
 
 _profile_phase "vi mode"
 
-_defer_plugin_stack() {
-    zinit ice lucid light-mode atload"_zsh_autosuggest_start"
-    zinit light zsh-users/zsh-autosuggestions
+# Docker CLI completions - must be BEFORE compinit
+if [[ -d "$HOME/.docker/completions" ]]; then
+    fpath=($HOME/.docker/completions $fpath)
+fi
 
-    zinit ice lucid light-mode blockf atpull'zinit creinstall -q .'
-    zinit light zsh-users/zsh-completions
+zinit ice lucid light-mode blockf atpull'zinit creinstall -q .'
+zinit light zsh-users/zsh-completions
 
+autoload -Uz compinit
+compinit -C -d ~/.zcompdump
+
+_defer_fzf_tab_plugin() {
     zinit ice lucid light-mode
     zinit light Aloxaf/fzf-tab
+}
+defer_run _defer_fzf_tab_plugin
 
+_defer_autosuggestions_plugin() {
+    zinit ice lucid light-mode atload"_zsh_autosuggest_start"
+    zinit light zsh-users/zsh-autosuggestions
+}
+defer_run _defer_autosuggestions_plugin
+
+_defer_sudo_plugin() {
     zinit ice lucid
     zinit light OMZP::sudo
+}
+defer_run _defer_sudo_plugin
 
+_defer_command_not_found_plugin() {
     zinit ice lucid
     zinit light OMZP::command-not-found
-
-    autoload -Uz compinit
-    compinit -C -d ~/.zcompdump
-
-    [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 }
+defer_run _defer_command_not_found_plugin
 
-zsh-defer _defer_plugin_stack
+if [[ -s "$HOME/.bun/_bun" ]]; then
+    defer_run source "$HOME/.bun/_bun"
+fi
 
-_profile_phase "completion stack scheduled"
+_profile_phase "completion stack ready"
 
 # Override print to avoid pure precmd print calls during init
 print() {
   [ 0 -eq $# -a "prompt_pure_precmd" = "${funcstack[-1]}" ] || builtin print "$@";
 }
-
-# Docker CLI completions - must be BEFORE compinit
-if [[ -d "$HOME/.docker/completions" ]]; then
-    fpath=($HOME/.docker/completions $fpath)
-fi
 
 zstyle ':completion:*:directory-stack' list-colors '=(#b) #([0-9]#)*( *)==95=38;5;12'
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
@@ -200,10 +210,7 @@ _profile_phase "Shell options"
 # Load functions early (needed by add-to-path, source_folder)
 source "$HOME/.zsh_functions"
 
-_defer_profile() {
-    source "$HOME/.profile"
-}
-defer_run _defer_profile
+[ -f "$HOME/.profile" ] && source "$HOME/.profile"
 
 add-to-path "MY_SCRIPTS" "$HOME/.mac_config/scripts"
 
@@ -278,11 +285,15 @@ export PATH
 
 _profile_phase "Path setup"
 
-_defer_sources() {
+_defer_aliases() {
     source_folder "$DOTFILES/aliases"
+}
+defer_run _defer_aliases
+
+_defer_obsidian_terminal() {
     [[ -d "$OBSIDIAN/terminal" ]] && source_folder "$OBSIDIAN/terminal"
 }
-defer_run _defer_sources
+defer_run _defer_obsidian_terminal
 
 # Cargo lazy-load
 _cargo_init() {
@@ -375,20 +386,6 @@ fi
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
-
-# Bytecode compilation - compile zsh files for faster loading
-_zsh_compile() {
-    local files=(
-        "$HOME/.zshrc"
-        "$HOME/.zsh_functions"
-        "$HOME/.mac_config/zsh/.zshrc"
-        "$HOME/.mac_config/zsh/.zsh_functions"
-    )
-    for file in "${files[@]}"; do
-        [[ -f "$file" ]] && [[ ! -f "${file}.zwc" || "$file" -nt "${file}.zwc" ]] && zcompile -U "$file" 2>/dev/null
-    done
-}
-defer_run _zsh_compile
 
 _profile_phase "Lazy loaders configured"
 
