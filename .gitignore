@@ -61,5 +61,6 @@ luac.out
 *.hex
 
 .DS_Store
+*.zwc
 
 tmux/.tmux/plugins
