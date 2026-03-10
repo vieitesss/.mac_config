@@ -55,7 +55,6 @@ DOTFILES="$HOME/.mac_config"
 OBSIDIAN="$HOME/personal/obsidian"
 PALETTES="$DOTFILES/palettes"
 HOSTNAME="${HOST:-${HOSTNAME:-unknown}}"
-TERM="screen-256color"
 
 # Only compute DISPLAY when it is actually missing and mostly on Linux/X11 setups
 if [[ -z "$DISPLAY" ]]; then
@@ -191,7 +190,6 @@ HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=$HISTSIZE
 HIISTDUP=erase
-setopt autocd notify
 setopt append_history
 setopt extended_glob
 setopt share_history
@@ -285,10 +283,7 @@ export PATH
 
 _profile_phase "Path setup"
 
-_defer_aliases() {
-    source_folder "$DOTFILES/aliases"
-}
-defer_run _defer_aliases
+source_folder "$DOTFILES/aliases"
 
 _defer_obsidian_terminal() {
     [[ -d "$OBSIDIAN/terminal" ]] && source_folder "$OBSIDIAN/terminal"
