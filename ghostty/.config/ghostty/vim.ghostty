@@ -1,0 +1,12 @@
+keybind = ctrl+space>v=activate_key_table:vim
+keybind = vim/escape=deactivate_key_table
+keybind = vim/ctrl+c=deactivate_key_table
+
+keybind = vim/ctrl+u=scroll_page_fractional:-0.5
+keybind = vim/ctrl+d=scroll_page_fractional:0.5
+keybind = vim/k=scroll_page_lines:-1
+keybind = vim/j=scroll_page_lines:1
+keybind = vim/g>g=scroll_to_top
+keybind = vim/shift+g=scroll_to_bottom
+
+keybind = vim/catch_all=ignore

@@ -166,5 +166,9 @@ if.app-name-regex-substring = "warp"
 run = 'layout floating'
 
 [[on-window-detected]]
+if.app-name-regex-substring = "ghostty"
+run = 'layout floating'
+
+[[on-window-detected]]
 if.app-id = "com.apple.systempreferences"
 run = 'layout floating'
