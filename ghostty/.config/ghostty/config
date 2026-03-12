@@ -10,7 +10,7 @@ font-thicken = true
 # window-inherit-font-size = false
 
 # window
-# macos-titlebar-style = hidden
+macos-titlebar-style = tabs
 mouse-hide-while-typing = true
 # window-save-state = always
 
@@ -24,13 +24,13 @@ background-opacity = 0.9
 theme = umbraline
 
 # keybinds
-keybind = alt+1=goto_tab:1
-keybind = alt+2=goto_tab:2
-keybind = alt+3=goto_tab:3
-keybind = alt+4=goto_tab:4
-keybind = alt+5=goto_tab:5
-keybind = alt+6=goto_tab:6
-keybind = alt+7=goto_tab:7
-keybind = alt+8=goto_tab:8
+keybind = ctrl+1=goto_tab:1
+keybind = ctrl+2=goto_tab:2
+keybind = ctrl+3=goto_tab:3
+keybind = ctrl+4=goto_tab:4
+keybind = ctrl+5=goto_tab:5
+keybind = ctrl+6=goto_tab:6
+keybind = ctrl+7=goto_tab:7
+keybind = ctrl+8=goto_tab:8
 
 config-file = "vim.ghostty"
