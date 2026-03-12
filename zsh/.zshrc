@@ -158,6 +158,14 @@ zstyle ':completion:*:descriptions' format '[%d]'
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
 zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'eza -1 --color=always $realpath'
 
+_bind_fzf_history_widget() {
+    (( $+widgets[fzf-history-widget] )) || return 0
+    bindkey '^R' fzf-history-widget
+    bindkey -M emacs '^R' fzf-history-widget
+    bindkey -M viins '^R' fzf-history-widget
+    bindkey -M vicmd '^R' fzf-history-widget
+}
+
 # to rewrite keybindings
 zvm_after_init () {
   # Edit line in vim with ctrl-e
@@ -166,17 +174,24 @@ zvm_after_init () {
 
   bindkey "^x^e" edit-command-line
   bindkey -M viins "^u" end-of-line
+  _bind_fzf_history_widget
 }
 
-# Lazy-load fzf on first use (fzf + fzf --zsh)
-_fzf_init() {
-    unset -f fzf
-    [ -f ~/.fzf.zsh ] && source "$HOME/.fzf.zsh"
-    if fzf --zsh &>/dev/null; then
+# Load fzf shell integration once keybindings, completion, and widgets are ready.
+_load_fzf_shell_integration() {
+    (( ${+_FZF_SHELL_INTEGRATION_LOADED} )) && return 0
+
+    if (( $+commands[fzf] )) && fzf --zsh >/dev/null 2>&1; then
         source <(fzf --zsh)
+    elif [[ -f "$HOME/.fzf.zsh" ]]; then
+        source "$HOME/.fzf.zsh"
+    else
+        return 0
     fi
+
+    typeset -g _FZF_SHELL_INTEGRATION_LOADED=1
+    _bind_fzf_history_widget
 }
-fzf() { _fzf_init && fzf "$@"; }
 
 bindkey -v
 
@@ -314,6 +329,8 @@ export FZF_DEFAULT_OPTS='--preview "bat --theme="Nord" --style=numbers --color=a
 export FZF_DEFAULT_COMMAND='fd --hidden --exclude .git'
 export FZF_CTRL_T_COMMAND='fd --hidden'
 export FZF_ALT_C_COMMAND='fd --hidden'
+
+_load_fzf_shell_integration
 
 # zoxide lazy-load (use 'c' instead of 'z' to avoid conflict with zinit)
 _zoxide_init() {
