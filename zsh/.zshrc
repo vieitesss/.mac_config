@@ -34,16 +34,9 @@ typeset -g IS_ARM_MAC=0
 [[ "$OSTYPE" == darwin* ]] && IS_DARWIN=1
 [[ $IS_DARWIN -eq 1 && "$(uname -m)" == "arm64" ]] && IS_ARM_MAC=1
 
-# Set PATH FIRST before anything else (cross-platform)
-if [[ -f "/etc/paths" ]]; then
-    # macOS: Read from /etc/paths without spawning tr/sed
-    path=(${(f)"$(</etc/paths)"})
-else
-    # Linux: Set standard PATH
-    mkdir -p "$HOME/.local/bin"
-    PATH="$HOME/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
-fi
-export PATH
+# Keep inherited PATH and dedupe entries while preserving order.
+# This keeps nix-darwin/system paths injected before .zshrc.
+typeset -U path PATH
 
 # Locale settings
 export LANG=en_US.UTF-8
@@ -232,11 +225,6 @@ if [[ $IS_DARWIN -eq 1 ]] && [[ -d "/Library/TeX/texbin" ]]; then
     add-to-path "LTX_HOME" "/Library/TeX" "/texbin"
 fi
 
-# Cross-platform: Cargo (Rust)
-if [[ -d "$HOME/.cargo/bin" ]]; then
-    add-to-path "CARGO_HOME" "$HOME/.cargo" "bin"
-fi
-
 # Optional: Obsidian scripts
 if [[ -d "$OBSIDIAN/terminal/scripts" ]]; then
     add-to-path "OBSIDIAN_SCRIPTS" "$OBSIDIAN/terminal/scripts"
@@ -304,14 +292,6 @@ _defer_obsidian_terminal() {
     [[ -d "$OBSIDIAN/terminal" ]] && source_folder "$OBSIDIAN/terminal"
 }
 defer_run _defer_obsidian_terminal
-
-# Cargo lazy-load
-_cargo_init() {
-    unset -f cargo
-    [ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
-}
-cargo() { _cargo_init && cargo "$@"; }
-rustc() { _cargo_init && rustc "$@"; }
 
 # PURE prompt settings - optimized for speed
 export PURE_CMD_MAX_EXEC_TIME=2
@@ -400,6 +380,19 @@ export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
 _profile_phase "Lazy loaders configured"
+
+# Nix
+if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+  # if PATH does *not* contain `~/.nix-profile/bin`
+  if [ -n "${PATH##*.nix-profile/bin*}" ]; then
+
+    # If this flag is set, `nix-daemon.sh` returns early
+    # https://github.com/NixOS/nix/issues/5298
+    unset __ETC_PROFILE_NIX_SOURCED
+    . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+  fi
+fi
+# End Nix
 
 # Benchmarking - report startup time
 if [[ -n "${ZSH_BENCHMARK:-}" && -n "$_ZSH_START_TIME" ]]; then
