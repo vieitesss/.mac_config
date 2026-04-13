@@ -18,11 +18,8 @@ background-opacity = 0.9
 background-blur = true
 
 # theme
-# theme = Teerb
-# theme = mellifluous
-# theme = ashen
-# theme = rose-pine
-theme = umbraline
+# theme = umbraline
+theme = Cursor Dark
 
 # keybinds
 keybind = ctrl+1=goto_tab:1
