@@ -312,6 +312,16 @@ export FZF_ALT_C_COMMAND='fd --hidden'
 
 _load_fzf_shell_integration
 
+# pad CLI completion (lazy-load)
+_load_pad_completion() {
+    (( ${+_PAD_COMPLETION_LOADED} )) && return 0
+    if (( $+commands[pad] )); then
+        source <(pad completion zsh)
+        typeset -g _PAD_COMPLETION_LOADED=1
+    fi
+}
+defer_run _load_pad_completion
+
 # zoxide lazy-load (use 'c' instead of 'z' to avoid conflict with zinit)
 _zoxide_init() {
     unset -f c zz zzi
@@ -374,6 +384,9 @@ fi
 
 # opencode (if installed)
 [ -d "$HOME/.opencode/bin" ] && export PATH=$HOME/.opencode/bin:$PATH
+
+# npm
+export PATH="$HOME/.npm-global/bin:$PATH"
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
