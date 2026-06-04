@@ -13,6 +13,7 @@ metadata:
 - Analyze each comment for correctness and value, cross-referencing against the PR's intent and project conventions
 - Implement valid suggestions or reject invalid ones with informed reasoning
 - Provide a comprehensive summary of actions taken
+- Resolve the comments once the changes are commited (but I cannot commit without confirmation)
 
 ## How I work
 
@@ -177,6 +178,16 @@ I'll create a structured summary:
 - Run tests to ensure nothing broke: `<test command>`
 - Commit the changes if satisfied
 ```
+
+### Step 8: Resolve GitHub comments after commiting
+
+- After the user has commited and pushed the changes to the current branch
+- Write a comment within each of the Copilot comments, not as a PR level comment.
+- Use the following as the body for each comment, previously to resolving:
+    - A link to the commit that has solve that comment, (e.g. [db006e4](https://github.com/prefapp/gitops-k8s/pull/2069/commits/db006e4b2fc130fd4bb719209aba26aa3ea7afae))
+    - A very brief description of how the comment was solved
+- If the Copilot comment was rejected, though, there was no change related to that comment, write a comment saying why that comment was rejected.
+- Resolve the GitHub Copilot comments after writting the previous comments.
 
 ## Comment evaluation criteria
 
